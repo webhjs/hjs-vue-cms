@@ -1,0 +1,101 @@
+/*自定义蓝色主题-皮肤*/
+.science-blue .top-navbar ,.science-blue .el-dropdown,.science-blue .el-breadcrumb__separator{
+  color: #91d5ff;
+  fill: #91d5ff;
+}
+/*
+* 左侧边框阴影
+*/
+.science-blue .vertical {
+  z-index: 1;
+  box-shadow: 2px 0 6px #002766;
+}
+/*
+ * 1、顶部navbar颜色
+ */
+.science-blue .top-navbar .el-menu,
+.science-blue .top-navbar .el-menu--horizontal {
+  background-color: #002766 !important;
+}
+.science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active,
+.science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active i {
+  color: #FFF;
+}
+.science-blue .el-menu.el-menu--horizontal .el-menu-item,
+.science-blue .el-menu.el-menu--horizontal .el-menu-item i {
+  color: #91d5ff;
+}
+.science-blue .el-menu.el-menu--horizontal .el-submenu__title,
+.science-blue .el-menu.el-menu--horizontal .el-submenu__title i {
+  color: #91d5ff;
+}
+.science-blue .el-menu.el-menu--horizontal .el-submenu__title,
+.science-blue .el-menu.el-menu--horizontal .el-submenu__title i {
+  color: #91d5ff;
+}
+.science-blue .el-menu.el-menu--horizontal .el-submenu.is-active,.science-blue .el-menu.el-menu--horizontal .el-submenu.is-active i,
+.science-blue .el-menu.el-menu--horizontal .el-submenu.is-active .el-submenu__title {
+  color: #FFF;
+}
+/*
+ * 2、侧边栏
+ */
+.science-blue .left-sidebar {
+  background-color: #002766;
+}
+/* .el-menu-item */
+.science-blue .left-sidebar .el-submenu.is-opened .el-menu {
+  background-color: #021d4a;
+}
+.science-blue .left-sidebar .el-menu-item {
+  border-bottom: 1px solid #002766;
+}
+.science-blue .left-sidebar .el-menu,
+.science-blue .left-sidebar .el-menu--horizontal {
+  background-color: #002766;
+}
+.science-blue .left-sidebar .el-menu-item i {
+  color: #91d5ff;
+}
+.science-blue .left-sidebar .el-menu-item:hover,
+.science-blue .left-sidebar .el-menu-item:focus,
+.science-blue .left-sidebar .el-submenu__title:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.science-blue .left-sidebar .el-submenu__title {
+  color: #91d5ff;
+}
+.science-blue .left-sidebar .el-submenu__title i {
+  color: #91d5ff;
+}
+.science-blue .left-sidebar .el-menu-item {
+  color: #91d5ff;
+}
+.science-blue .left-sidebar .el-menu-item.is-active {
+  color: #e6f7ff;
+  background: #1890ff;
+}
+.science-blue .left-sidebar .el-menu-item.is-active i {
+  color: #e6f7ff;
+}
+.science-blue .left-sidebar .el-menu-item.is-active,
+.science-blue .left-sidebar .el-submenu.is-active > .el-submenu__title {
+  color: #e6f7ff;
+}
+.science-blue .left-sidebar .el-menu-item.is-active i,
+.science-blue .left-sidebar .el-submenu.is-active > .el-submenu__title i {
+  color: #e6f7ff;
+}
+
+/**
+ * 3、tabs-view
+ */
+.science-blue .tabs-view-container .tags-view-item.active .el-tag {
+  background-color: #002766;
+}
+/**
+ * 3、menu-view
+ */
+.science-blue .el-menu--horizontal .el-menu .el-submenu__title {
+  color: #909399;
+}

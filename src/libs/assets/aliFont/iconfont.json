@@ -1,0 +1,1437 @@
+{
+  "id": "2385669",
+  "name": "mandala",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1340061",
+      "name": "支付",
+      "font_class": "zhifu",
+      "unicode": "e685",
+      "unicode_decimal": 59013
+    },
+    {
+      "icon_id": "8870924",
+      "name": "支付",
+      "font_class": "zhifu1",
+      "unicode": "e71d",
+      "unicode_decimal": 59165
+    },
+    {
+      "icon_id": "13546543",
+      "name": "支付",
+      "font_class": "zhifu2",
+      "unicode": "e687",
+      "unicode_decimal": 59015
+    },
+    {
+      "icon_id": "17131876",
+      "name": "支付",
+      "font_class": "zhifu3",
+      "unicode": "e689",
+      "unicode_decimal": 59017
+    },
+    {
+      "icon_id": "17351023",
+      "name": "支付",
+      "font_class": "zhifu4",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "17852778",
+      "name": "支 付 宝",
+      "font_class": "zhifubao",
+      "unicode": "e69c",
+      "unicode_decimal": 59036
+    },
+    {
+      "icon_id": "17935832",
+      "name": "支付",
+      "font_class": "zhifu5",
+      "unicode": "e6ad",
+      "unicode_decimal": 59053
+    },
+    {
+      "icon_id": "10524585",
+      "name": "手术",
+      "font_class": "shoushu",
+      "unicode": "e6cb",
+      "unicode_decimal": 59083
+    },
+    {
+      "icon_id": "10805285",
+      "name": "手术",
+      "font_class": "shoushu1",
+      "unicode": "e67d",
+      "unicode_decimal": 59005
+    },
+    {
+      "icon_id": "11304727",
+      "name": "手术",
+      "font_class": "shoushu2",
+      "unicode": "e67e",
+      "unicode_decimal": 59006
+    },
+    {
+      "icon_id": "11543965",
+      "name": "手术",
+      "font_class": "shoushu3",
+      "unicode": "e67f",
+      "unicode_decimal": 59007
+    },
+    {
+      "icon_id": "12530116",
+      "name": "手术",
+      "font_class": "shoushu4",
+      "unicode": "e680",
+      "unicode_decimal": 59008
+    },
+    {
+      "icon_id": "15216734",
+      "name": "手术",
+      "font_class": "shoushu5",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "15877202",
+      "name": "手术",
+      "font_class": "shoushu6",
+      "unicode": "e684",
+      "unicode_decimal": 59012
+    },
+    {
+      "icon_id": "9555446",
+      "name": "U 盘",
+      "font_class": "Upan1",
+      "unicode": "e73b",
+      "unicode_decimal": 59195
+    },
+    {
+      "icon_id": "9586308",
+      "name": "医疗-55",
+      "font_class": "yiliao-",
+      "unicode": "e6cf",
+      "unicode_decimal": 59087
+    },
+    {
+      "icon_id": "9586368",
+      "name": "医疗-06",
+      "font_class": "yiliao-1",
+      "unicode": "e6dd",
+      "unicode_decimal": 59101
+    },
+    {
+      "icon_id": "9669636",
+      "name": "媒体",
+      "font_class": "meiti9",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "9729353",
+      "name": "路由器",
+      "font_class": "luyouqi2",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "9771804",
+      "name": "长箭头",
+      "font_class": "down-copy",
+      "unicode": "ead8",
+      "unicode_decimal": 60120
+    },
+    {
+      "icon_id": "9943163",
+      "name": "长箭头",
+      "font_class": "down-jiantou-copy",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "10337839",
+      "name": "病床查看",
+      "font_class": "yibaokongfeisvg-",
+      "unicode": "e64b",
+      "unicode_decimal": 58955
+    },
+    {
+      "icon_id": "10785325",
+      "name": "数据库",
+      "font_class": "shujuku2",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "10955656",
+      "name": "医疗",
+      "font_class": "yiliao16",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "11108367",
+      "name": "音乐",
+      "font_class": "yinyue1",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    },
+    {
+      "icon_id": "11176963",
+      "name": "耳机 语音",
+      "font_class": "erjiyuyin",
+      "unicode": "e698",
+      "unicode_decimal": 59032
+    },
+    {
+      "icon_id": "11178842",
+      "name": "建筑",
+      "font_class": "weibiaoti--",
+      "unicode": "e6ab",
+      "unicode_decimal": 59051
+    },
+    {
+      "icon_id": "11195021",
+      "name": "打针",
+      "font_class": "dazhen",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "11287919",
+      "name": "建筑",
+      "font_class": "jianzhu_huaban",
+      "unicode": "e6ac",
+      "unicode_decimal": 59052
+    },
+    {
+      "icon_id": "11331286",
+      "name": "病床",
+      "font_class": "ziyuan",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "11372735",
+      "name": "增加",
+      "font_class": "zengjia",
+      "unicode": "e8c0",
+      "unicode_decimal": 59584
+    },
+    {
+      "icon_id": "12069402",
+      "name": "话筒",
+      "font_class": "huatong1",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "12099903",
+      "name": "打针",
+      "font_class": "dazhen1",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "12209864",
+      "name": "数据库",
+      "font_class": "shujuku3",
+      "unicode": "e6ef",
+      "unicode_decimal": 59119
+    },
+    {
+      "icon_id": "12413878",
+      "name": "医生",
+      "font_class": "yisheng1",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "12462600",
+      "name": "长箭头",
+      "font_class": "bottom",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "12476587",
+      "name": "医疗问诊",
+      "font_class": "yiliaowenzhen",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "12514834",
+      "name": "药物库",
+      "font_class": "yaowuku",
+      "unicode": "e67c",
+      "unicode_decimal": 59004
+    },
+    {
+      "icon_id": "12604603",
+      "name": "药物",
+      "font_class": "tubiao-pian_yaowu",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "12610982",
+      "name": "病床",
+      "font_class": "bingchuangsvg",
+      "unicode": "e6e1",
+      "unicode_decimal": 59105
+    },
+    {
+      "icon_id": "12614271",
+      "name": "交通",
+      "font_class": "jiaotong6",
+      "unicode": "e695",
+      "unicode_decimal": 59029
+    },
+    {
+      "icon_id": "12985551",
+      "name": "数据库",
+      "font_class": "shujuku4",
+      "unicode": "e73e",
+      "unicode_decimal": 59198
+    },
+    {
+      "icon_id": "13043469",
+      "name": "WIFI 我fi",
+      "font_class": "WIFIwofi",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
+      "icon_id": "13154390",
+      "name": "药物报告",
+      "font_class": "baogao",
+      "unicode": "e666",
+      "unicode_decimal": 58982
+    },
+    {
+      "icon_id": "13232397",
+      "name": "建筑",
+      "font_class": "jianzhu7",
+      "unicode": "e66c",
+      "unicode_decimal": 58988
+    },
+    {
+      "icon_id": "13273177",
+      "name": "芯片",
+      "font_class": "xinpian2",
+      "unicode": "e63f",
+      "unicode_decimal": 58943
+    },
+    {
+      "icon_id": "13273576",
+      "name": "芯片",
+      "font_class": "xinpian3",
+      "unicode": "e640",
+      "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "13352449",
+      "name": "护士",
+      "font_class": "hushi3",
+      "unicode": "e641",
+      "unicode_decimal": 58945
+    },
+    {
+      "icon_id": "13372221",
+      "name": "药物临床试验服务",
+      "font_class": "yaowulinchuangshiyanfuwu",
+      "unicode": "e7bd",
+      "unicode_decimal": 59325
+    },
+    {
+      "icon_id": "13451555",
+      "name": "交通",
+      "font_class": "jiaotong7",
+      "unicode": "e751",
+      "unicode_decimal": 59217
+    },
+    {
+      "icon_id": "13473080",
+      "name": "建筑",
+      "font_class": "jianzhu8",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "13496086",
+      "name": "医疗-记录",
+      "font_class": "yiliao-jilu",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "13520936",
+      "name": "耳机",
+      "font_class": "erji1",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "13858254",
+      "name": "药物临床试验",
+      "font_class": "yaowulinchuangshiyan",
+      "unicode": "e988",
+      "unicode_decimal": 59784
+    },
+    {
+      "icon_id": "14046536",
+      "name": "电 话 (2)",
+      "font_class": "dianhua2",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "14279423",
+      "name": "路由器",
+      "font_class": "luyouqi3",
+      "unicode": "e69a",
+      "unicode_decimal": 59034
+    },
+    {
+      "icon_id": "14332281",
+      "name": "打针",
+      "font_class": "dazhen2",
+      "unicode": "e6d2",
+      "unicode_decimal": 59090
+    },
+    {
+      "icon_id": "14670716",
+      "name": "媒体",
+      "font_class": "meiti10",
+      "unicode": "e741",
+      "unicode_decimal": 59201
+    },
+    {
+      "icon_id": "14841846",
+      "name": "媒体",
+      "font_class": "meiti11",
+      "unicode": "e77f",
+      "unicode_decimal": 59263
+    },
+    {
+      "icon_id": "15099281",
+      "name": "耳机",
+      "font_class": "erji2",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "15350221",
+      "name": "交换机",
+      "font_class": "jiaohuanji3",
+      "unicode": "e69b",
+      "unicode_decimal": 59035
+    },
+    {
+      "icon_id": "15376309",
+      "name": "医院",
+      "font_class": "yiyuan3",
+      "unicode": "e729",
+      "unicode_decimal": 59177
+    },
+    {
+      "icon_id": "15560889",
+      "name": "交通",
+      "font_class": "jiaotong8",
+      "unicode": "e64d",
+      "unicode_decimal": 58957
+    },
+    {
+      "icon_id": "15569751",
+      "name": "医疗器械",
+      "font_class": "yiliaoqixie1",
+      "unicode": "e888",
+      "unicode_decimal": 59528
+    },
+    {
+      "icon_id": "16069180",
+      "name": "打针1",
+      "font_class": "dazhen11",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "16195920",
+      "name": "病床",
+      "font_class": "bingchuang1",
+      "unicode": "e8bf",
+      "unicode_decimal": 59583
+    },
+    {
+      "icon_id": "16308302",
+      "name": "医生",
+      "font_class": "yisheng2",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "16309305",
+      "name": "医疗",
+      "font_class": "yiliao17",
+      "unicode": "e7da",
+      "unicode_decimal": 59354
+    },
+    {
+      "icon_id": "16328288",
+      "name": "打针",
+      "font_class": "dazhen3",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "16665719",
+      "name": "交通",
+      "font_class": "jiaotong9",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "16683100",
+      "name": "建筑",
+      "font_class": "jianzhu9",
+      "unicode": "ed2c",
+      "unicode_decimal": 60716
+    },
+    {
+      "icon_id": "16779954",
+      "name": "电  话",
+      "font_class": "phone-agent",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "16799111",
+      "name": "交通",
+      "font_class": "jiaotong10",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "16811045",
+      "name": "医疗废物",
+      "font_class": "yiliaofeiwu",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "17040307",
+      "name": "医疗",
+      "font_class": "yiliao18",
+      "unicode": "e65b",
+      "unicode_decimal": 58971
+    },
+    {
+      "icon_id": "17053360",
+      "name": "护士",
+      "font_class": "icon_hushi",
+      "unicode": "e656",
+      "unicode_decimal": 58966
+    },
+    {
+      "icon_id": "17091227",
+      "name": "医疗保险",
+      "font_class": "yiliaobaoxian1",
+      "unicode": "e659",
+      "unicode_decimal": 58969
+    },
+    {
+      "icon_id": "17228703",
+      "name": "增加",
+      "font_class": "zengjia1",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "17360104",
+      "name": "长箭头",
+      "font_class": "down-jiantou",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "17454194",
+      "name": "医疗",
+      "font_class": "yiliao19",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "17568013",
+      "name": "医疗",
+      "font_class": "yiliao20",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "17604091",
+      "name": "编 辑",
+      "font_class": "bianji",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    },
+    {
+      "icon_id": "17731045",
+      "name": "医疗",
+      "font_class": "yiliao21",
+      "unicode": "e662",
+      "unicode_decimal": 58978
+    },
+    {
+      "icon_id": "17849946",
+      "name": "医疗设备",
+      "font_class": "yiliaoshebei",
+      "unicode": "e759",
+      "unicode_decimal": 59225
+    },
+    {
+      "icon_id": "17866158",
+      "name": "芯片",
+      "font_class": "xinpian4",
+      "unicode": "e720",
+      "unicode_decimal": 59168
+    },
+    {
+      "icon_id": "17888348",
+      "name": "图片",
+      "font_class": "picture",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "18165359",
+      "name": "药品,药物,违禁品,违禁药物",
+      "font_class": "drug-full",
+      "unicode": "e88a",
+      "unicode_decimal": 59530
+    },
+    {
+      "icon_id": "18165360",
+      "name": "药品,药物,违禁品,违禁药物",
+      "font_class": "drug",
+      "unicode": "e88b",
+      "unicode_decimal": 59531
+    },
+    {
+      "icon_id": "18306924",
+      "name": "医疗",
+      "font_class": "yiliao22",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "18327510",
+      "name": "医生 (4)",
+      "font_class": "yisheng4",
+      "unicode": "e6ba",
+      "unicode_decimal": 59066
+    },
+    {
+      "icon_id": "18452306",
+      "name": "建筑",
+      "font_class": "jianzhu10",
+      "unicode": "e699",
+      "unicode_decimal": 59033
+    },
+    {
+      "icon_id": "18496799",
+      "name": "交通",
+      "font_class": "jiaotong11",
+      "unicode": "e754",
+      "unicode_decimal": 59220
+    },
+    {
+      "icon_id": "18516362",
+      "name": "U盘",
+      "font_class": "disk-copy",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "18608362",
+      "name": "增加",
+      "font_class": "zengjia2",
+      "unicode": "e66b",
+      "unicode_decimal": 58987
+    },
+    {
+      "icon_id": "18610673",
+      "name": "药物",
+      "font_class": "yaowu1",
+      "unicode": "e667",
+      "unicode_decimal": 58983
+    },
+    {
+      "icon_id": "18667166",
+      "name": "医院",
+      "font_class": "yiyuan4",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "18814718",
+      "name": "医疗",
+      "font_class": "yiliao23",
+      "unicode": "e669",
+      "unicode_decimal": 58985
+    },
+    {
+      "icon_id": "19104831",
+      "name": "电  话",
+      "font_class": "dianhua",
+      "unicode": "e66e",
+      "unicode_decimal": 58990
+    },
+    {
+      "icon_id": "19387580",
+      "name": "长箭头",
+      "font_class": "ttd",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
+      "icon_id": "19397840",
+      "name": "医疗",
+      "font_class": "shangyeweixuanzhong",
+      "unicode": "e671",
+      "unicode_decimal": 58993
+    },
+    {
+      "icon_id": "19486589",
+      "name": "话筒",
+      "font_class": "xingzhuang1",
+      "unicode": "e672",
+      "unicode_decimal": 58994
+    },
+    {
+      "icon_id": "19560186",
+      "name": "病床",
+      "font_class": "bingchuang2",
+      "unicode": "e673",
+      "unicode_decimal": 58995
+    },
+    {
+      "icon_id": "19614687",
+      "name": "长箭头",
+      "font_class": "jiantou-right",
+      "unicode": "e674",
+      "unicode_decimal": 58996
+    },
+    {
+      "icon_id": "19615222",
+      "name": "数据库",
+      "font_class": "shujuku5",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
+      "icon_id": "19616823",
+      "name": "长箭头",
+      "font_class": "jiantou-left",
+      "unicode": "e675",
+      "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "19663165",
+      "name": "长箭头",
+      "font_class": "down-jiantou1",
+      "unicode": "e676",
+      "unicode_decimal": 58998
+    },
+    {
+      "icon_id": "19715465",
+      "name": "交通",
+      "font_class": "jiaotong12",
+      "unicode": "e677",
+      "unicode_decimal": 58999
+    },
+    {
+      "icon_id": "19715468",
+      "name": "医院",
+      "font_class": "yiyuan5",
+      "unicode": "e679",
+      "unicode_decimal": 59001
+    },
+    {
+      "icon_id": "19755007",
+      "name": "医疗档案",
+      "font_class": "yiliaodangan",
+      "unicode": "e67a",
+      "unicode_decimal": 59002
+    },
+    {
+      "icon_id": "19863376",
+      "name": "数据库 (4)",
+      "font_class": "shujuku41",
+      "unicode": "e7c3",
+      "unicode_decimal": 59331
+    },
+    {
+      "icon_id": "19955300",
+      "name": "视   频   题",
+      "font_class": "shipinti",
+      "unicode": "e72d",
+      "unicode_decimal": 59181
+    },
+    {
+      "icon_id": "19981249",
+      "name": "病床",
+      "font_class": "bingchuang3",
+      "unicode": "e67b",
+      "unicode_decimal": 59003
+    },
+    {
+      "icon_id": "19983601",
+      "name": "病床",
+      "font_class": "bingchuang4",
+      "unicode": "e69f",
+      "unicode_decimal": 59039
+    },
+    {
+      "icon_id": "5974",
+      "name": "医疗",
+      "font_class": "yiliao",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "6005",
+      "name": "路由器",
+      "font_class": "luyouqi",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "300901",
+      "name": "护士",
+      "font_class": "hushi",
+      "unicode": "e6d8",
+      "unicode_decimal": 59096
+    },
+    {
+      "icon_id": "424758",
+      "name": "医疗",
+      "font_class": "73316",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "596877",
+      "name": "医疗",
+      "font_class": "yiliao1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "660599",
+      "name": "媒体",
+      "font_class": "meiti",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "671844",
+      "name": "护士",
+      "font_class": "hushi1",
+      "unicode": "e725",
+      "unicode_decimal": 59173
+    },
+    {
+      "icon_id": "686565",
+      "name": "建筑",
+      "font_class": "jianzhu",
+      "unicode": "e66f",
+      "unicode_decimal": 58991
+    },
+    {
+      "icon_id": "924715",
+      "name": "数据库",
+      "font_class": "shujuku",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "1012425",
+      "name": "电脑",
+      "font_class": "diannao",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
+      "icon_id": "1015426",
+      "name": "芯片",
+      "font_class": "xinpian",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "1135566",
+      "name": "交通",
+      "font_class": "jiaotong",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "1867337",
+      "name": "耳机",
+      "font_class": "erji",
+      "unicode": "e64c",
+      "unicode_decimal": 58956
+    },
+    {
+      "icon_id": "2005246",
+      "name": "电脑",
+      "font_class": "diannao1",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "2028148",
+      "name": "交通",
+      "font_class": "jiaotong1",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "2165283",
+      "name": "交通",
+      "font_class": "jiaotong2",
+      "unicode": "e61e",
+      "unicode_decimal": 58910
+    },
+    {
+      "icon_id": "2199023",
+      "name": "建筑",
+      "font_class": "icon-test",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "2225417",
+      "name": "交通",
+      "font_class": "jiaotong3",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "2336321",
+      "name": "医院",
+      "font_class": "yiyuan1",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "2598417",
+      "name": "医疗器械",
+      "font_class": "yiliaoqixie",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "2600405",
+      "name": "查询",
+      "font_class": "chaxun",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "2841307",
+      "name": "建筑",
+      "font_class": "jianzhu1",
+      "unicode": "e6bc",
+      "unicode_decimal": 59068
+    },
+    {
+      "icon_id": "3004208",
+      "name": "话筒",
+      "font_class": "huatong",
+      "unicode": "e61c",
+      "unicode_decimal": 58908
+    },
+    {
+      "icon_id": "3180369",
+      "name": "数据库",
+      "font_class": "shujuku1",
+      "unicode": "e63c",
+      "unicode_decimal": 58940
+    },
+    {
+      "icon_id": "3370306",
+      "name": "医生",
+      "font_class": "yisheng",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "3631083",
+      "name": "交换机",
+      "font_class": "jiaohuanji",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "3638855",
+      "name": "医疗",
+      "font_class": "yiliao-copy",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "3921679",
+      "name": "医疗电话",
+      "font_class": "tel",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    },
+    {
+      "icon_id": "4086724",
+      "name": "交通",
+      "font_class": "jiaotong4",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "4131947",
+      "name": "交通 停车场 线性",
+      "font_class": "jiaotongtingchechangxianxing",
+      "unicode": "e85f",
+      "unicode_decimal": 59487
+    },
+    {
+      "icon_id": "4147443",
+      "name": "交通 出租车 私家车 面性",
+      "font_class": "jiaotongchuzuchesijiachemianxing",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "4314030",
+      "name": "交换机",
+      "font_class": "jiaohuanji1",
+      "unicode": "e694",
+      "unicode_decimal": 59028
+    },
+    {
+      "icon_id": "4503609",
+      "name": "病床",
+      "font_class": "bingchuang",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "4524268",
+      "name": "芯片",
+      "font_class": "xinpian1",
+      "unicode": "e626",
+      "unicode_decimal": 58918
+    },
+    {
+      "icon_id": "4546935",
+      "name": "路由器",
+      "font_class": "luyouqi1",
+      "unicode": "e71e",
+      "unicode_decimal": 59166
+    },
+    {
+      "icon_id": "4552493",
+      "name": "药物",
+      "font_class": "yaowu",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "4654033",
+      "name": "媒体",
+      "font_class": "meiti1",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "4707342",
+      "name": "交换机",
+      "font_class": "jiaohuanji2",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
+      "icon_id": "4844123",
+      "name": "药物临床",
+      "font_class": "yaowulinchuang",
+      "unicode": "e70d",
+      "unicode_decimal": 59149
+    },
+    {
+      "icon_id": "4911269",
+      "name": "媒体",
+      "font_class": "meiti2",
+      "unicode": "e6a9",
+      "unicode_decimal": 59049
+    },
+    {
+      "icon_id": "4956031",
+      "name": "医院",
+      "font_class": "yiyuan",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "4968388",
+      "name": "医疗",
+      "font_class": "yiliao2",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "5041799",
+      "name": "医疗16",
+      "font_class": "yiliao3",
+      "unicode": "e6c9",
+      "unicode_decimal": 59081
+    },
+    {
+      "icon_id": "5041800",
+      "name": "医疗17",
+      "font_class": "yiliao4",
+      "unicode": "e6ca",
+      "unicode_decimal": 59082
+    },
+    {
+      "icon_id": "5057583",
+      "name": "媒体",
+      "font_class": "meiti3",
+      "unicode": "e697",
+      "unicode_decimal": 59031
+    },
+    {
+      "icon_id": "5083071",
+      "name": "医疗",
+      "font_class": "yiliao5",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "5141781",
+      "name": "建筑",
+      "font_class": "jianzhu2",
+      "unicode": "e757",
+      "unicode_decimal": 59223
+    },
+    {
+      "icon_id": "5319925",
+      "name": "媒体",
+      "font_class": "meiti4",
+      "unicode": "e683",
+      "unicode_decimal": 59011
+    },
+    {
+      "icon_id": "5420141",
+      "name": "耳机",
+      "font_class": "weibiaoti-",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "5444642",
+      "name": "我的-媒体",
+      "font_class": "meiti5",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "5596540",
+      "name": "电脑",
+      "font_class": "diannao2",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "5641489",
+      "name": "医疗",
+      "font_class": "yiliao6",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "5896695",
+      "name": "医疗",
+      "font_class": "yiliao7",
+      "unicode": "e686",
+      "unicode_decimal": 59014
+    },
+    {
+      "icon_id": "6077781",
+      "name": "药物分发",
+      "font_class": "yaowufenfa",
+      "unicode": "e64a",
+      "unicode_decimal": 58954
+    },
+    {
+      "icon_id": "6224319",
+      "name": "3-1打针",
+      "font_class": "-dazhen",
+      "unicode": "e6aa",
+      "unicode_decimal": 59050
+    },
+    {
+      "icon_id": "6410006",
+      "name": "063,U盘",
+      "font_class": "icon-test1",
+      "unicode": "e6d0",
+      "unicode_decimal": 59088
+    },
+    {
+      "icon_id": "6666520",
+      "name": "音乐",
+      "font_class": "yinyue",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "6724217",
+      "name": "病床周转统计",
+      "font_class": "bingchuangzhouzhuantongji",
+      "unicode": "e6a5",
+      "unicode_decimal": 59045
+    },
+    {
+      "icon_id": "6773413",
+      "name": "建筑",
+      "font_class": "jianzhu3",
+      "unicode": "e615",
+      "unicode_decimal": 58901
+    },
+    {
+      "icon_id": "6802983",
+      "name": "查询",
+      "font_class": "chaxun1",
+      "unicode": "e994",
+      "unicode_decimal": 59796
+    },
+    {
+      "icon_id": "6944728",
+      "name": "医疗",
+      "font_class": "yiliao8",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "7174131",
+      "name": "交通",
+      "font_class": "jiaotong5",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "7259446",
+      "name": "媒体",
+      "font_class": "meiti6",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    },
+    {
+      "icon_id": "7285862",
+      "name": "医疗",
+      "font_class": "yiliao9",
+      "unicode": "ece8",
+      "unicode_decimal": 60648
+    },
+    {
+      "icon_id": "7303336",
+      "name": "建筑 home 首页1",
+      "font_class": "jianzhuhomeshouye",
+      "unicode": "e688",
+      "unicode_decimal": 59016
+    },
+    {
+      "icon_id": "7433717",
+      "name": "建筑",
+      "font_class": "building",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "8070371",
+      "name": "医疗",
+      "font_class": "yiliao10",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "8252394",
+      "name": "建筑",
+      "font_class": "jianzhu4",
+      "unicode": "e66d",
+      "unicode_decimal": 58989
+    },
+    {
+      "icon_id": "8412818",
+      "name": "图片",
+      "font_class": "tupian",
+      "unicode": "e63d",
+      "unicode_decimal": 58941
+    },
+    {
+      "icon_id": "8424208",
+      "name": "U盘 ",
+      "font_class": "Upan",
+      "unicode": "e658",
+      "unicode_decimal": 58968
+    },
+    {
+      "icon_id": "8458773",
+      "name": "医院 (2)",
+      "font_class": "yiyuan2",
+      "unicode": "e61b",
+      "unicode_decimal": 58907
+    },
+    {
+      "icon_id": "8567548",
+      "name": "护士",
+      "font_class": "hushi2",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "8626872",
+      "name": "药物管理",
+      "font_class": "yaowuguanli",
+      "unicode": "e845",
+      "unicode_decimal": 59461
+    },
+    {
+      "icon_id": "8665933",
+      "name": "图片",
+      "font_class": "tupian1",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "8726520",
+      "name": "建筑",
+      "font_class": "jianzhu5",
+      "unicode": "e61f",
+      "unicode_decimal": 58911
+    },
+    {
+      "icon_id": "8746119",
+      "name": "医疗保险",
+      "font_class": "yiliaobaoxian",
+      "unicode": "e682",
+      "unicode_decimal": 59010
+    },
+    {
+      "icon_id": "8762079",
+      "name": "建筑",
+      "font_class": "i-architecture",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
+      "icon_id": "8901058",
+      "name": "媒体",
+      "font_class": "meiti7",
+      "unicode": "e624",
+      "unicode_decimal": 58916
+    },
+    {
+      "icon_id": "8901060",
+      "name": "医疗",
+      "font_class": "yiliao11",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "9026291",
+      "name": "路由器 copy 2",
+      "font_class": "luyouqicopy",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "9027970",
+      "name": "媒体 (1)",
+      "font_class": "meiti8",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "9070442",
+      "name": "医疗",
+      "font_class": "jiuhuche",
+      "unicode": "ea47",
+      "unicode_decimal": 59975
+    },
+    {
+      "icon_id": "9164191",
+      "name": "医疗",
+      "font_class": "yiliao12",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "9359547",
+      "name": "视频",
+      "font_class": "shipin",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "9408187",
+      "name": "建筑",
+      "font_class": "jianzhu6",
+      "unicode": "e645",
+      "unicode_decimal": 58949
+    },
+    {
+      "icon_id": "9410511",
+      "name": "医疗",
+      "font_class": "yiliao13",
+      "unicode": "e6c0",
+      "unicode_decimal": 59072
+    },
+    {
+      "icon_id": "9410573",
+      "name": "医疗",
+      "font_class": "yiliao14",
+      "unicode": "e6c1",
+      "unicode_decimal": 59073
+    },
+    {
+      "icon_id": "9411091",
+      "name": "医疗",
+      "font_class": "yiliao15",
+      "unicode": "e6c8",
+      "unicode_decimal": 59080
+    },
+    {
+      "icon_id": "9462452",
+      "name": "查询",
+      "font_class": "chaxun2",
+      "unicode": "e71c",
+      "unicode_decimal": 59164
+    },
+    {
+      "icon_id": "6441713",
+      "name": "svg图标",
+      "font_class": "svgtubiao",
+      "unicode": "e64f",
+      "unicode_decimal": 58959
+    },
+    {
+      "icon_id": "609756",
+      "name": "字体",
+      "font_class": "zitifont4",
+      "unicode": "e769",
+      "unicode_decimal": 59241
+    }
+  ]
+}
