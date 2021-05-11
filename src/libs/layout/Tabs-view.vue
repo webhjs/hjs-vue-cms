@@ -23,15 +23,15 @@
     </div>
     <menuCom id="custom_menuwarp" :page="pagePosition" :visble.sync="visble">
       <ul
-        class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm"
+        class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
       >
-        <li class="px-2 py-1 border-b" @click="reload">
+        <li class="px-2 py-1 border-b border-gray-100" @click="reload">
           <i class="el-icon-refresh mr-1" />刷新
         </li>
-        <li class="px-2 py-1 border-b" @click="delCurrentTabsview">
+        <li class="px-2 py-1 border-b border-gray-100" @click="delCurrentTabsview">
           <i class="el-icon-circle-close mr-1" />关闭当前
         </li>
-        <li class="px-2 py-1" @click="delAllTabsview">
+        <li class="px-2 py-1 border-gray-100" @click="delAllTabsview">
           <i class="el-icon-circle-close mr-1" />关闭全部
         </li>
       </ul>

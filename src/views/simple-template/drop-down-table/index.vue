@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 16:38:21
  * @LastEditors: 金苏
- * @LastEditTime: 2021-04-21 13:44:40
+ * @LastEditTime: 2021-05-11 14:37:40
 -->
 
 <template>
@@ -29,10 +29,12 @@
       </el-table-column>
       <el-table-column prop="progress" label="进度"> </el-table-column>
     </el-table>
+    <el-button type="primary" @click="exportExcel">导出</el-button>
   </div>
 </template>
 
 <script>
+import export_excel from "hjs-xlsx";
 export default {
   name: "DropDownTable",
 
@@ -79,6 +81,92 @@ export default {
     };
   },
   methods: {
+    /* 导出样式表格网上方法 */
+    exportExcel() {
+      const tHeader = [
+        "船名",
+        "船长",
+        "货种",
+        "载重吨",
+        "净吨",
+        "锚地",
+        "预抵时间",
+        "下锚时间",
+        "预靠泊位"
+      ]; //表头
+      const title = ["锚地船舶", "", "", "", "", "", "", "", ""]; //标题
+      //表头对应字段
+      const filterVal = ["orgName", "dbNum"];
+      const list = this.tableData;
+      const data = this.formatJson(filterVal, list);
+      data.map(item => {
+        console.log(item)
+        item.map((i, index) => {
+          if (!i) {
+            item[index] = "";
+          }
+        });
+      });
+      // console.log(data)
+      return
+      const merges = ["A1:I1", "A2:B2"]; //合并单元格
+      export_excel({
+        title: title,
+        header: tHeader,
+        data,
+        merges,
+        filename: "锚地船舶",
+        autoWidth: true,
+        bookType: "xlsx",
+        cellStyle: [
+          {
+            range: ["A1"],
+            style: {
+              font: {
+                name: "宋体",
+                sz: 18,
+                //  color: {rgb: "ff0000"},
+                bold: true,
+                italic: false,
+                underline: false
+              },
+              alignment: {
+                horizontal: "center",
+                vertical: "center"
+              },
+              fill: {
+                fgColor: { rgb: "FCFF40" }
+              }
+            }
+          },
+          {
+            range: ["A2:I2", "A3:B3"],
+            style: {
+              font: {
+                // name: '宋体',
+                sz: 14,
+                // color: {rgb: "ff0000"},
+                bold: true,
+                italic: false,
+                underline: false
+              },
+              fill: {
+                fgColor: { rgb: "cccccc" }
+              },
+              alignment: {
+                horizontal: "center",
+                vertical: "center",
+                // wrapText: "false" 文字是否换行
+              }
+            }
+          }
+        ]
+      });
+    },
+    /* 格式化数据 */
+    formatJson(filterVal, jsonData) {
+      return jsonData.map(v => filterVal.map(j => v[j]));
+    },
     load(tree, treeNode, resolve) {
       console.log(tree, treeNode);
       setTimeout(() => {
