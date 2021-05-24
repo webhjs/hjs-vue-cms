@@ -108,7 +108,7 @@ export default {
         });
       });
       // console.log(data)
-      return
+      // return
       const merges = ["A1:I1", "A2:B2"]; //合并单元格
       export_excel({
         title: title,
