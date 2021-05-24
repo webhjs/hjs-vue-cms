@@ -1,1 +1,2 @@
-node_modules    //忽略node
+# 忽略node
+node_modules
