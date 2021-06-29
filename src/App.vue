@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-22 09:20:49
  * @LastEditors: 金苏
- * @LastEditTime: 2021-04-07 18:06:44
+ * @LastEditTime: 2021-06-29 11:03:29
 -->
 <template>
   <div id="app" class="text-customBase">
@@ -16,6 +16,7 @@
 import { mapGetters } from "vuex";
 import "@/libs/assets/custom-theme/science-blue.css"; // 夏日主题
 import("@/libs/assets/custom-theme/theme-summer.css"); // 深蓝主题
+import("@/libs/assets/custom-theme/sapphire-blue.css"); // 宝石蓝主题
 import { addClass } from "@/libs/utils";
 
 export default {

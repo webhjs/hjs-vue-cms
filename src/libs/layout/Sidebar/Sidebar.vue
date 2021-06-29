@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-20 17:29:16
- * @LastEditTime: 2021-03-30 19:13:05
+ * @LastEditTime: 2021-06-29 10:54:07
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\layout\sidebar\sidebar.vue
@@ -19,7 +19,7 @@
       collapse-transition
       router
     >
-      <el-menu-item class="logo-name" index="" style="color: hsla(0,0%,100%,.85);font-weight: bold;font-size: 16px;">
+      <el-menu-item v-if="logo" class="logo-name" index="" style="color: hsla(0,0%,100%,.85);font-weight: bold;font-size: 16px;">
         <img
           src="@/libs/assets/imgs/logo.png"
           alt=""
@@ -50,6 +50,10 @@ export default {
     isCollapse: {
       type: Boolean,
       default: false
+    },
+    logo: {
+      type: Boolean,
+      default: true
     }
   },
   name: "SideBar",
@@ -99,5 +103,6 @@ export default {
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 256px;
   min-height: 400px;
+  overflow: auto;
 }
 </style>

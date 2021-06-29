@@ -1,5 +1,5 @@
 <template>
-  <div class="h-full flex items-center">
+  <div class="h-full flex items-center pl-3">
     <span class="text-base">
       管理平台
       <i class="el-icon-arrow-right" />

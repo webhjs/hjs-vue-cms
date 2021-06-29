@@ -2,6 +2,18 @@
 <template>
   <div>
     <el-scrollbar class="app-wrapper">
+      <template v-if="position === 'left-no'">
+        <div class="containers cloumn-flex">
+          <navbar></navbar>
+          <div class="main-container flex">
+            <sidebar :isCollapse="isCollapse" class="vertical" :logo="false"/>
+            <div class="main-left main-common flex-1">
+              <tabs-view></tabs-view>
+              <app-main ref="AppMain" class="main-content"></app-main>
+            </div>
+          </div>
+        </div>
+      </template>
       <template v-if="position === 'left'">
         <div class="containers">
           <sidebar :isCollapse="isCollapse" class="vertical" />
@@ -22,7 +34,7 @@
         </div>
       </template>
       <template v-if="position === 'top'">
-        <navbar :breadIsShow="false">
+        <navbar :breadIsShow="false" class="layout-top">
           <sidebar-item
             target="div"
             v-for="router of staticRoute"
@@ -109,9 +121,11 @@
       <el-radio-group v-model="theme" class="two-columns">
         <el-radio-button label="science-blue">深空蓝</el-radio-button>
         <el-radio-button label="theme-summer">简约白</el-radio-button>
+        <el-radio-button label="sapphire-blue">宝石蓝</el-radio-button>
       </el-radio-group>
       <el-divider content-position="left">布局</el-divider>
       <el-radio-group v-model="position" class="three-columns">
+        <el-radio-button label="left-no">自定义</el-radio-button>
         <el-radio-button label="left">左右</el-radio-button>
         <el-radio-button label="top">上下</el-radio-button>
         <el-radio-button label="top_left">上下+左右</el-radio-button>
@@ -258,8 +272,12 @@ export default {
     height 100vh
     display flex
     background-color #fefefe
+    &.cloumn-flex
+      flex-flow: column
     .main-container
       flex 1
+    &.flex
+      display flex
   .container-top
     height calc(100vh - 56px)
     display flex
@@ -269,7 +287,7 @@ export default {
 .two-columns{
   width: 100%
   /deep/ .el-radio-button {
-    width: 50%
+    width: 33%
     .el-radio-button__inner {
       width: 100%
     }
@@ -278,15 +296,16 @@ export default {
 .three-columns{
   width: 100%
   /deep/ .el-radio-button {
-    width: 33.3%
+    width: 25%
     .el-radio-button__inner {
       width: 100%
     }
   }
 }
-.main-left{
+.main-left
   height: calc(100vh - 56px)
-}
+  &.flex-1
+    flex: 1
 .main-top {
   height: calc(100vh - 56px)
 }

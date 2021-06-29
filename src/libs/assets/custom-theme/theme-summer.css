@@ -20,6 +20,27 @@
 .theme-summer .el-menu--horizontal .el-menu-item:not(.is-disabled):focus i, .theme-summer .el-menu--horizontal .el-menu-item:not(.is-disabled):hover i{
   color: #409EFF;
 }
+.theme-summer .layout-top .el-menu--horizontal .el-menu-item.logo-name {
+  background-color: transparent!important;
+  box-shadow: unset;
+  color: black;
+  color: unset!important;
+}
+.theme-summer .el-menu-item.logo-name {
+  background-color: #002766;
+  margin: unset;
+  height: 55px;
+  line-height: 55px;
+  border-radius: unset;
+  box-shadow: 2px 0 6px #002766;
+}
+.theme-summer .el-menu.el-menu--horizontal .el-menu-item.logo-name {
+  color: #91d5ff;
+  font-size: 18.49px;
+  width: 256px;
+  background: #002766;
+  font-weight: bold;
+}
 /*
 * 左侧边框阴影
 */

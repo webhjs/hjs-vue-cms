@@ -1,0 +1,102 @@
+/*自定义蓝色主题-皮肤*/
+.sapphire-blue .top-navbar ,.sapphire-blue .el-dropdown,.sapphire-blue .el-breadcrumb__separator {
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+.sapphire-blue .el-menu--horizontal .el-menu-item:not(.is-disabled):hover,.sapphire-blue .logo-name {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name {
+  font-weight: bold;
+  font-size: 18.49px;
+  width: 256px;
+}
+.sapphire-blue .el-menu-item.logo-name {
+  background-color: #0081E4;
+  margin: unset;
+  height: 55px;
+  line-height: 55px;
+  border-radius: unset;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name,.sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item:not(.is-disabled):hover i {
+  color: #FFFFFF;
+  font-size: 18.49px;
+}
+/*
+* 1、顶部navbar颜色
+*/
+.sapphire-blue .top-navbar .el-menu,
+.sapphire-blue .top-navbar .el-menu--horizontal {
+  background-color: #0081E4 !important;
+}
+.sapphire-blue .left-sidebar .el-menu-item.is-active i {
+  color: #e6f7ff;
+}
+.sapphire-blue .left-sidebar .el-menu-item.is-active,
+.sapphire-blue .left-sidebar .el-submenu.is-active > .el-submenu__title,
+.sapphire-blue .el-submenu .el-menu-item,
+.sapphire-blue .el-menu-item,
+.sapphire-blue .el-submenu__title {
+  border-radius: 5px;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px;
+}
+.sapphire-blue .left-sidebar .el-submenu.is-active > .el-submenu__title {
+  color: #0081e4;
+}
+.sapphire-blue .left-sidebar .el-menu-item.is-active,.sapphire-blue .el-menu-item:hover {
+  background: #0081E4;
+  color: #e6f7ff;
+}
+.sapphire-blue .el-menu-item:hover i {
+  color: #e6f7ff;
+}
+.sapphire-blue .el-menu-item i,
+.sapphire-blue .el-submenu__title i {
+  color: #0081e4;
+}
+
+.sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active,
+.sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active i {
+  color: #FFF;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item,
+.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item i {
+  color: #91d5ff;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu__title,
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu__title i {
+  color: #91d5ff;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu__title,
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu__title i {
+  color: #91d5ff;
+}
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu.is-active,.sapphire-blue .el-menu.el-menu--horizontal .el-submenu.is-active i,
+.sapphire-blue .el-menu.el-menu--horizontal .el-submenu.is-active .el-submenu__title {
+  color: #FFF;
+}
+/*
+* 1、顶部tagpane样式
+*/
+.sapphire-blue .tags-view-item .tag-pane {
+  background-color: #BCBCBC;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+.sapphire-blue .tags-view-item .tag-pane:before,.tags-view-item.active .tag-pane:before {
+  background-color: #FFFFFF!important;
+}
+.sapphire-blue .tags-view-item .tag-pane:hover {
+  color: #FFFFFF;
+}
+.sapphire-blue .tags-view-item.active .tag-pane {
+  background-color: #79D6AC;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
+.sapphire-blue .tags-view-item {
+  font-size: 12px;
+}
