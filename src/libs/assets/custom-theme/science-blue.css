@@ -17,6 +17,9 @@
 .science-blue .top-navbar .el-menu--horizontal {
   background-color: #002766 !important;
 }
+.science-blue .top-navbar .el-menu-item.logo-name {
+  box-shadow: unset;
+}
 .science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active,
 .science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active i {
   color: #FFF;
