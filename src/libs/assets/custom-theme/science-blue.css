@@ -47,12 +47,14 @@
   line-height: 55px;
   border-radius: unset;
   box-shadow: 2px 0 6px #002766;
-  width: 256px;
 }
 .science-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name,.science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item:not(.is-disabled):hover i {
   color: #91d5ff;
   font-size: 18.49px;
   font-weight: bold;
+}
+.science-blue .top-navbar .el-menu-item.logo-name {
+  width: 256px;
 }
 /*
  * 2、侧边栏

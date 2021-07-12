@@ -7,10 +7,8 @@
   color: #FFFFFF;
   font-weight: 600;
 }
-.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name {
+.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name{
   font-weight: bold;
-  font-size: 18.49px;
-  width: 256px;
 }
 .sapphire-blue .el-menu-item.logo-name {
   background-color: #0081E4;
@@ -21,7 +19,10 @@
 }
 .sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name,.sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item:not(.is-disabled):hover i {
   color: #FFFFFF;
-  font-size: 18.49px;
+  font-size: 16px;
+}
+.sapphire-blue .top-navbar .el-menu-item.logo-name {
+  width: 256px;
 }
 /*
 * 1、顶部navbar颜色
@@ -40,15 +41,19 @@
 .sapphire-blue .el-submenu__title {
   border-radius: 5px;
   height: 40px;
-  line-height: 40px;
+  line-height: 37px;
   margin: 10px;
 }
 .sapphire-blue .left-sidebar .el-submenu.is-active > .el-submenu__title {
   color: #0081e4;
 }
-.sapphire-blue .left-sidebar .el-menu-item.is-active,.sapphire-blue .el-menu-item:hover {
+.sapphire-blue .left-sidebar .el-menu-item.is-active,.sapphire-blue .el-menu-item:hover,.sapphire-blue .left-sidebar .el-menu--collapse .el-submenu.is-active > .el-submenu__title {
   background: #0081E4;
   color: #e6f7ff;
+}
+.sapphire-blue .left-sidebar .el-menu--collapse .el-submenu.is-active > .el-submenu__title i {
+  color: #e6f7ff;
+  top: 0px;
 }
 .sapphire-blue .el-menu-item:hover i {
   color: #e6f7ff;
@@ -57,7 +62,19 @@
 .sapphire-blue .el-submenu__title i {
   color: #0081e4;
 }
-
+/* 效果不佳 */
+.sapphire-blue .left-sidebar .el-menu-item.logo-name img,.sapphire-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name img {
+  margin-right: 5px;
+}
+.sapphire-blue .left-sidebar .el-menu--collapse .el-submenu .el-submenu__title, .sapphire-blue .el-menu--collapse .el-menu-item {
+  position: relative;
+}
+.sapphire-blue .el-menu--collapse .el-menu-item i, .sapphire-blue .left-sidebar .el-menu--collapse .el-submenu .el-submenu__title i {
+  position: absolute;
+  left: 10px;
+  top: 10px!important;
+}
+/* 效果不佳 */
 .sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active,
 .sapphire-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active i {
   color: #FFF;

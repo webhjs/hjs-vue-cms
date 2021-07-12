@@ -124,7 +124,7 @@
         <el-radio-button label="sapphire-blue">宝石蓝</el-radio-button>
       </el-radio-group>
       <el-divider content-position="left">布局</el-divider>
-      <el-radio-group v-model="position" class="three-columns">
+      <el-radio-group v-model="position" class="three-columns" @change="changeRadio">
         <el-radio-button label="left-no">自定义</el-radio-button>
         <el-radio-button label="left">左右</el-radio-button>
         <el-radio-button label="top">上下</el-radio-button>
@@ -257,6 +257,12 @@ export default {
     /* 中间商结束 */
     swtichCollapse() {
       this.isCollapse = !this.isCollapse
+    },
+    /* 更换布局方式 */
+    changeRadio(val) {
+      if (val === 'left-no') {
+        this.isCollapse = false
+      }
     }
   }
 }

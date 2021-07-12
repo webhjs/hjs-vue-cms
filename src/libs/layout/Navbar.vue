@@ -15,7 +15,7 @@
             height="20px"
             class="inline"
           />
-          {{ $t("navbar.title") }}
+          <span> {{ $t("navbar.title") }}</span>
         </el-menu-item>
 
         <slot name="menubtn" style="display: inline-block;" />
