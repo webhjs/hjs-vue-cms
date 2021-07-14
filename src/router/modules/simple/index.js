@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-29 17:31:42
  * @LastEditors: 金苏
- * @LastEditTime: 2021-05-07 09:56:17
+ * @LastEditTime: 2021-07-14 10:37:03
  */
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
@@ -63,6 +63,12 @@ export const constantRouterMap = [
         name: "drop-down-table",
         meta: { icon: "document-copy", title: "下拉懒加载表格" },
         component: () => import("@/views/simple-template/drop-down-table")
+      },
+      {
+        path: "sync-fixed-table",
+        name: "sync-fixed-table",
+        meta: { icon: "document-copy", title: "同步固定表格" },
+        component: () => import("@/views/simple-template/sync-fixed-table")
       }
     ]
   }
