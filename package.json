@@ -19,6 +19,7 @@
     "html2canvas": "^1.0.0-rc.7",
     "js-cookie": "^2.2.1",
     "jspdf": "^2.3.0",
+    "jsplumb": "^2.15.6",
     "mockjs": "^1.0.1-beta3",
     "nprogress": "^0.2.0",
     "particles.js": "^2.0.0",

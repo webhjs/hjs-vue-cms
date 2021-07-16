@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-29 17:31:42
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-14 10:37:03
+ * @LastEditTime: 2021-07-14 14:13:34
  */
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
@@ -62,13 +62,29 @@ export const constantRouterMap = [
         path: "drop-down-table",
         name: "drop-down-table",
         meta: { icon: "document-copy", title: "下拉懒加载表格" },
-        component: () => import("@/views/simple-template/drop-down-table")
+        component: () => import("@/views/simple-template/table/drop-down-table")
       },
       {
         path: "sync-fixed-table",
         name: "sync-fixed-table",
         meta: { icon: "document-copy", title: "同步固定表格" },
-        component: () => import("@/views/simple-template/sync-fixed-table")
+        component: () => import("@/views/simple-template/table/sync-fixed-table")
+      }
+    ]
+  },
+  {
+    path: "/flowsheet",
+    name: "flowsheet",
+    alwaysShow: true,
+    meta: { icon: "document-copy", title: "流程样例" },
+    component: Layout,
+    redirect: "/flowsheet/process",
+    children: [
+      {
+        path: "process",
+        name: "process",
+        meta: { icon: "document-copy", title: "jsplumb流程图" },
+        component: () => import("@/views/simple-template/jsplumb")
       }
     ]
   }
