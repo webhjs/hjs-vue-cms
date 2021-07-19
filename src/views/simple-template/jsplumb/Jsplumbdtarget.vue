@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-19 17:02:04
+ * @LastEditTime: 2021-07-19 17:15:25
 -->
 <template>
   <div class="dragger-wrap">
@@ -291,10 +291,10 @@ export default {
             }
           );
           this.jsplumb.draggable(
-            jsPlumb.getSelector(`#right${this.id}`),
+            jsPlumb.getSelector(`#right${this.id} .list-item`),
             { grid: [20, 20] }
           );
-          
+
           /* 屏幕resize */
           const element = document.querySelector(`#right${this.id}`);
           let resizeTimer = null;
