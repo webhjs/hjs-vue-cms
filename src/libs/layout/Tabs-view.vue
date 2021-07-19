@@ -41,7 +41,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import MenuCom from "@/libs/common/Menu";
+import MenuCom from 'hjs-contextmenu';
 export default {
   components: {
     MenuCom

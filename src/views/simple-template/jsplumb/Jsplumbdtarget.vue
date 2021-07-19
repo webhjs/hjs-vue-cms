@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-16 17:44:32
+ * @LastEditTime: 2021-07-19 17:02:04
 -->
 <template>
   <div class="dragger-wrap">
@@ -59,8 +59,8 @@
         class="list-item"
         :id="`examplesource${id}`"
         style="top: 30px;right: 10px;"
-        @click="$message.warning('hellow')"
       >
+        <!-- @click="$message.warning('hellow')" -->
         <i class="iconfont icon-yiyuan3" style="font-size:30px; color:#333"></i>
       </div>
       <div
@@ -74,12 +74,25 @@
         ></i>
       </div>
     </div>
+    <contextjs id="operate-action" :page="pagePosition" :visble.sync="visble" style="z-index: 7">
+      <ul
+        class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
+      >
+        <li class="px-2 py-1 border-b border-gray-100" @click="closeNode">
+          <i class="el-icon-refresh mr-1" />删除节点
+        </li>
+      </ul>
+    </contextjs>
   </div>
 </template>
 
 <script>
 import { jsPlumb } from "jsplumb";
+import Contextjs from 'hjs-contextmenu'
 export default {
+  components: {
+    Contextjs
+  },
   props: {
     id: {
       type: String,
@@ -88,10 +101,16 @@ export default {
   },
   data() {
     return {
-      inx: 0
+      inx: 0,
+      pagePosition:{},
+      visble:false
     };
   },
   beforeDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
     this.jsplumb.destroy();
   },
   mounted() {
@@ -100,6 +119,17 @@ export default {
     });
   },
   methods: {
+    // 删除节点
+    closeNode() {
+      this.jsplumb.remove(this.nodeId)
+      this.visble = false
+    },
+    //右击菜单
+    showMenu(ev, id){
+      this.pagePosition = {pageX : ev.pageX , pageY : ev.pageY};
+      this.nodeId = id
+      this.visble = true
+    },
     allowDrop(ev) {
       ev.preventDefault();
     },
@@ -129,9 +159,12 @@ export default {
       this._addPoint(sourceId + this.inx);
       // 设置允许拖拽
       this.jsplumb.draggable(sourceId + this.inx, { grid: [20, 20] });
-      document.getElementById(sourceId + this.inx).addEventListener('click', (ev) => {
-        this.$message.warning('hellow')
-      })
+      ((id) => {
+        document.getElementById(id).addEventListener('contextmenu', (ev) => {
+          ev.preventDefault()
+          this.showMenu(ev, id)
+        }) 
+      })(sourceId + this.inx)
 
       this.inx++;
     },
@@ -162,7 +195,7 @@ export default {
     // 初始化流程图盒子
     initJsPlumb() {
       this.jsplumb = jsPlumb.getInstance({
-        Connector: ["Bezier", { curviness: 100 }],
+        Connector: ["Bezier", { curviness: 60 }],
         // Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
         PaintStyle: { stroke: "#7AB02C", strokeWidth: 2 }, // 连线样式
         EndpointStyle: { radius: 9, fill: "#7AB02C" }, // 端口样式
@@ -222,7 +255,12 @@ export default {
           });
           this.jsplumb.bind("beforeDrop", conn => {
             // 建立连接前修改后台数据
-            return true;
+            if (conn.sourceId === conn.targetId) { 
+              this.$message.warning('不能连接自己')
+              return false
+            } else {
+              return true
+            }
           });
           this.jsplumb.bind("connection", function(connInfo, originalEvent) {
             const connection = connInfo.connection;
@@ -253,9 +291,25 @@ export default {
             }
           );
           this.jsplumb.draggable(
-            jsPlumb.getSelector(`#right${this.id} .list-item`),
+            jsPlumb.getSelector(`#right${this.id}`),
             { grid: [20, 20] }
           );
+          
+          /* 屏幕resize */
+          const element = document.querySelector(`#right${this.id}`);
+          let resizeTimer = null;
+          const callback = (event, ui) => {
+            if (resizeTimer) {
+              clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(() => {
+              // 重新适配屏幕
+              this.jsplumb.repaintEverything();
+            }, 100);
+          };
+          this.observer = new ResizeObserver(callback);
+          this.observer.observe(element);
+          /* 屏幕resize */
         });
       });
 
@@ -274,7 +328,9 @@ export default {
     display flex
     justify-content space-between
     flex-wrap: wrap;
-    align-content: flex-start;
+    align-content: flex-start
+    .list-item
+      margin-bottom: 5px
   .right
     margin-left 8px
     user-select none
@@ -284,13 +340,15 @@ export default {
     overflow auto
     .list-item
       position absolute
+      .iconfont
+        cursor pointer
 .list-item
   height 80px
   width 80px
   display flex
   justify-content center
+  cursor move
   align-items center
-  cursor pointer
   border 1px solid #ccc
   z-index: 7
   background: white
