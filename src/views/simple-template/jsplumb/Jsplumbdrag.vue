@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-19 09:56:01
+ * @LastEditTime: 2021-07-21 16:35:02
 -->
 <template>
   <div class="dragger-wrap">
@@ -74,12 +74,11 @@ export default {
       default: 'jsplumb'
     }
   },
-  data() {
-    return {
-      inx: 0
-    };
-  },
   beforeDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
     this.jsplumb.destroy();
   },
   mounted() {
@@ -107,7 +106,8 @@ export default {
       const sourceNode = document.getElementById(sourceId); // 源节点
       const clonedNode = sourceNode.cloneNode(true); // 克隆节点
       clonedNode.setAttribute("draggable", false);
-      clonedNode.setAttribute("id", sourceId + this.inx); // 修改一下id 值，避免id 重复
+      const timer = new Date().getTime()
+      clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
       clonedNode.style.left =
         (offsetX - sourceOffsetX + scrollLeft > 0 ? offsetX - sourceOffsetX + scrollLeft : 0) + "px";
       clonedNode.style.top =
@@ -144,16 +144,10 @@ export default {
           [0, 0.85]
         ],
       ]).forEach(pos => {
-        this._addEndPoint(sourceId + this.inx, pos) 
+        this._addEndPoint(sourceId + timer, pos) 
       }); // 四个方向连接点
       // 设置允许拖拽
-      this.jsplumb.draggable(sourceId + this.inx, { grid: [20, 20] });
-
-
-
-
-
-      this.inx++;
+      this.jsplumb.draggable(sourceId + timer, { grid: [20, 20] });
     },
     // 添加一个连接点
     _addEndPoint(sourceId, anchors) {
@@ -273,6 +267,22 @@ export default {
           this._addEndPoint(`exampletarget${this.id}`, 'AutoDefault')
           this.jsplumb.connect({uuids: [`examplesource${this.id}`, `exampletarget${this.id}` ], detachable: true, reattach: true});
           this.jsplumb.draggable(jsPlumb.getSelector(`#right${this.id} .list-item`), { grid: [20, 20] });
+
+          /* 屏幕resize */
+          const element = document.querySelector(`#right${this.id}`);
+          let resizeTimer = null;
+          const callback = (event, ui) => {
+            if (resizeTimer) {
+              clearTimeout(resizeTimer);
+            }
+            resizeTimer = setTimeout(() => {
+              // 重新适配屏幕
+              this.jsplumb.repaintEverything();
+            }, 100);
+          };
+          this.observer = new ResizeObserver(callback);
+          this.observer.observe(element);
+          /* 屏幕resize */
         });
       });
 

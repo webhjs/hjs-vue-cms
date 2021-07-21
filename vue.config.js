@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:12
  * @LastEditors: 金苏
- * @LastEditTime: 2021-04-22 17:28:11
+ * @LastEditTime: 2021-07-20 13:18:25
  */
 "use strict";
 const path = require("path");
@@ -14,6 +14,8 @@ function resolve(dir) {
 }
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+
+const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = {
   publicPath: "./",
@@ -38,16 +40,17 @@ module.exports = {
     }
   },
   chainWebpack: config => {
+    config.plugin("monaco").use(new MonacoWebpackPlugin());
     config.plugin("html").tap(args => {
       args[0].title = "XX市家庭医生签约平台";
       return args;
-    }),
-      // 配置svg文件
-      // set svg-sprite-loader
-      config.module
-        .rule("svg")
-        .exclude.add(resolve("src/libs/icons"))
-        .end();
+    });
+    // 配置svg文件
+    // set svg-sprite-loader
+    config.module
+      .rule("svg")
+      .exclude.add(resolve("src/libs/icons"))
+      .end();
     config.module
       .rule("icons")
       .test(/\.svg$/)
