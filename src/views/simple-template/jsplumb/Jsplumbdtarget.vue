@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-21 16:32:14
+ * @LastEditTime: 2021-07-22 11:47:34
 -->
 <template>
   <div>
@@ -33,10 +33,7 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i
-            class="iconfont icon-yaowu1"
-            style="font-size:24px;"
-          ></i>
+          <i class="iconfont icon-yaowu1" style="font-size:24px;"></i>
           <span class="text"></span>
         </div>
       </div>
@@ -45,6 +42,7 @@
         :id="`right${id}`"
         @drop="drop($event)"
         @dragover="allowDrop($event)"
+        @contextmenu.prevent
       ></div>
       <!-- 右击菜单 -->
       <contextjs
@@ -57,7 +55,35 @@
           class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
         >
           <li class="px-2 py-1 border-b border-gray-100" @click="closeNode">
-            <i class="el-icon-refresh mr-1" />删除节点
+            <i class="el-icon-delete mr-1" />删除节点
+          </li>
+          <li
+            class="px-2 py-1 border-b border-gray-100"
+            @click="editNode(false)"
+          >
+            <i class="el-icon-edit mr-1" />编辑节点
+          </li>
+        </ul>
+      </contextjs>
+      <!-- 右击菜单 -->
+      <!-- 右击菜单 -->
+      <contextjs
+        id="line-action"
+        :page="pagePosition"
+        :visble.sync="lineVisble"
+        style="z-index: 7"
+      >
+        <ul
+          class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
+        >
+          <li
+            class="px-2 py-1 border-b border-gray-100"
+            @click="deleteLineConnect"
+          >
+            <i class="el-icon-delete mr-1" />删除连线
+          </li>
+          <li class="px-2 py-1 border-b border-gray-100" @click="editNodeLine">
+            <i class="el-icon-edit mr-1" />编辑连线
           </li>
         </ul>
       </contextjs>
@@ -76,12 +102,55 @@
           <Monaco v-model="jsonList" isShowLanguage />
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="reloadData();dialogVisible = false" size="small">
+          <el-button
+            type="primary"
+            @click="
+              reloadData();
+              dialogVisible = false;
+            "
+            size="small"
+          >
             保 存
           </el-button>
         </span>
       </el-dialog>
       <!-- 弹出框 -->
+      <!-- 编辑节点 -->
+      <el-dialog
+        title="编辑节点信息"
+        :visible.sync="dialogEditVisible"
+        width="320px"
+        custom-class="edit-node-dialog"
+        :close-on-click-modal="false"
+      >
+        <el-form
+          :model="editRuleForm"
+          status-icon
+          ref="editRuleForm"
+          label-width="50px"
+          class="demo-editRuleForm"
+        >
+          <el-form-item label="图标">
+            <el-input v-model="editRuleForm.icon"></el-input>
+          </el-form-item>
+          <el-form-item label="名字">
+            <el-input v-model="editRuleForm.name"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            @click="
+              editNode(true);
+              dialogEditVisible = false;
+            "
+            size="small"
+          >
+            保 存
+          </el-button>
+        </span>
+      </el-dialog>
+      <!-- 编辑节点 -->
     </div>
   </div>
 </template>
@@ -105,6 +174,7 @@ export default {
     return {
       pagePosition: {},
       visble: false,
+      lineVisble: false,
       dialogVisible: false,
       jsonList: {
         name: "流程B",
@@ -167,7 +237,9 @@ export default {
             to: "nodeD"
           }
         ]
-      }
+      },
+      editRuleForm: {},
+      dialogEditVisible: false
     };
   },
   beforeDestroy() {
@@ -179,11 +251,47 @@ export default {
     });
   },
   methods: {
+    // 右击节点
+    showMenu(ev, id) {
+      this.pagePosition = { pageX: ev.pageX, pageY: ev.pageY };
+      this.nodeId = id;
+      this.visble = true;
+    },
+    // 右击连线
+    lineShowMenu(ev, conn) {
+      this.pagePosition = { pageX: ev.pageX, pageY: ev.pageY };
+      this.nodeIdConn = conn;
+      this.lineVisble = true;
+    },
+    // 编辑连线
+    editNodeLine() {
+      const { sourceId, targetId } = this.nodeIdConn;
+      const conn = this.jsplumb.getConnections({
+        source: sourceId,
+        target: targetId
+      })[0];
+      this.$prompt("请输入标签", "提示", {
+        inputValue: conn.getLabel(),
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        closeOnClickModal: false
+      })
+        .then(({ value }) => {
+          conn.setLabel(value);
+          if (!value || value === "") {
+            conn.removeClass("flowLabel");
+          } else {
+            conn.addClass("flowLabel");
+          }
+        })
+        .catch(() => {});
+    },
+    // 编辑节点
     reloadData() {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
       document.getElementById(`right${this.id}`).innerHTML = "";
-      this._initConnect(this.jsonList)
+      this._initConnect(this.jsonList);
     },
     createdList(list) {
       var root = document.getElementById(`right${this.id}`);
@@ -194,6 +302,7 @@ export default {
         );
         const clonedNode = sourceNode.cloneNode(true);
         clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
+        clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
         clonedNode.querySelector(".text").innerHTML = `${list[i].name}`;
         clonedNode.classList.add(`${list[i].status}`);
         clonedNode.setAttribute("draggable", false);
@@ -202,10 +311,12 @@ export default {
         clonedNode.style.left = list[i].left;
         fragment.appendChild(clonedNode);
         /* 分片绑定事件 */
-        fragment.getElementById(list[i].id).addEventListener("contextmenu", ev => {
-          ev.preventDefault();
-          this.showMenu(ev, list[i].id);
-        });
+        fragment
+          .getElementById(list[i].id)
+          .addEventListener("contextmenu", ev => {
+            ev.preventDefault();
+            this.showMenu(ev, list[i].id);
+          });
         /* 分片绑定事件 */
       }
       root.appendChild(fragment);
@@ -215,11 +326,21 @@ export default {
       this.jsplumb.remove(this.nodeId);
       this.visble = false;
     },
-    //右击菜单
-    showMenu(ev, id) {
-      this.pagePosition = { pageX: ev.pageX, pageY: ev.pageY };
-      this.nodeId = id;
-      this.visble = true;
+    // 编辑节点
+    editNode(flag) {
+      const dom = document.querySelector(`#${this.nodeId}`);
+      const i = dom.querySelector("i");
+      const span = dom.querySelector("span");
+      if (flag) {
+        span.innerHTML = this.editRuleForm.name;
+        i.classList = `iconfont ${this.editRuleForm.icon}`;
+        i.setAttribute("i-icon", this.editRuleForm.icon);
+        this.dialogEditVisible = false;
+      } else {
+        this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon"));
+        this.$set(this.editRuleForm, "name", span.innerHTML);
+        this.dialogEditVisible = true;
+      }
     },
     allowDrop(ev) {
       ev.preventDefault();
@@ -240,7 +361,7 @@ export default {
       const sourceNode = document.getElementById(sourceId); // 源节点
       const clonedNode = sourceNode.cloneNode(true); // 克隆节点
       clonedNode.setAttribute("draggable", false);
-      const timer = new Date().getTime()
+      const timer = new Date().getTime();
       clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
       clonedNode.style.left =
         (offsetX - sourceOffsetX + scrollLeft > 0
@@ -255,7 +376,7 @@ export default {
       this._addPoint(sourceId + timer);
       (id => {
         // 设置允许拖拽
-        this._draggable(id)
+        this._draggable(id);
         // 监听右击事件
         document.getElementById(id).addEventListener("contextmenu", ev => {
           ev.preventDefault();
@@ -266,9 +387,10 @@ export default {
     // 添加拖拽
     _draggable(id) {
       this.jsplumb.draggable(id, {
-        containment: 'parent',  // 限制拖拽区域
-        stop: function (el) { // 拖拽回调
-          console.log('stop',el)
+        containment: "parent", // 限制拖拽区域
+        stop: function(el) {
+          // 拖拽回调
+          console.log("stop", el);
         }
       }); // , { grid: [20, 20] } 拖拽步长
     },
@@ -296,24 +418,34 @@ export default {
         dropOptions: { hoverClass: "ef-drop-hover" }
       });
     },
+    // 删除连接
+    deleteLineConnect() {
+      this.$confirm("确认删除子连线", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          // 删除链接线
+          this.jsplumb.deleteConnection(this.nodeIdConn); // detach
+        })
+        .catch(() => {});
+    },
     // 添加一个连线
-    _connect(obj) {
-      this.jsplumb.connect({
-        ...obj
-      }, {
-        isSource: true,
-        isTarget: true,
-        // 动态锚点、提供了4个方向 Continuous、AutoDefault
-        anchor: "Continuous",
-        // 设置连线上面的label样式
-        labelStyle: {
-          cssClass: "flowLabel"
+    _connect(obj, item) {
+      const connect = this.jsplumb.connect(
+        {
+          ...obj
         },
-        // 修改了jsplumb 源码，支持label 为空传入自定义style
-        emptyLabelStyle: {
-          cssClass: "emptyFlowLabel"
+        {
+          label: item.label,
+          // 动态锚点、提供了4个方向 Continuous、AutoDefault
+          anchor: "Continuous",
+          labelStyle: {
+            cssClass: item?.label ? "flowLabel" : ""
+          }
         }
-      });
+      );
     },
     // 根据json绘制流程图
     _initConnect(list) {
@@ -322,23 +454,55 @@ export default {
       nodeList.forEach(item => {
         this._addPoint(item.id);
         if (!item.noDarag) {
-          this._draggable(item.id)
+          this._draggable(item.id);
         }
       });
       lineList.forEach(item => {
-        this._connect({
-          label: item.label ? item.label : '',
-          source: item.from,
-          target: item.to
-        });
-      })
+        this._connect(
+          {
+            source: item.from,
+            target: item.to
+            // overlays: [
+            //   [
+            //     "Label",
+            //     {
+            //       label: item.label ? item.label : "",
+            //       // 设置连线上面的label样式
+            //       labelStyle: {
+            //         cssClass: item.label ? 'flowLabel' : "",
+            //       },
+            //       events: {
+            //         click: (con, ev) => {
+            //           this.$prompt('请输入标签', '提示', {
+            //             inputValue: con.getLabel(),
+            //             confirmButtonText: '确定',
+            //             cancelButtonText: '取消',
+            //           }).then(({ value }) => {
+            //             con.setLabel(value)
+            //           }).catch(() => {});
+            //         }
+            //       }
+            //     }
+            //   ]
+            // ]
+          },
+          item
+        );
+      });
     },
     // 初始化流程图盒子
     initJsPlumb() {
       this.jsplumb = jsPlumb.getInstance({
         Connector: ["Bezier", { curviness: 60 }],
         // Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
-        PaintStyle: { stroke: "#7AB02C", strokeWidth: 2 }, // 连线样式
+        PaintStyle: {
+          stroke: "#7AB02C",
+          strokeWidth: 2, 
+          // 设置外边线的颜色，默认设置透明，这样别人就看不见了，点击线的时候可以不用精确点击，参考 https://blog.csdn.net/roymno2/article/details/72717101
+          outlineStroke: "transparent",
+          // 线外边的宽，值越大，线的点击范围越大
+          outlineWidth: 15
+        }, // 连线样式
         EndpointStyle: { radius: 9, fill: "#7AB02C" }, // 端口样式
         HoverPaintStyle: { stroke: "#ec9f2e" },
         EndpointHoverStyle: { fill: "#ec9f2e" },
@@ -359,19 +523,20 @@ export default {
               }
             }
           ],
-          [
-            "Label", // 连线lable样式
-            {
-              location: 0.5,
-              id: "label",
-              cssClass: "aLabel",
-              events: {
-                tap: function() {
-                  alert("hey");
-                }
-              }
-            }
-          ]
+          // [
+          //   "Label", // 连线lable样式
+          //   {
+          //     location: 0.5,
+          //     visible: true,
+          //     id: "h_con",
+          //     cssClass: "aLabel",
+          //     events: {
+          //       tap: function() {
+          //         alert("hey");
+          //       }
+          //     }
+          //   }
+          // ]
         ],
         Container: `right${this.id}`
       });
@@ -384,16 +549,6 @@ export default {
         this.jsplumb.setSuspendDrawing(false, true);
 
         this.jsplumb.batch(() => {
-          this.jsplumb.bind("click", conn => {
-            this.$confirm("确认删除子连线", "提示", {
-              confirmButtonText: "确定",
-              cancelButtonText: "取消",
-              type: "warning"
-            }).then(() => {
-              // 删除链接线
-              this.jsplumb.deleteConnection(conn); // detach
-            });
-          });
           this.jsplumb.bind("beforeDrop", conn => {
             // 建立连接前修改后台数据
             if (conn.sourceId === conn.targetId) {
@@ -403,12 +558,16 @@ export default {
               return true;
             }
           });
+          this.jsplumb.bind("contextmenu", (conn, originalEvent) => {
+            originalEvent.preventDefault();
+            this.lineShowMenu(originalEvent, conn);
+          });
           // 监听连线事件
           // this.jsplumb.bind("connection", function(connInfo, originalEvent) {
           //   const connection = connInfo.connection;
-          //   connection.getOverlay("label").setLabel("ggg"); // 连线lbale标签内容
+          //   connection.getOverlay("h_con").setLabel("ggg"); // 连线lbale标签内容
           // });
-          this._initConnect(this.jsonList)
+          this._initConnect(this.jsonList);
         });
       });
 
@@ -437,6 +596,7 @@ export default {
     border 1px solid #ccc
     position relative
     overflow auto
+
     .list-item
       position absolute
       .iconfont
@@ -475,4 +635,14 @@ export default {
   z-index 5
 /deep/ .aLabel
   color red
+/deep/ .edit-node-dialog .el-dialog__body{
+  padding: 10px 40px 0;
+}
+/deep/ .jtk-overlay.flowLabel:not(.aLabel) {
+  padding: 4px 10px;
+  background-color: white;
+  color: #565758 !important;
+  border: 1px solid #E0E3E7;
+  border-radius: 5px;
+}
 </style>
