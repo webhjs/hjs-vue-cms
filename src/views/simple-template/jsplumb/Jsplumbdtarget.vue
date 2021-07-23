@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-22 17:38:49
+ * @LastEditTime: 2021-07-23 17:12:01
 -->
 <template>
   <div>
@@ -22,7 +22,7 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-hushi" style="font-size:30px;"></i>
+          <i class="iconfont icon-hushi" i-icon="icon-hushi" style="font-size:30px;"></i>
           <span class="text"></span>
         </div>
         <div
@@ -33,7 +33,7 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-yaowu1" style="font-size:24px;"></i>
+          <i class="iconfont icon-yaowu1" i-icon="icon-yaowu1" style="font-size:24px;"></i>
           <span class="text"></span>
         </div>
         <div
@@ -44,7 +44,7 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-hushi" style="font-size:24px;"></i>
+          <i class="iconfont icon-hushi" i-icon="icon-hushi" style="font-size:24px;"></i>
           <span class="text icon-text"></span>
         </div>
       </div>
@@ -65,7 +65,7 @@
         <ul
           class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
         >
-          <li class="px-2 py-1 border-b border-gray-100" @click="closeNode">
+          <li class="px-2 py-1 border-b border-gray-100" @click="deleteNode">
             <i class="el-icon-delete mr-1" />删除节点
           </li>
           <li
@@ -196,6 +196,9 @@
       </el-dialog>
       <!-- 编辑连线 -->
     </div>
+    <pre v-if="false" style="position: fixed;top: 0;left: 0;background: white;height: 100vh;overflow: auto;">
+      {{ jsonList }}
+    </pre>
   </div>
 </template>
 
@@ -317,19 +320,30 @@ export default {
       const sourceNode = document.getElementById(sourceId); // 源节点
       const clonedNode = sourceNode.cloneNode(true); // 克隆节点
       clonedNode.setAttribute("draggable", false);
-      const timer = Math.random().toString(36).substr(3, 10);
-      clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
-      clonedNode.style.left =
-        (offsetX - sourceOffsetX + scrollLeft > 0
+      const uqid = Math.random().toString(36).substr(3, 10);
+      clonedNode.setAttribute("id", sourceId + uqid); // 修改一下id 值，避免id 重复
+      const _left = (offsetX - sourceOffsetX + scrollLeft > 0
           ? offsetX - sourceOffsetX + scrollLeft
-          : 0) + "px";
-      clonedNode.style.top =
-        (offsetY - sourceOffsetY + scrollTop > 0
+          : 0) + "px"
+      const _top = (offsetY - sourceOffsetY + scrollTop > 0
           ? offsetY - sourceOffsetY + scrollTop
-          : 0) + "px";
+          : 0) + "px"
+      clonedNode.style.left = _left;
+      clonedNode.style.top = _top;
       ev.target.appendChild(clonedNode); // 目标节点
+      
+      /* 修改数据 */
+      const { nodeList } = this.jsonList
+      nodeList.push({
+        "id": sourceId + uqid,
+        "type": clonedNode.getAttribute("type"),
+        "left": _left,
+        "top": _top,
+        "icon": clonedNode.querySelector("i").getAttribute("i-icon")
+      })
+      /* 修改数据 */
 
-      this._addPoint(sourceId + timer);
+      this._addPoint(sourceId + uqid);
       (id => {
         // 设置允许拖拽
         this._draggable(id);
@@ -338,7 +352,7 @@ export default {
           ev.preventDefault();
           this.showMenu(ev, id);
         });
-      })(sourceId + timer);
+      })(sourceId + uqid);
     },
     // 右击节点
     showMenu(ev, id) {
@@ -373,15 +387,26 @@ export default {
       }).filter(item => {
         return this.nodeIdConn.id === item.id
       })[0]
-      conn.setLabel(label);
-      if (!label || label === "") {
+      const lable = conn.getLabel() || '';
+      if (!label) {
         conn.removeClass("flowLabel");
       } else {
+        conn.setLabel(label);
         conn.addClass("flowLabel");
       }
       this.dialogEditLineVisible = false
+
+      /* 修改数据 */
+      const { lineList } = this.jsonList
+      for (let i = 0; i < lineList.length; i++) {
+        if (lineList[i].from === sourceId && lineList[i].to === targetId && (lineList[i].label === lable || (!lable && !lineList[i].label))) {
+          label && (lineList[i].label = label)
+          break
+        }
+      }
+      /* 修改数据 */
     },
-    // 编辑节点
+    // 数据重绘
     reloadData() {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
@@ -394,10 +419,12 @@ export default {
       for (let i = 0; i < list.length; i++) {
         const sourceNode = document.querySelector(`.left .list-item[type=${list[i].type}]`);
         const clonedNode = sourceNode.cloneNode(true);
-        clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
-        clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
-        clonedNode.querySelector(".text").innerHTML = `${list[i].name}`;
-        clonedNode.classList.add(`${list[i].status}`);
+        if(list[i].icon) {
+          clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
+          clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
+        }
+        list[i].name && (clonedNode.querySelector(".text").innerHTML = list[i].name);
+        list[i].status && clonedNode.classList.add(list[i].status);
         clonedNode.setAttribute("draggable", false);
         clonedNode.setAttribute("id", list[i].id);
         clonedNode.style.top = list[i].top;
@@ -415,9 +442,18 @@ export default {
       root.appendChild(fragment);
     },
     // 删除节点
-    closeNode() {
+    deleteNode() {
       this.jsplumb.remove(this.nodeId);
       this.visble = false;
+      /* 修改数据 */
+      const { lineList, nodeList } = this.jsonList
+      this.jsonList.nodeList = nodeList.filter(item => {
+        return item.id !== this.nodeId
+      })
+      this.jsonList.lineList = lineList.filter(item => {
+        return ![item.from, item.to].includes(this.nodeId)
+      })
+      /* 修改数据 */
     },
     // 编辑节点
     editNode(flag) {
@@ -425,10 +461,21 @@ export default {
       const i = dom.querySelector("i");
       const span = dom.querySelector("span");
       if (flag) {
-        span.innerHTML = this.editRuleForm.name;
-        i.classList = `iconfont ${this.editRuleForm.icon}`;
-        i.setAttribute("i-icon", this.editRuleForm.icon);
+        const {icon, name} = this.editRuleForm
+        span.innerHTML = name;
+        i.classList = `iconfont ${icon}`;
+        i.setAttribute("i-icon", icon);
         this.dialogEditVisible = false;
+        /* 修改数据 */
+        const { nodeList } = this.jsonList
+        for (let i = 0; i < nodeList.length; i++) {
+          if (nodeList[i].id === this.nodeId) {
+            nodeList[i].icon = icon
+            nodeList[i].name = name
+            break
+          }
+        }
+        /* 修改数据 */
       } else {
         this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon") || '');
         this.$set(this.editRuleForm, "name", span.innerHTML);
@@ -439,9 +486,19 @@ export default {
     _draggable(id) {
       this.jsplumb.draggable(id, {
         containment: "parent", // 限制拖拽区域
-        stop: function(el) {
-          // 拖拽回调
-          console.log("stop", el);
+        stop: (node) => { // 拖拽结束回调
+          /* 修改数据 */
+          const { id } = node.el
+          const { finalPos } = node
+          const { nodeList } = this.jsonList
+          for (let i = 0; i < nodeList.length; i++) {
+            if (nodeList[i].id === id) {
+              nodeList[i].left = finalPos[0] + 'px'
+              nodeList[i].top = finalPos[1] + 'px'
+              break
+            }
+          }
+          /* 修改数据 */
         }
       }); // , { grid: [20, 20] } 拖拽步长
     },
@@ -471,12 +528,26 @@ export default {
     },
     // 删除连接
     deleteLineConnect() {
-      this.$confirm("确认删除子连线", "提示", {
+      this.$confirm("确认删除连线", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       })
         .then(() => {
+          /* 修改数据 */
+          const { sourceId, targetId } = this.nodeIdConn
+          const lable = this.nodeIdConn.getLabel()
+          console.log(sourceId, targetId, lable)
+          const { lineList } = this.jsonList
+          this.jsonList.lineList = lineList.filter(function (line) {
+            if (line.from == sourceId && line.to == targetId && line.label == lable) {
+              return false
+            } else {
+              return true
+            }
+          })
+          /* 修改数据 */
+
           // 删除链接线
           this.jsplumb.deleteConnection(this.nodeIdConn); // detach
         })
@@ -608,6 +679,14 @@ export default {
               this.$message.warning("不能连接自己");
               return false;
             } else {
+              /* 修改数据 */
+              const { lineList } = this.jsonList
+              const { sourceId, targetId } = conn
+              lineList.push({
+                "from": sourceId,
+                "to": targetId
+              })
+              /* 修改数据 */
               return true;
             }
           });
