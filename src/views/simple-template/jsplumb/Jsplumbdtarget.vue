@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-22 11:47:34
+ * @LastEditTime: 2021-07-22 17:38:49
 -->
 <template>
   <div>
@@ -35,6 +35,17 @@
         >
           <i class="iconfont icon-yaowu1" style="font-size:24px;"></i>
           <span class="text"></span>
+        </div>
+        <div
+          class="list-item"
+          style="height: 40px;width: 120px;"
+          type="icon-text"
+          :id="`icon-text${id}`"
+          draggable="true"
+          @dragstart="drag($event)"
+        >
+          <i class="iconfont icon-hushi" style="font-size:24px;"></i>
+          <span class="text icon-text"></span>
         </div>
       </div>
       <div
@@ -82,7 +93,7 @@
           >
             <i class="el-icon-delete mr-1" />删除连线
           </li>
-          <li class="px-2 py-1 border-b border-gray-100" @click="editNodeLine">
+          <li class="px-2 py-1 border-b border-gray-100" @click="isShowEditLineDialog">
             <i class="el-icon-edit mr-1" />编辑连线
           </li>
         </ul>
@@ -151,6 +162,39 @@
         </span>
       </el-dialog>
       <!-- 编辑节点 -->
+      <!-- 编辑连线 -->
+      <el-dialog
+        title="编辑连线信息"
+        :visible.sync="dialogEditLineVisible"
+        width="320px"
+        custom-class="edit-node-dialog"
+        :close-on-click-modal="false"
+      >
+        <el-form
+          :model="editLineRuleForm"
+          status-icon
+          ref="editRuleForm"
+          label-width="50px"
+          class="demo-editRuleForm"
+        >
+          <el-form-item label="标签">
+            <el-input v-model="editLineRuleForm.label"></el-input>
+          </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+          <el-button
+            type="primary"
+            @click="
+              editNodeLine();
+              dialogEditLineVisible = false;
+            "
+            size="small"
+          >
+            保 存
+          </el-button>
+        </span>
+      </el-dialog>
+      <!-- 编辑连线 -->
     </div>
   </div>
 </template>
@@ -176,6 +220,8 @@ export default {
       visble: false,
       lineVisble: false,
       dialogVisible: false,
+      dialogEditVisible: false,
+      dialogEditLineVisible: false,
       jsonList: {
         name: "流程B",
         nodeList: [
@@ -209,8 +255,8 @@ export default {
           },
           {
             id: "nodeD",
-            name: "流程B-节点D",
-            type: "vertical",
+            name: "B-节点D",
+            type: "icon-text",
             left: "723px",
             top: "215px",
             icon: "icon-yiliao23",
@@ -221,7 +267,8 @@ export default {
           {
             from: "nodeA",
             to: "nodeB",
-            label: "条件A"
+            label: "条件A",
+            error: true
           },
           {
             from: "nodeA",
@@ -239,7 +286,7 @@ export default {
         ]
       },
       editRuleForm: {},
-      dialogEditVisible: false
+      editLineRuleForm: {}
     };
   },
   beforeDestroy() {
@@ -251,6 +298,48 @@ export default {
     });
   },
   methods: {
+    allowDrop(ev) {
+      ev.preventDefault();
+    },
+    drag(ev) {
+      ev.dataTransfer.setData("sourceId", ev.target.id);
+      ev.dataTransfer.setData("sourceOffsetX", ev.offsetX);
+      ev.dataTransfer.setData("sourceOffsetY", ev.offsetY);
+    },
+    drop(ev) {
+      ev.preventDefault();
+      const sourceId = ev.dataTransfer.getData("sourceId");
+      if (!sourceId) return;
+      const { offsetX, offsetY } = ev;
+      const { scrollLeft, scrollTop } = ev.target;
+      const sourceOffsetX = ev.dataTransfer.getData("sourceOffsetX");
+      const sourceOffsetY = ev.dataTransfer.getData("sourceOffsetY");
+      const sourceNode = document.getElementById(sourceId); // 源节点
+      const clonedNode = sourceNode.cloneNode(true); // 克隆节点
+      clonedNode.setAttribute("draggable", false);
+      const timer = Math.random().toString(36).substr(3, 10);
+      clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
+      clonedNode.style.left =
+        (offsetX - sourceOffsetX + scrollLeft > 0
+          ? offsetX - sourceOffsetX + scrollLeft
+          : 0) + "px";
+      clonedNode.style.top =
+        (offsetY - sourceOffsetY + scrollTop > 0
+          ? offsetY - sourceOffsetY + scrollTop
+          : 0) + "px";
+      ev.target.appendChild(clonedNode); // 目标节点
+
+      this._addPoint(sourceId + timer);
+      (id => {
+        // 设置允许拖拽
+        this._draggable(id);
+        // 监听右击事件
+        document.getElementById(id).addEventListener("contextmenu", ev => {
+          ev.preventDefault();
+          this.showMenu(ev, id);
+        });
+      })(sourceId + timer);
+    },
     // 右击节点
     showMenu(ev, id) {
       this.pagePosition = { pageX: ev.pageX, pageY: ev.pageY };
@@ -263,28 +352,34 @@ export default {
       this.nodeIdConn = conn;
       this.lineVisble = true;
     },
-    // 编辑连线
-    editNodeLine() {
+    isShowEditLineDialog() {
       const { sourceId, targetId } = this.nodeIdConn;
       const conn = this.jsplumb.getConnections({
         source: sourceId,
         target: targetId
-      })[0];
-      this.$prompt("请输入标签", "提示", {
-        inputValue: conn.getLabel(),
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        closeOnClickModal: false
-      })
-        .then(({ value }) => {
-          conn.setLabel(value);
-          if (!value || value === "") {
-            conn.removeClass("flowLabel");
-          } else {
-            conn.addClass("flowLabel");
-          }
-        })
-        .catch(() => {});
+      }).filter(item => {
+        return this.nodeIdConn.id === item.id
+      })[0]
+      this.$set(this.editLineRuleForm, 'label', conn.getLabel())
+      this.dialogEditLineVisible = true
+    },
+    // 编辑连线
+    editNodeLine() {
+      const { sourceId, targetId } = this.nodeIdConn;
+      const { label } = this.editLineRuleForm
+      const conn = this.jsplumb.getConnections({
+        source: sourceId,
+        target: targetId
+      }).filter(item => {
+        return this.nodeIdConn.id === item.id
+      })[0]
+      conn.setLabel(label);
+      if (!label || label === "") {
+        conn.removeClass("flowLabel");
+      } else {
+        conn.addClass("flowLabel");
+      }
+      this.dialogEditLineVisible = false
     },
     // 编辑节点
     reloadData() {
@@ -297,9 +392,7 @@ export default {
       var root = document.getElementById(`right${this.id}`);
       var fragment = document.createDocumentFragment();
       for (let i = 0; i < list.length; i++) {
-        const sourceNode = document.querySelector(
-          `.left .list-item[type=${list[i].type}]`
-        );
+        const sourceNode = document.querySelector(`.left .list-item[type=${list[i].type}]`);
         const clonedNode = sourceNode.cloneNode(true);
         clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
         clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
@@ -337,52 +430,10 @@ export default {
         i.setAttribute("i-icon", this.editRuleForm.icon);
         this.dialogEditVisible = false;
       } else {
-        this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon"));
+        this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon") || '');
         this.$set(this.editRuleForm, "name", span.innerHTML);
         this.dialogEditVisible = true;
       }
-    },
-    allowDrop(ev) {
-      ev.preventDefault();
-    },
-    drag(ev) {
-      ev.dataTransfer.setData("sourceId", ev.target.id);
-      ev.dataTransfer.setData("sourceOffsetX", ev.offsetX);
-      ev.dataTransfer.setData("sourceOffsetY", ev.offsetY);
-    },
-    drop(ev) {
-      ev.preventDefault();
-      const sourceId = ev.dataTransfer.getData("sourceId");
-      if (!sourceId) return;
-      const { offsetX, offsetY } = ev;
-      const { scrollLeft, scrollTop } = ev.target;
-      const sourceOffsetX = ev.dataTransfer.getData("sourceOffsetX");
-      const sourceOffsetY = ev.dataTransfer.getData("sourceOffsetY");
-      const sourceNode = document.getElementById(sourceId); // 源节点
-      const clonedNode = sourceNode.cloneNode(true); // 克隆节点
-      clonedNode.setAttribute("draggable", false);
-      const timer = new Date().getTime();
-      clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
-      clonedNode.style.left =
-        (offsetX - sourceOffsetX + scrollLeft > 0
-          ? offsetX - sourceOffsetX + scrollLeft
-          : 0) + "px";
-      clonedNode.style.top =
-        (offsetY - sourceOffsetY + scrollTop > 0
-          ? offsetY - sourceOffsetY + scrollTop
-          : 0) + "px";
-      ev.target.appendChild(clonedNode); // 目标节点
-
-      this._addPoint(sourceId + timer);
-      (id => {
-        // 设置允许拖拽
-        this._draggable(id);
-        // 监听右击事件
-        document.getElementById(id).addEventListener("contextmenu", ev => {
-          ev.preventDefault();
-          this.showMenu(ev, id);
-        });
-      })(sourceId + timer);
     },
     // 添加拖拽
     _draggable(id) {
@@ -439,6 +490,8 @@ export default {
         },
         {
           label: item.label,
+          paintStyle: { stroke: item.error ? '#F18383' : '#7AB02C', strokeWidth: 2, outlineWidth: 15, outlineStroke: "transparent" },
+          endpointStyle: { radius: 6, fill: item.error ? '#F18383' : '#7AB02C' }, // 端口样式
           // 动态锚点、提供了4个方向 Continuous、AutoDefault
           anchor: "Continuous",
           labelStyle: {
@@ -493,7 +546,7 @@ export default {
     // 初始化流程图盒子
     initJsPlumb() {
       this.jsplumb = jsPlumb.getInstance({
-        Connector: ["Bezier", { curviness: 60 }],
+        Connector: ["Bezier", { curviness: 80 }],
         // Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
         PaintStyle: {
           stroke: "#7AB02C",
@@ -503,10 +556,10 @@ export default {
           // 线外边的宽，值越大，线的点击范围越大
           outlineWidth: 15
         }, // 连线样式
-        EndpointStyle: { radius: 9, fill: "#7AB02C" }, // 端口样式
-        HoverPaintStyle: { stroke: "#ec9f2e" },
+        EndpointStyle: { radius: 7, fill: "#7AB02C" }, // 端口样式
+        HoverPaintStyle: { cursor: "pointer", stroke: "#ec9f2e" },
         EndpointHoverStyle: { fill: "#ec9f2e" },
-        DragOptions: { cursor: "pointer", zIndex: 2000 }, // 默认配置
+        DragOptions: { cursor: "pointer", zIndex: 2000 }, //拖动时鼠标停留在该元素上显示指针，通过css控制
         ConnectionOverlays: [
           [
             "Arrow", // 箭头样式
@@ -619,24 +672,34 @@ export default {
     position: absolute;
     bottom: -25px;
     color: #000;
+  .icon-text
+    position: initial;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+  &.success,&.warning,&.running,&.error
+    color: white
+    .icon-text
+      color: white
   &.success
     background: #67c23a
-    color: white
   &.warning
     background: #e6a23c
-    color: white
   &.running
     background: #909399
-    color: white
   &.error
     background: #f56c6c
-    color: white
+  &:hover
+    z-index 10
 /deep/ .jtk-endpoint
   z-index 5
 /deep/ .aLabel
   color red
-/deep/ .edit-node-dialog .el-dialog__body{
+/deep/ .edit-node-dialog .el-dialog__body {
   padding: 10px 40px 0;
+}
+/deep/ .jtk-overlay:hover {
+  z-index 10
 }
 /deep/ .jtk-overlay.flowLabel:not(.aLabel) {
   padding: 4px 10px;
