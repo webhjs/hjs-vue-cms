@@ -127,7 +127,11 @@ export default {
     Breadcrumb
   },
   computed: {
-    ...mapGetters(["name", "avatar"])
+    // ...mapGetters(["name", "avatar"])
+    ...mapGetters({
+      name:"user/name", 
+      avatar:"user/avatar"
+    })
   },
   methods: {
     ...mapActions({

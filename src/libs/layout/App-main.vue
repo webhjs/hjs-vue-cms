@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:10
  * @LastEditors: 金苏
- * @LastEditTime: 2021-04-20 13:16:09
+ * @LastEditTime: 2021-07-26 09:45:35
 -->
 <template>
   <div class="app-main">
@@ -77,4 +77,8 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+.h-full
+  overflow auto
+</style>
 

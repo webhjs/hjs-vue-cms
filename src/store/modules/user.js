@@ -13,6 +13,7 @@ const SET_DESC = "SET_DESC";
 const SET_ALL = "SET_ALL";
 
 const user = {
+  namespaced: true,
   state: {
     token: getToken(),
     account: "",

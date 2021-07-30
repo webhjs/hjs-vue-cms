@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-22 09:20:49
  * @LastEditors: 金苏
- * @LastEditTime: 2021-04-02 13:31:12
+ * @LastEditTime: 2021-07-27 10:30:58
  */
 /*
  * 全局权限检测
@@ -39,16 +39,17 @@ router.beforeEach(async (to, from, next) => {
     next()
     return;
   }
-  const res = await store.dispatch("pullUserInfo")
+  const res = await store.dispatch("user/pullUserInfo")
   if (!res.name) {
     next(`/login?redirect=${to.path}`);
     return;
   }
-  if (store.getters.name === "Lucy") {
+  if (store.getters['user/name'] === "Lucy") {
     const accessRoutes = filterAsyncRoutes(asyncRouterMap, ["Lucy"]);
     store.commit("layout/setRouters", constantRouterMap.concat(accessRoutes));
     // 动态添加路由到router内
     router.addRoutes(accessRoutes);
+    console.log(accessRoutes)
     next(to.path) // hack方法 确保addRoutes已完成
   } else {
     const accessRoutes = filterAsyncRoutes(asyncRouterMap, []);

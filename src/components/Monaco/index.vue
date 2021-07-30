@@ -4,7 +4,7 @@
  * @Author: morning
  * @Date: 2021-01-05 10:58:24
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-20 16:29:09
+ * @LastEditTime: 2021-07-30 17:09:16
 -->
 <template>
   <div style="display: flex;height: 100%; width: 100%;flex-flow: column;">
@@ -142,7 +142,7 @@ export default {
      * @return {*}
      */
     setValue(item) {
-      this.monacoEditor.setValue(item)
+      this.monacoEditor.setValue(JSON.stringify(item, null, 4))
     },
     allowWrite() {
       this.monacoEditor.updateOptions({ readOnly: false })

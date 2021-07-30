@@ -4,9 +4,10 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-21 16:35:02
+ * @LastEditTime: 2021-07-26 09:52:37
 -->
 <template>
+<div>
   <div class="dragger-wrap">
     <div class="left">
       <div
@@ -37,6 +38,17 @@
           style="font-size:30px; color:#333"
         ></i>
       </div>
+      <div
+        class="list-item"
+        style="height: 40px;width: 120px;"
+        type="icon-text"
+        :id="`icon-text${id}`"
+        draggable="true"
+        @dragstart="drag($event)"
+      >
+        <i class="iconfont icon-hushi" i-icon="icon-hushi" style="font-size:24px;"></i>
+        <span class="text icon-text"></span>
+      </div>
     </div>
     <div
       class="right"
@@ -63,6 +75,7 @@
       </div>
     </div>
   </div>
+</div>
 </template>
 
 <script>
@@ -297,9 +310,13 @@ export default {
   height: 500px
   display: flex
   .left
-    flex: 0 0 250px
-    display flex
-    justify-content space-between
+    flex: 0 0 250px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    .list-item
+      margin: 0 3px 5px 0
   .right
     margin-left 8px
     user-select none

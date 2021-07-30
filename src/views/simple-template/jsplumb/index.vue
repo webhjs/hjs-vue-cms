@@ -4,12 +4,13 @@
  * @Author: 金苏
  * @Date: 2021-07-14 14:14:22
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-16 16:40:34
+ * @LastEditTime: 2021-07-30 17:11:47
 -->
 <template>
   <div class="containers flex flex-col">
-    <Jsplumbdtarget id="js1" />
-    <Jsplumbdrag id="js2" />
+    <JsplumbdtargetView id="js1" />
+    <!-- <Jsplumbdtarget id="js2" /> -->
+    <Jsplumbdrag id="js3" />
     <Jsplumblist :sourceList="sourceList" :targetList="targetList" :relationArray="relationArray" />
   </div>
 </template>
@@ -17,12 +18,14 @@
 import Jsplumblist from './Jsplumblist'
 import Jsplumbdrag from './Jsplumbdrag'
 import Jsplumbdtarget from './Jsplumbdtarget'
+import JsplumbdtargetView from './JsplumbdtargetView'
 export default {
   name: 'Js-plumb',
   components: {
     Jsplumblist,
     Jsplumbdrag,
-    Jsplumbdtarget
+    Jsplumbdtarget,
+    JsplumbdtargetView
   },
   data() {
     return {

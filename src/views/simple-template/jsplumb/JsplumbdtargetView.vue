@@ -4,12 +4,12 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-26 09:52:51
+ * @LastEditTime: 2021-07-30 17:36:57
 -->
 <template>
   <div>
     <div class="header" style="margin: 10px 0;text-align: right;">
-      <el-button round size="small" @click="dialogVisible = true"
+      <el-button round size="small" @click="showJsplumb"
         >流程信息</el-button
       >
     </div>
@@ -26,8 +26,7 @@
           <span class="text"></span>
         </div>
         <div
-          class="list-item"
-          style="height: 40px;"
+          class="list-item vertical"
           type="vertical"
           :id="`vertical${id}`"
           draggable="true"
@@ -37,8 +36,7 @@
           <span class="text"></span>
         </div>
         <div
-          class="list-item"
-          style="height: 40px;width: 120px;"
+          class="list-item icon-text"
           type="icon-text"
           :id="`icon-text${id}`"
           draggable="true"
@@ -54,7 +52,20 @@
         @drop="drop($event)"
         @dragover="allowDrop($event)"
         @contextmenu.prevent
-      ></div>
+      >
+        <div
+          v-for="item in jsonList.nodeList"
+          :key="item.id"
+          class="list-item"
+          :id="item.id"
+          :class="[item.type, item.status]"
+          :style="{top: item.top,left: item.left}"
+          @contextmenu.prevent="showMenu($event, item.id)"
+        >
+          <i class="iconfont" :class="item.icon" i-icon="icon-yaowu1" style="font-size:24px;"></i>
+          <span class="text">{{ item.name }}</span>
+        </div>
+      </div>
       <!-- 右击菜单 -->
       <contextjs
         id="operate-action"
@@ -110,7 +121,7 @@
           show-icon
         />
         <div style="height: 500px">
-          <Monaco v-model="jsonList" isShowLanguage />
+          <Monaco v-model="jsonList" ref="monace" isShowLanguage />
         </div>
         <span slot="footer" class="dialog-footer">
           <el-button
@@ -301,6 +312,10 @@ export default {
     });
   },
   methods: {
+    showJsplumb() {
+      this.dialogVisible = true
+      this.$refs.monace?.setValue(this.jsonList)
+    },
     allowDrop(ev) {
       ev.preventDefault();
     },
@@ -318,41 +333,38 @@ export default {
       const sourceOffsetX = ev.dataTransfer.getData("sourceOffsetX");
       const sourceOffsetY = ev.dataTransfer.getData("sourceOffsetY");
       const sourceNode = document.getElementById(sourceId); // 源节点
-      const clonedNode = sourceNode.cloneNode(true); // 克隆节点
-      clonedNode.setAttribute("draggable", false);
       const uqid = Math.random().toString(36).substr(3, 10);
-      clonedNode.setAttribute("id", sourceId + uqid); // 修改一下id 值，避免id 重复
       const _left = (offsetX - sourceOffsetX + scrollLeft > 0
           ? offsetX - sourceOffsetX + scrollLeft
           : 0) + "px"
       const _top = (offsetY - sourceOffsetY + scrollTop > 0
           ? offsetY - sourceOffsetY + scrollTop
           : 0) + "px"
-      clonedNode.style.left = _left;
-      clonedNode.style.top = _top;
-      ev.target.appendChild(clonedNode); // 目标节点
       
       /* 修改数据 */
       const { nodeList } = this.jsonList
+      const _uqid = sourceId + uqid
       nodeList.push({
-        "id": sourceId + uqid,
-        "type": clonedNode.getAttribute("type"),
+        "id": _uqid,
+        "type": sourceNode.getAttribute("type"),
         "left": _left,
         "top": _top,
-        "icon": clonedNode.querySelector("i").getAttribute("i-icon")
+        "icon": sourceNode.querySelector("i").getAttribute("i-icon")
       })
       /* 修改数据 */
-
-      this._addPoint(sourceId + uqid);
-      (id => {
-        // 设置允许拖拽
-        this._draggable(id);
-        // 监听右击事件
-        document.getElementById(id).addEventListener("contextmenu", ev => {
-          ev.preventDefault();
-          this.showMenu(ev, id);
-        });
-      })(sourceId + uqid);
+      
+      this.$nextTick(() => {
+        this._addPoint(_uqid);
+        (id => {
+          // 设置允许拖拽
+          this._draggable(id);
+          // 监听右击事件
+          document.getElementById(id).addEventListener("contextmenu", ev => {
+            ev.preventDefault();
+            this.showMenu(ev, id);
+          });
+        })(_uqid);
+      })
     },
     // 右击节点
     showMenu(ev, id) {
@@ -410,36 +422,7 @@ export default {
     reloadData() {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
-      document.getElementById(`right${this.id}`).innerHTML = "";
       this._initConnect(this.jsonList);
-    },
-    createdList(list) {
-      var root = document.getElementById(`right${this.id}`);
-      var fragment = document.createDocumentFragment();
-      for (let i = 0; i < list.length; i++) {
-        const sourceNode = document.querySelector(`.left .list-item[type=${list[i].type}]`);
-        const clonedNode = sourceNode.cloneNode(true);
-        if(list[i].icon) {
-          clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
-          clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
-        }
-        list[i].name && (clonedNode.querySelector(".text").innerHTML = list[i].name);
-        list[i].status && clonedNode.classList.add(list[i].status);
-        clonedNode.setAttribute("draggable", false);
-        clonedNode.setAttribute("id", list[i].id);
-        clonedNode.style.top = list[i].top;
-        clonedNode.style.left = list[i].left;
-        fragment.appendChild(clonedNode);
-        /* 分片绑定事件 */
-        fragment
-          .getElementById(list[i].id)
-          .addEventListener("contextmenu", ev => {
-            ev.preventDefault();
-            this.showMenu(ev, list[i].id);
-          });
-        /* 分片绑定事件 */
-      }
-      root.appendChild(fragment);
     },
     // 删除节点
     deleteNode() {
@@ -574,7 +557,6 @@ export default {
     // 根据json绘制流程图
     _initConnect(list) {
       const { nodeList, lineList } = list;
-      this.createdList(nodeList);
       nodeList.forEach(item => {
         this._addPoint(item.id);
         if (!item.noDarag) {
@@ -699,7 +681,9 @@ export default {
           //   const connection = connInfo.connection;
           //   connection.getOverlay("h_con").setLabel("ggg"); // 连线lbale标签内容
           // });
-          this._initConnect(this.jsonList);
+          this.$nextTick(() => {
+            this._initConnect(this.jsonList);
+          })
         });
       });
 
@@ -751,15 +735,8 @@ export default {
     position: absolute;
     bottom: -25px;
     color: #000;
-  .icon-text
-    position: initial;
-    display: inline-block;
-    width: 80px;
-    text-align: center;
   &.success,&.warning,&.running,&.error
     color: white
-    .icon-text
-      color: white
   &.success
     background: #67c23a
   &.warning
@@ -787,4 +764,20 @@ export default {
   border: 1px solid #E0E3E7;
   border-radius: 5px;
 }
+
+.vertical
+  height: 40px;
+.icon-text
+  height: 40px;
+  width: 120px;
+  display: flex
+  .iconfont
+    flex: 0 0 40px
+    text-align: center;
+  .text
+    flex: 1
+    position: initial
+  &.success,&.warning,&.running,&.error
+    .text
+      color: white
 </style>
