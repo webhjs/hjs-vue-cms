@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 17:21:18
+ * @LastEditTime: 2021-08-02 17:26:17
 -->
 <template>
   <div>
@@ -422,12 +422,12 @@ export default {
       this.jsplumb?.deleteEveryEndpoint();
       try {
         const jsonList = this.$refs.monacoView.getValue()
-        this.jsonList = jsonList
         if (!jsonList.nodeList || !jsonList.lineList) {
           this.nodeVisable = false
           this.$message.warning('流程对象需要包含nodeList、lineList属性')
           return
         }
+        this.jsonList = jsonList
         this.nodeVisable = true
         this.$nextTick(() => {
           this._initConnect(jsonList);
