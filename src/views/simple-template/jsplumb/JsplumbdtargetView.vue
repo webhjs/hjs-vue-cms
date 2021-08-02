@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 16:37:51
+ * @LastEditTime: 2021-08-02 17:21:18
 -->
 <template>
   <div>
@@ -54,7 +54,7 @@
         @contextmenu.prevent
       >
         <template v-for="item in jsonList.nodeList">
-          <NodeItem :key="item.id" :id="id" :data="item" @showMenu="showMenu($event, item.id + id)" />
+          <NodeItem :key="item.id" :id="id" :data="item" v-if="nodeVisable" @showMenu="showMenu($event, item.id + id)" />
         </template>
       </div>
       <!-- 右击菜单 -->
@@ -293,7 +293,8 @@ export default {
         ]
       },
       editRuleForm: {},
-      editLineRuleForm: {}
+      editLineRuleForm: {},
+      nodeVisable: true
     };
   },
   beforeDestroy() {
@@ -419,12 +420,24 @@ export default {
     reloadData() {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
-      const jsonList = this.$refs.monacoView.getValue()
-      this.jsonList = jsonList
-      this.$nextTick(() => {
-        this._initConnect(jsonList);
+      try {
+        const jsonList = this.$refs.monacoView.getValue()
+        this.jsonList = jsonList
+        if (!jsonList.nodeList || !jsonList.lineList) {
+          this.nodeVisable = false
+          this.$message.warning('流程对象需要包含nodeList、lineList属性')
+          return
+        }
+        this.nodeVisable = true
+        this.$nextTick(() => {
+          this._initConnect(jsonList);
+          this.dialogVisible = false;
+        })
+      } catch(err) {
+        this.nodeVisable = false
+        this.$message.warning('初始化对象必须是json对象')
         this.dialogVisible = false;
-      })
+      }
     },
     // 删除节点
     deleteNode() {

@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 16:38:33
+ * @LastEditTime: 2021-08-02 16:58:42
 -->
 <template>
   <div>
@@ -443,10 +443,18 @@ export default {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
       document.getElementById(`right${this.id}`).innerHTML = "";
-      const jsonList = this.$refs.monacoTarget.getValue();
-      this.jsonList = jsonList;
-      this._initConnect(jsonList);
-      this.dialogVisible = false;
+      try {
+        const jsonList = this.$refs.monacoTarget.getValue();
+        this.jsonList = jsonList;
+        if (!jsonList.nodeList || !jsonList.lineList) {
+          this.$message.warning('流程对象需要包含nodeList、lineList属性')
+          return
+        }
+        this._initConnect(jsonList);
+      } catch(err) {
+        this.$message.warning('初始化对象必须是json对象')
+        this.dialogVisible = false;
+      }
     },
     createdList(list) {
       var root = document.getElementById(`right${this.id}`);
