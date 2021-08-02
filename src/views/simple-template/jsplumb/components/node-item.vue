@@ -1,0 +1,47 @@
+<!--
+ * @Descripttion: 
+ * @version: 
+ * @Author: 金苏
+ * @Date: 2021-08-02 09:24:33
+ * @LastEditors: 金苏
+ * @LastEditTime: 2021-08-02 13:30:46
+-->
+<template>
+  <div
+    class="list-item"
+    :id="data.id + id"
+    :class="[data.type, data.status]"
+    :style="{ top: data.top, left: data.left }"
+    @contextmenu.prevent="showMenu($event, data.id)"
+  >
+    <i
+      class="iconfont"
+      :class="data.icon"
+      i-icon="icon-yaowu1"
+      style="font-size:24px;"
+    ></i>
+    <span class="text">{{ data.name }}</span>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    id: {
+      type: String,
+      id: ''
+    },
+    data: {
+      type: Object,
+      default() {
+        return {};
+      }
+    }
+  },
+  methods: {
+    showMenu(ev, id) {
+      this.$emit("showMenu", ev, id);
+    }
+  }
+};
+</script>

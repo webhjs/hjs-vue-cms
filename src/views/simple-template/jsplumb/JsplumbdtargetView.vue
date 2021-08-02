@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-30 17:36:57
+ * @LastEditTime: 2021-08-02 15:17:23
 -->
 <template>
   <div>
@@ -53,22 +53,13 @@
         @dragover="allowDrop($event)"
         @contextmenu.prevent
       >
-        <div
-          v-for="item in jsonList.nodeList"
-          :key="item.id"
-          class="list-item"
-          :id="item.id"
-          :class="[item.type, item.status]"
-          :style="{top: item.top,left: item.left}"
-          @contextmenu.prevent="showMenu($event, item.id)"
-        >
-          <i class="iconfont" :class="item.icon" i-icon="icon-yaowu1" style="font-size:24px;"></i>
-          <span class="text">{{ item.name }}</span>
-        </div>
+        <template v-for="item in jsonList.nodeList">
+          <NodeItem :key="item.id" :id="id" :data="item" @showMenu="showMenu" />
+        </template>
       </div>
       <!-- 右击菜单 -->
       <contextjs
-        id="operate-action"
+        :id="`operate-action${id}`"
         :page="pagePosition"
         :visble.sync="visble"
         style="z-index: 7"
@@ -90,7 +81,7 @@
       <!-- 右击菜单 -->
       <!-- 右击菜单 -->
       <contextjs
-        id="line-action"
+        :id="`line-action${id}`"
         :page="pagePosition"
         :visble.sync="lineVisble"
         style="z-index: 7"
@@ -121,14 +112,13 @@
           show-icon
         />
         <div style="height: 500px">
-          <Monaco v-model="jsonList" ref="monace" isShowLanguage />
+          <Monaco v-model="jsonList" ref="monacoView" isShowLanguage />
         </div>
         <span slot="footer" class="dialog-footer">
           <el-button
             type="primary"
             @click="
-              reloadData();
-              dialogVisible = false;
+              reloadData
             "
             size="small"
           >
@@ -217,10 +207,13 @@
 import { jsPlumb } from "jsplumb";
 import Contextjs from "hjs-contextmenu";
 import Monaco from "@/components/Monaco";
+import NodeItem from "./components/node-item";
+import { Position } from 'monaco-editor';
 export default {
   components: {
     Contextjs,
-    Monaco
+    Monaco,
+    NodeItem
   },
   props: {
     id: {
@@ -312,9 +305,13 @@ export default {
     });
   },
   methods: {
+    // 真实id
+    idString(id) {
+      return id.slice(0, -this.id.length)
+    },
     showJsplumb() {
       this.dialogVisible = true
-      this.$refs.monace?.setValue(this.jsonList)
+      this.$refs.monacoView?.setValue(this.jsonList)
     },
     allowDrop(ev) {
       ev.preventDefault();
@@ -354,7 +351,7 @@ export default {
       /* 修改数据 */
       
       this.$nextTick(() => {
-        this._addPoint(_uqid);
+        this._addPoint(_uqid + this.id);
         (id => {
           // 设置允许拖拽
           this._draggable(id);
@@ -363,7 +360,7 @@ export default {
             ev.preventDefault();
             this.showMenu(ev, id);
           });
-        })(_uqid);
+        })(_uqid + this.id);
       })
     },
     // 右击节点
@@ -400,10 +397,10 @@ export default {
         return this.nodeIdConn.id === item.id
       })[0]
       const lable = conn.getLabel() || '';
+      conn.setLabel(label);
       if (!label) {
         conn.removeClass("flowLabel");
       } else {
-        conn.setLabel(label);
         conn.addClass("flowLabel");
       }
       this.dialogEditLineVisible = false
@@ -411,8 +408,8 @@ export default {
       /* 修改数据 */
       const { lineList } = this.jsonList
       for (let i = 0; i < lineList.length; i++) {
-        if (lineList[i].from === sourceId && lineList[i].to === targetId && (lineList[i].label === lable || (!lable && !lineList[i].label))) {
-          label && (lineList[i].label = label)
+        if (lineList[i].from === this.idString(sourceId) && lineList[i].to === this.idString(targetId) && (lineList[i].label === lable || (!lable && !lineList[i].label))) {
+          lineList[i].label = label
           break
         }
       }
@@ -422,7 +419,12 @@ export default {
     reloadData() {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
-      this._initConnect(this.jsonList);
+      const jsonList = this.$refs.monacoView.getValue()
+      this.jsonList = jsonList
+      this.$nextTick(() => {
+        this._initConnect(jsonList);
+        this.dialogVisible = false;
+      })
     },
     // 删除节点
     deleteNode() {
@@ -431,10 +433,10 @@ export default {
       /* 修改数据 */
       const { lineList, nodeList } = this.jsonList
       this.jsonList.nodeList = nodeList.filter(item => {
-        return item.id !== this.nodeId
+        return item.id !== this.idString(this.nodeId)
       })
       this.jsonList.lineList = lineList.filter(item => {
-        return ![item.from, item.to].includes(this.nodeId)
+        return ![item.from, item.to].includes(this.idString(this.nodeId))
       })
       /* 修改数据 */
     },
@@ -452,7 +454,7 @@ export default {
         /* 修改数据 */
         const { nodeList } = this.jsonList
         for (let i = 0; i < nodeList.length; i++) {
-          if (nodeList[i].id === this.nodeId) {
+          if (nodeList[i].id === this.idString(this.nodeId)) {
             nodeList[i].icon = icon
             nodeList[i].name = name
             break
@@ -475,7 +477,7 @@ export default {
           const { finalPos } = node
           const { nodeList } = this.jsonList
           for (let i = 0; i < nodeList.length; i++) {
-            if (nodeList[i].id === id) {
+            if (nodeList[i].id === this.idString(id)) {
               nodeList[i].left = finalPos[0] + 'px'
               nodeList[i].top = finalPos[1] + 'px'
               break
@@ -520,15 +522,13 @@ export default {
           /* 修改数据 */
           const { sourceId, targetId } = this.nodeIdConn
           const lable = this.nodeIdConn.getLabel()
-          console.log(sourceId, targetId, lable)
           const { lineList } = this.jsonList
-          this.jsonList.lineList = lineList.filter(function (line) {
-            if (line.from == sourceId && line.to == targetId && line.label == lable) {
-              return false
-            } else {
-              return true
+          for(let i = 0; i < lineList.length; i++) {
+            if (lineList[i].from == this.idString(sourceId) && lineList[i].to == this.idString(targetId) && lineList[i].label == lable) {
+              lineList.splice(i, 1);
+              break
             }
-          })
+          }
           /* 修改数据 */
 
           // 删除链接线
@@ -558,16 +558,16 @@ export default {
     _initConnect(list) {
       const { nodeList, lineList } = list;
       nodeList.forEach(item => {
-        this._addPoint(item.id);
+        this._addPoint(item.id + this.id);
         if (!item.noDarag) {
-          this._draggable(item.id);
+          this._draggable(item.id + this.id);
         }
       });
       lineList.forEach(item => {
         this._connect(
           {
-            source: item.from,
-            target: item.to
+            source: item.from + this.id,
+            target: item.to + this.id
             // overlays: [
             //   [
             //     "Label",
@@ -665,8 +665,8 @@ export default {
               const { lineList } = this.jsonList
               const { sourceId, targetId } = conn
               lineList.push({
-                "from": sourceId,
-                "to": targetId
+                "from": this.idString(sourceId),
+                "to": this.idString(targetId)
               })
               /* 修改数据 */
               return true;
@@ -713,11 +713,11 @@ export default {
     position relative
     overflow auto
 
-    .list-item
+    /deep/ .list-item
       position absolute
       .iconfont
         cursor pointer
-.list-item
+/deep/ .list-item
   height 80px
   width 80px
   display flex
@@ -747,6 +747,22 @@ export default {
     background: #f56c6c
   &:hover
     z-index 10
+/deep/ .vertical
+  height: 40px;
+/deep/ .icon-text
+  height: 40px;
+  width: 120px;
+  display: flex
+  .iconfont
+    flex: 0 0 40px
+    text-align: center;
+  .text
+    flex: 1
+    position: initial
+  &.success,&.warning,&.running,&.error
+    .text
+      color: white
+      
 /deep/ .jtk-endpoint
   z-index 5
 /deep/ .aLabel
@@ -764,20 +780,4 @@ export default {
   border: 1px solid #E0E3E7;
   border-radius: 5px;
 }
-
-.vertical
-  height: 40px;
-.icon-text
-  height: 40px;
-  width: 120px;
-  display: flex
-  .iconfont
-    flex: 0 0 40px
-    text-align: center;
-  .text
-    flex: 1
-    position: initial
-  &.success,&.warning,&.running,&.error
-    .text
-      color: white
 </style>

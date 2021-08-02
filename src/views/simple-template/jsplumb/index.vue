@@ -4,12 +4,12 @@
  * @Author: 金苏
  * @Date: 2021-07-14 14:14:22
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-30 17:11:47
+ * @LastEditTime: 2021-08-02 15:11:43
 -->
 <template>
   <div class="containers flex flex-col">
-    <JsplumbdtargetView id="js1" />
-    <!-- <Jsplumbdtarget id="js2" /> -->
+    <Jsplumbdtarget id="js2" />
+    <!-- <JsplumbdtargetView id="js1" /> -->
     <Jsplumbdrag id="js3" />
     <Jsplumblist :sourceList="sourceList" :targetList="targetList" :relationArray="relationArray" />
   </div>

@@ -4,7 +4,7 @@
  * @Author: morning
  * @Date: 2021-01-05 10:58:24
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-30 17:09:16
+ * @LastEditTime: 2021-08-02 13:30:22
 -->
 <template>
   <div style="display: flex;height: 100%; width: 100%;flex-flow: column;">
@@ -108,10 +108,10 @@ export default {
       //   console.log('on-mounted---------------------')
       //   window.addEventListener('resize', this.initEditor)
       // }) //编辑器创建完成回调
-      this.monacoEditor.onDidChangeModelContent((event) => {
-        //编辑器内容changge事件
-        this.$emit('on-code-change', JSON.parse(this.monacoEditor.getValue()))
-      })
+      // this.monacoEditor.onDidChangeModelContent((event) => {
+      //   //编辑器内容changge事件
+      //   this.$emit('on-code-change', JSON.parse(this.monacoEditor.getValue()))
+      // })
     },
     /**
      * @name:
@@ -120,7 +120,7 @@ export default {
      * @return {*}
      */
     getValue() {
-      this.monacoEditor.getValue() //获取编辑器中的文本
+      return JSON.parse(this.monacoEditor.getValue()) //获取编辑器中的文本
     },
     changeLanguage(lang) {
       const oldModel = this.monacoEditor.getModel() //获取旧模型
