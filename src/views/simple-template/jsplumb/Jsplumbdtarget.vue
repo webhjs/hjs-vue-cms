@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 16:04:32
+ * @LastEditTime: 2021-08-02 16:38:33
 -->
 <template>
   <div>
@@ -767,7 +767,7 @@ export default {
     align-content: flex-start
     .list-item
       margin: 0 3px 5px 0
-  .right
+  /deep/ .right
     margin-left 8px
     user-select none
     flex: 1
@@ -778,43 +778,43 @@ export default {
       position absolute
       .iconfont
         cursor pointer
-  .list-item
-    height 80px
-    width 80px
-    display flex
-    justify-content center
-    cursor move
-    align-items center
-    border 1px solid #ccc
-    z-index: 7
-    background: white
-    box-shadow: 2px 2px 19px #e0dfdf
-    border-radius: 5px
-    position: relative
-    .text
-      white-space:nowrap;
-      position: absolute;
-      bottom: -25px;
-      color: #000;
+/deep/ .list-item
+  height 80px
+  width 80px
+  display flex
+  justify-content center
+  cursor move
+  align-items center
+  border 1px solid #ccc
+  z-index: 7
+  background: white
+  box-shadow: 2px 2px 19px #e0dfdf
+  border-radius: 5px
+  position: relative
+  .text
+    white-space:nowrap;
+    position: absolute;
+    bottom: -25px;
+    color: #000;
+  .icon-text
+    position: initial;
+    display: inline-block;
+    width: 80px;
+    text-align: center;
+  &.success,&.warning,&.running,&.error
+    color: white
     .icon-text
-      position: initial;
-      display: inline-block;
-      width: 80px;
-      text-align: center;
-    &.success,&.warning,&.running,&.error
       color: white
-      .icon-text
-        color: white
-    &.success
-      background: #67c23a
-    &.warning
-      background: #e6a23c
-    &.running
-      background: #909399
-    &.error
-      background: #f56c6c
-    &:hover
-      z-index 10
+  &.success
+    background: #67c23a
+  &.warning
+    background: #e6a23c
+  &.running
+    background: #909399
+  &.error
+    background: #f56c6c
+  &:hover
+    z-index 10
 /deep/ .jtk-endpoint
   z-index 5
 /deep/ .aLabel
