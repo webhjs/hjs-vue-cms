@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 15:17:23
+ * @LastEditTime: 2021-08-02 16:07:11
 -->
 <template>
   <div>
@@ -54,7 +54,7 @@
         @contextmenu.prevent
       >
         <template v-for="item in jsonList.nodeList">
-          <NodeItem :key="item.id" :id="id" :data="item" @showMenu="showMenu" />
+          <NodeItem :key="item.id" :id="id" :data="item" @showMenu="showMenu($event, item.id + id)" />
         </template>
       </div>
       <!-- 右击菜单 -->
@@ -428,6 +428,7 @@ export default {
     },
     // 删除节点
     deleteNode() {
+      console.log(this.nodeId)
       this.jsplumb.remove(this.nodeId);
       this.visble = false;
       /* 修改数据 */
