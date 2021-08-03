@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 16:38:21
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-14 13:53:35
+ * @LastEditTime: 2021-08-03 17:17:01
 -->
 
 <template>
@@ -75,10 +75,10 @@ export default {
     tableData() {
       document
         .querySelector("#targetDome .el-table__body-wrapper")
-        .addEventListener("scroll", this.targetFuc, false);
+        ?.addEventListener("scroll", this.targetFuc, false);
       document
         .querySelector("#sourceDome .el-table__body-wrapper")
-        .addEventListener("scroll", this.sourceFuc, false);
+        ?.addEventListener("scroll", this.sourceFuc, false);
     }
   },
   methods: {
@@ -100,7 +100,7 @@ export default {
       this.sourceTimer = setTimeout(() => {
         document
           .querySelector("#sourceDome .el-table__body-wrapper")
-          .addEventListener("scroll", this.sourceFuc, false);
+          ?.addEventListener("scroll", this.sourceFuc, false);
       }, 500);
     },
     sourceFuc(e) {
@@ -118,7 +118,7 @@ export default {
       this.targetTimer = setTimeout(() => {
         document
           .querySelector("#targetDome .el-table__body-wrapper")
-          .addEventListener("scroll", this.targetFuc, false);
+          ?.addEventListener("scroll", this.targetFuc, false);
       }, 500);
     }
   },
