@@ -31,6 +31,9 @@
         <li class="px-2 py-1 border-b border-gray-100" @click="delCurrentTabsview">
           <i class="el-icon-circle-close mr-1" />关闭当前
         </li>
+        <li class="px-2 py-1 border-gray-100" @click="delOtherTabsview">
+          <i class="el-icon-circle-close mr-1" />关闭其它
+        </li>
         <li class="px-2 py-1 border-gray-100" @click="delAllTabsview">
           <i class="el-icon-circle-close mr-1" />关闭全部
         </li>
@@ -63,7 +66,8 @@ export default {
     ...mapActions([
       "addVisitedTabsView",
       "delVisitedTabsView",
-      "delAllVisitedTabsView"
+      "delAllVisitedTabsView",
+      "delAllVisitedOtherTabsView"
     ]),
     reload() {
       if (this.isActive(this.tagData)) {
@@ -72,9 +76,17 @@ export default {
         this.$parent.$parent.reload(this.tagData.path)
         this.$router.push(this.tagData.path)
       }
+      this.visble = false;
     },
     delCurrentTabsview() {
       this.handleClose(this.tagData);
+    },
+    delOtherTabsview() {
+      this.$parent.$parent.removeOtherCacheAll(this.tagData)
+      this.delAllVisitedOtherTabsView(this.tagData).then(res => {
+        if (this.$route.path !== this.tagData.path) { this.$router.push({path: this.tagData.path}) }
+        this.visble = false;
+      });
     },
     delAllTabsview() {
       this.$parent.$parent.removeCacheAll()
@@ -82,6 +94,7 @@ export default {
       const route = [];
       this.delAllVisitedTabsView(route).then(res => {
         this.$router.push('/')
+        this.visble = false;
       });
     },
     contextmenu(ev, tag) {
@@ -121,6 +134,7 @@ export default {
             this.$router.push("/");
           }
         }
+        this.visble = false;
       });
     }
   },

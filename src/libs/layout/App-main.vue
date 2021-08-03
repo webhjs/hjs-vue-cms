@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:10
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-26 09:45:35
+ * @LastEditTime: 2021-08-03 16:40:29
 -->
 <template>
   <div class="app-main">
@@ -63,6 +63,24 @@ export default {
       const length = this.$children.length
       for(let i = length - 1; i >= 0; i--) {
         this.$children[i] && this.$children[i].$destroy()
+      }
+    },
+    /*移除其它缓存的组件*/
+    removeOtherCacheAll(pathObj) {
+      const cacheRouteInstance = this.$refs.routerView
+      const cache = cacheRouteInstance?.$vnode?.parent.componentInstance?.cache
+      const keys = cacheRouteInstance?.$vnode?.parent?.componentInstance?.keys
+      for(let i = keys.length - 1; i >= 0; i--) {
+        if (!keys[i].includes(pathObj.path)) {
+          delete cache[keys[i]]
+          keys.splice(i, 1)
+        }
+      }
+      const length = this.$children.length
+      for(let i = length - 1; i >= 0; i--) {
+        if (this.$children[i].$vnode?.data?.key !== pathObj.path) {
+          this.$children[i] && this.$children[i].$destroy()
+        }
       }
     },
     // after-enter钩子事件，待子组件插入完毕调用

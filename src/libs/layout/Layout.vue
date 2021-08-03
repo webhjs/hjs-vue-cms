@@ -254,6 +254,9 @@ export default {
     removeCacheAll() {
       this.$refs.AppMain.removeCacheAll()
     },
+    removeOtherCacheAll(fullPath) {
+      this.$refs.AppMain.removeOtherCacheAll(fullPath)
+    },
     /* 中间商结束 */
     swtichCollapse() {
       this.isCollapse = !this.isCollapse
