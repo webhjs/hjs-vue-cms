@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-03 14:43:56
+ * @LastEditTime: 2021-08-03 15:15:44
 -->
 <template>
   <div>
@@ -22,7 +22,7 @@
         >
           <i
             class="iconfont icon-hushi"
-            i-icon="icon-hushi"
+            i-icon="iconfont icon-hushi"
             style="font-size:30px;"
           ></i>
           <span class="text"></span>
@@ -37,7 +37,7 @@
         >
           <i
             class="iconfont icon-yaowu1"
-            i-icon="icon-yaowu1"
+            i-icon="iconfont icon-yaowu1"
             style="font-size:24px;"
           ></i>
           <span class="text"></span>
@@ -52,7 +52,7 @@
         >
           <i
             class="iconfont icon-hushi"
-            i-icon="icon-hushi"
+            i-icon="iconfont icon-hushi"
             style="font-size:24px;"
           ></i>
           <span class="text icon-text"></span>
