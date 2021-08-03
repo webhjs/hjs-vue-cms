@@ -24,4 +24,5 @@ npm run lint
 #### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
-![cms.jpg](https://github.com/webhjs/hjs-vue-cms/blob/master/cms.jpg)
+![hjs-cms.jpg](https://webhjs.github.io/su/img/hjs-cms.jpg)
+![cms.jpg](https://webhjs.github.io/su/img/cms.jpg)
