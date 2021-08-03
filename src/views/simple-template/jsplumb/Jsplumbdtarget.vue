@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 17:25:56
+ * @LastEditTime: 2021-08-03 14:43:56
 -->
 <template>
   <div>
@@ -249,7 +249,7 @@ export default {
             type: "horizontal",
             left: "18px",
             top: "223px",
-            icon: "icon-hushi3",
+            icon: "iconfont icon-hushi3",
             status: "success",
             noDarag: true
           },
@@ -259,7 +259,7 @@ export default {
             name: "流程B-节点B",
             left: "351px",
             top: "96px",
-            icon: "icon-yiliao-copy",
+            icon: "iconfont icon-yiliao-copy",
             status: "error"
           },
           {
@@ -268,7 +268,7 @@ export default {
             type: "horizontal",
             left: "354px",
             top: "351px",
-            icon: "icon-yiliao21",
+            icon: "iconfont icon-yiliao21",
             status: "warning"
           },
           {
@@ -277,7 +277,7 @@ export default {
             type: "icon-text",
             left: "723px",
             top: "215px",
-            icon: "icon-yiliao23",
+            icon: "iconfont icon-yiliao23",
             status: "running"
           }
         ],
@@ -451,6 +451,7 @@ export default {
         }
         this.jsonList = jsonList;
         this._initConnect(jsonList);
+        this.dialogVisible = false;
       } catch(err) {
         this.$message.warning('初始化对象必须是json对象')
         this.dialogVisible = false;
@@ -465,7 +466,7 @@ export default {
         );
         const clonedNode = sourceNode.cloneNode(true);
         if (list[i].icon) {
-          clonedNode.querySelector("i").classList = `iconfont ${list[i].icon}`;
+          clonedNode.querySelector("i").classList = `anchor ${list[i].icon}`;
           clonedNode.querySelector("i").setAttribute("i-icon", list[i].icon);
         }
         list[i].name &&
@@ -510,7 +511,7 @@ export default {
       if (flag) {
         const { icon, name } = this.editRuleForm;
         span.innerHTML = name;
-        i.classList = `iconfont ${icon}`;
+        i.classList = `anchor ${icon}`;
         i.setAttribute("i-icon", icon);
         this.dialogEditVisible = false;
         /* 修改数据 */
@@ -554,7 +555,7 @@ export default {
     _addPoint(sourceId) {
       this.jsplumb.makeSource(sourceId, {
         // 设置可以拖拽的类名，只要鼠标移动到该类名上的DOM，就可以拖拽连线
-        filter: ".iconfont",
+        filter: ".anchor",
         filterExclude: false,
         anchor: "Continuous",
         // 是否允许自己连接自己
@@ -566,7 +567,7 @@ export default {
       });
       this.jsplumb.makeTarget(sourceId, {
         // 设置可以拖拽的类名，只要鼠标移动到该类名上的DOM，就可以拖拽连线
-        filter: ".iconfont",
+        filter: ".anchor",
         filterExclude: false,
         // 是否允许自己连接自己
         anchor: "Continuous",
@@ -823,6 +824,24 @@ export default {
     background: #f56c6c
   &:hover
     z-index 10
+/deep/ .vertical
+  height: 40px;
+/deep/ .icon-text
+  height: 40px;
+  width: 120px;
+  display: flex
+  .iconfont
+    flex: 0 0 40px
+    text-align: center;
+  .text
+    flex: 1
+    position: initial
+    display: flex
+    align-items: center
+  &.success,&.warning,&.running,&.error
+    .text
+      color: white
+      
 /deep/ .jtk-endpoint
   z-index 5
 /deep/ .aLabel

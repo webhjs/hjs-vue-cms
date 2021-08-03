@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-08-02 09:24:33
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 13:30:46
+ * @LastEditTime: 2021-08-03 14:49:57
 -->
 <template>
   <div
@@ -15,9 +15,9 @@
     @contextmenu.prevent="showMenu($event, data.id)"
   >
     <i
-      class="iconfont"
+      class="anchor"
       :class="data.icon"
-      i-icon="icon-yaowu1"
+      :i-icon="data.icon"
       style="font-size:24px;"
     ></i>
     <span class="text">{{ data.name }}</span>

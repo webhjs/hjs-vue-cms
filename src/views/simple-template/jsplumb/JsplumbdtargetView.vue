@@ -4,14 +4,12 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 17:26:17
+ * @LastEditTime: 2021-08-03 14:52:17
 -->
 <template>
   <div>
     <div class="header" style="margin: 10px 0;text-align: right;">
-      <el-button round size="small" @click="showJsplumb"
-        >流程信息</el-button
-      >
+      <el-button round size="small" @click="showJsplumb">流程信息</el-button>
     </div>
     <div class="dragger-wrap">
       <div class="left">
@@ -22,7 +20,11 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-hushi" i-icon="icon-hushi" style="font-size:30px;"></i>
+          <i
+            class="iconfont icon-hushi"
+            i-icon="icon-hushi"
+            style="font-size:30px;"
+          ></i>
           <span class="text"></span>
         </div>
         <div
@@ -32,7 +34,11 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-yaowu1" i-icon="icon-yaowu1" style="font-size:24px;"></i>
+          <i
+            class="iconfont icon-yaowu1"
+            i-icon="icon-yaowu1"
+            style="font-size:24px;"
+          ></i>
           <span class="text"></span>
         </div>
         <div
@@ -42,7 +48,11 @@
           draggable="true"
           @dragstart="drag($event)"
         >
-          <i class="iconfont icon-hushi" i-icon="icon-hushi" style="font-size:24px;"></i>
+          <i
+            class="iconfont icon-hushi"
+            i-icon="icon-hushi"
+            style="font-size:24px;"
+          ></i>
           <span class="text icon-text"></span>
         </div>
       </div>
@@ -54,7 +64,13 @@
         @contextmenu.prevent
       >
         <template v-for="item in jsonList.nodeList">
-          <NodeItem :key="item.id" :id="id" :data="item" v-if="nodeVisable" @showMenu="showMenu($event, item.id + id)" />
+          <NodeItem
+            :key="item.id"
+            :id="id"
+            :data="item"
+            v-if="nodeVisable"
+            @showMenu="showMenu($event, item.id + id)"
+          />
         </template>
       </div>
       <!-- 右击菜单 -->
@@ -95,7 +111,10 @@
           >
             <i class="el-icon-delete mr-1" />删除连线
           </li>
-          <li class="px-2 py-1 border-b border-gray-100" @click="isShowEditLineDialog">
+          <li
+            class="px-2 py-1 border-b border-gray-100"
+            @click="isShowEditLineDialog"
+          >
             <i class="el-icon-edit mr-1" />编辑连线
           </li>
         </ul>
@@ -115,13 +134,7 @@
           <Monaco v-model="jsonList" ref="monacoView" isShowLanguage />
         </div>
         <span slot="footer" class="dialog-footer">
-          <el-button
-            type="primary"
-            @click="
-              reloadData
-            "
-            size="small"
-          >
+          <el-button type="primary" @click="reloadData" size="small">
             保 存
           </el-button>
         </span>
@@ -197,7 +210,10 @@
       </el-dialog>
       <!-- 编辑连线 -->
     </div>
-    <pre v-if="false" style="position: fixed;top: 0;left: 0;background: white;height: 100vh;overflow: auto;">
+    <pre
+      v-if="false"
+      style="position: fixed;top: 0;left: 0;background: white;height: 100vh;overflow: auto;"
+    >
       {{ jsonList }}
     </pre>
   </div>
@@ -208,7 +224,7 @@ import { jsPlumb } from "jsplumb";
 import Contextjs from "hjs-contextmenu";
 import Monaco from "@/components/Monaco";
 import NodeItem from "./components/node-item";
-import { Position } from 'monaco-editor';
+import { Position } from "monaco-editor";
 export default {
   components: {
     Contextjs,
@@ -233,62 +249,79 @@ export default {
         name: "流程B",
         nodeList: [
           {
-            id: "nodeA",
-            name: "节点A-不可拖拽",
-            type: "horizontal",
-            left: "18px",
-            top: "223px",
-            icon: "icon-hushi3",
-            status: "success",
-            noDarag: true
-          },
-          {
-            id: "nodeB",
+            id: "verticaljs2cz8491n0dp",
             type: "vertical",
-            name: "流程B-节点B",
-            left: "351px",
-            top: "96px",
-            icon: "icon-yiliao-copy",
-            status: "error"
+            left: "92px",
+            top: "44px",
+            icon: "fa fa-eye",
+            status: "success",
+            name: ""
           },
           {
-            id: "nodeC",
-            name: "流程B-节点C",
+            id: "verticaljs2csfvwt64y",
+            type: "vertical",
+            left: "363px",
+            top: "44px",
+            icon: "fa fa-eye",
+            status: "success",
+            name: ""
+          },
+          {
+            id: "horizontaljs2pmq1tz6qr",
             type: "horizontal",
-            left: "354px",
-            top: "351px",
-            icon: "icon-yiliao21",
+            left: "221px",
+            top: "179px",
+            icon: "iconfont icon-hushi",
             status: "warning"
           },
           {
-            id: "nodeD",
-            name: "B-节点D",
+            id: "icon-textjs2pzpf57y54c",
             type: "icon-text",
-            left: "723px",
-            top: "215px",
-            icon: "icon-yiliao23",
+            left: "201px",
+            top: "366px",
+            icon: "iconfont icon-hushi",
+            status: "error"
+          },
+          {
+            id: "verticaljs251k6yzrq0v",
+            type: "vertical",
+            left: "13px",
+            top: "210px",
+            icon: "iconfont icon-yaowu1",
+            status: "running"
+          },
+          {
+            id: "verticaljs2wrz03t34pl",
+            type: "vertical",
+            left: "432px",
+            top: "214px",
+            icon: "iconfont icon-yaowu1",
             status: "running"
           }
         ],
         lineList: [
           {
-            from: "nodeA",
-            to: "nodeB",
-            label: "条件A",
-            error: true
+            from: "verticaljs2cz8491n0dp",
+            to: "horizontaljs2pmq1tz6qr",
+            label: "左眼"
           },
           {
-            from: "nodeA",
-            to: "nodeC",
-            label: "条件B"
+            from: "verticaljs2csfvwt64y",
+            to: "horizontaljs2pmq1tz6qr",
+            label: "右眼"
           },
           {
-            from: "nodeB",
-            to: "nodeD"
+            from: "horizontaljs2pmq1tz6qr",
+            to: "icon-textjs2pzpf57y54c",
+            label: "鼻子"
           },
           {
-            from: "nodeC",
-            to: "nodeD"
+            from: "horizontaljs2pmq1tz6qr",
+            to: "verticaljs251k6yzrq0v"
+          },
+          {
+            from: "horizontaljs2pmq1tz6qr",
+            to: "verticaljs2wrz03t34pl"
           }
         ]
       },
@@ -308,11 +341,11 @@ export default {
   methods: {
     // 真实id
     idString(id) {
-      return id.slice(0, -this.id.length)
+      return id.slice(0, -this.id.length);
     },
     showJsplumb() {
-      this.dialogVisible = true
-      this.$refs.monacoView?.setValue(this.jsonList)
+      this.dialogVisible = true;
+      this.$refs.monacoView?.setValue(this.jsonList);
     },
     allowDrop(ev) {
       ev.preventDefault();
@@ -331,26 +364,30 @@ export default {
       const sourceOffsetX = ev.dataTransfer.getData("sourceOffsetX");
       const sourceOffsetY = ev.dataTransfer.getData("sourceOffsetY");
       const sourceNode = document.getElementById(sourceId); // 源节点
-      const uqid = Math.random().toString(36).substr(3, 10);
-      const _left = (offsetX - sourceOffsetX + scrollLeft > 0
+      const uqid = Math.random()
+        .toString(36)
+        .substr(3, 10);
+      const _left =
+        (offsetX - sourceOffsetX + scrollLeft > 0
           ? offsetX - sourceOffsetX + scrollLeft
-          : 0) + "px"
-      const _top = (offsetY - sourceOffsetY + scrollTop > 0
+          : 0) + "px";
+      const _top =
+        (offsetY - sourceOffsetY + scrollTop > 0
           ? offsetY - sourceOffsetY + scrollTop
-          : 0) + "px"
-      
+          : 0) + "px";
+
       /* 修改数据 */
-      const { nodeList } = this.jsonList
-      const _uqid = sourceId + uqid
+      const { nodeList } = this.jsonList;
+      const _uqid = sourceId + uqid;
       nodeList.push({
-        "id": _uqid,
-        "type": sourceNode.getAttribute("type"),
-        "left": _left,
-        "top": _top,
-        "icon": sourceNode.querySelector("i").getAttribute("i-icon")
-      })
+        id: _uqid,
+        type: sourceNode.getAttribute("type"),
+        left: _left,
+        top: _top,
+        icon: sourceNode.querySelector("i").getAttribute("i-icon")
+      });
       /* 修改数据 */
-      
+
       this.$nextTick(() => {
         this._addPoint(_uqid + this.id);
         (id => {
@@ -362,7 +399,7 @@ export default {
             this.showMenu(ev, id);
           });
         })(_uqid + this.id);
-      })
+      });
     },
     // 右击节点
     showMenu(ev, id) {
@@ -378,40 +415,48 @@ export default {
     },
     isShowEditLineDialog() {
       const { sourceId, targetId } = this.nodeIdConn;
-      const conn = this.jsplumb.getConnections({
-        source: sourceId,
-        target: targetId
-      }).filter(item => {
-        return this.nodeIdConn.id === item.id
-      })[0]
-      this.$set(this.editLineRuleForm, 'label', conn.getLabel())
-      this.dialogEditLineVisible = true
+      const conn = this.jsplumb
+        .getConnections({
+          source: sourceId,
+          target: targetId
+        })
+        .filter(item => {
+          return this.nodeIdConn.id === item.id;
+        })[0];
+      this.$set(this.editLineRuleForm, "label", conn.getLabel());
+      this.dialogEditLineVisible = true;
     },
     // 编辑连线
     editNodeLine() {
       const { sourceId, targetId } = this.nodeIdConn;
-      const { label } = this.editLineRuleForm
-      const conn = this.jsplumb.getConnections({
-        source: sourceId,
-        target: targetId
-      }).filter(item => {
-        return this.nodeIdConn.id === item.id
-      })[0]
-      const lable = conn.getLabel() || '';
+      const { label } = this.editLineRuleForm;
+      const conn = this.jsplumb
+        .getConnections({
+          source: sourceId,
+          target: targetId
+        })
+        .filter(item => {
+          return this.nodeIdConn.id === item.id;
+        })[0];
+      const lable = conn.getLabel() || "";
       conn.setLabel(label);
       if (!label) {
         conn.removeClass("flowLabel");
       } else {
         conn.addClass("flowLabel");
       }
-      this.dialogEditLineVisible = false
+      this.dialogEditLineVisible = false;
 
       /* 修改数据 */
-      const { lineList } = this.jsonList
+      const { lineList } = this.jsonList;
       for (let i = 0; i < lineList.length; i++) {
-        if (lineList[i].from === this.idString(sourceId) && lineList[i].to === this.idString(targetId) && (lineList[i].label === lable || (!lable && !lineList[i].label))) {
-          lineList[i].label = label
-          break
+        if (
+          lineList[i].from === this.idString(sourceId) &&
+          lineList[i].to === this.idString(targetId) &&
+          (lineList[i].label === lable || (!lable && !lineList[i].label))
+        ) {
+          lineList[i].label = label;
+          break;
         }
       }
       /* 修改数据 */
@@ -421,37 +466,37 @@ export default {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
       try {
-        const jsonList = this.$refs.monacoView.getValue()
+        const jsonList = this.$refs.monacoView.getValue();
         if (!jsonList.nodeList || !jsonList.lineList) {
-          this.nodeVisable = false
-          this.$message.warning('流程对象需要包含nodeList、lineList属性')
-          return
+          this.nodeVisable = false;
+          this.$message.warning("流程对象需要包含nodeList、lineList属性");
+          return;
         }
-        this.jsonList = jsonList
-        this.nodeVisable = true
+        this.jsonList = jsonList;
+        this.nodeVisable = true;
         this.$nextTick(() => {
           this._initConnect(jsonList);
           this.dialogVisible = false;
-        })
-      } catch(err) {
-        this.nodeVisable = false
-        this.$message.warning('初始化对象必须是json对象')
+        });
+      } catch (err) {
+        this.nodeVisable = false;
+        this.$message.warning("初始化对象必须是json对象");
         this.dialogVisible = false;
       }
     },
     // 删除节点
     deleteNode() {
-      console.log(this.nodeId)
+      console.log(this.nodeId);
       this.jsplumb.remove(this.nodeId);
       this.visble = false;
       /* 修改数据 */
-      const { lineList, nodeList } = this.jsonList
+      const { lineList, nodeList } = this.jsonList;
       this.jsonList.nodeList = nodeList.filter(item => {
-        return item.id !== this.idString(this.nodeId)
-      })
+        return item.id !== this.idString(this.nodeId);
+      });
       this.jsonList.lineList = lineList.filter(item => {
-        return ![item.from, item.to].includes(this.idString(this.nodeId))
-      })
+        return ![item.from, item.to].includes(this.idString(this.nodeId));
+      });
       /* 修改数据 */
     },
     // 编辑节点
@@ -460,23 +505,23 @@ export default {
       const i = dom.querySelector("i");
       const span = dom.querySelector("span");
       if (flag) {
-        const {icon, name} = this.editRuleForm
+        const { icon, name } = this.editRuleForm;
         span.innerHTML = name;
-        i.classList = `iconfont ${icon}`;
+        i.classList = `${icon}`;
         i.setAttribute("i-icon", icon);
         this.dialogEditVisible = false;
         /* 修改数据 */
-        const { nodeList } = this.jsonList
+        const { nodeList } = this.jsonList;
         for (let i = 0; i < nodeList.length; i++) {
           if (nodeList[i].id === this.idString(this.nodeId)) {
-            nodeList[i].icon = icon
-            nodeList[i].name = name
-            break
+            nodeList[i].icon = icon;
+            nodeList[i].name = name;
+            break;
           }
         }
         /* 修改数据 */
       } else {
-        this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon") || '');
+        this.$set(this.editRuleForm, "icon", i.getAttribute("i-icon") || "");
         this.$set(this.editRuleForm, "name", span.innerHTML);
         this.dialogEditVisible = true;
       }
@@ -485,16 +530,17 @@ export default {
     _draggable(id) {
       this.jsplumb.draggable(id, {
         containment: "parent", // 限制拖拽区域
-        stop: (node) => { // 拖拽结束回调
+        stop: node => {
+          // 拖拽结束回调
           /* 修改数据 */
-          const { id } = node.el
-          const { finalPos } = node
-          const { nodeList } = this.jsonList
+          const { id } = node.el;
+          const { finalPos } = node;
+          const { nodeList } = this.jsonList;
           for (let i = 0; i < nodeList.length; i++) {
             if (nodeList[i].id === this.idString(id)) {
-              nodeList[i].left = finalPos[0] + 'px'
-              nodeList[i].top = finalPos[1] + 'px'
-              break
+              nodeList[i].left = finalPos[0] + "px";
+              nodeList[i].top = finalPos[1] + "px";
+              break;
             }
           }
           /* 修改数据 */
@@ -505,7 +551,7 @@ export default {
     _addPoint(sourceId) {
       this.jsplumb.makeSource(sourceId, {
         // 设置可以拖拽的类名，只要鼠标移动到该类名上的DOM，就可以拖拽连线
-        filter: ".iconfont",
+        filter: ".anchor",
         filterExclude: false,
         anchor: "Continuous",
         // 是否允许自己连接自己
@@ -517,7 +563,7 @@ export default {
       });
       this.jsplumb.makeTarget(sourceId, {
         // 设置可以拖拽的类名，只要鼠标移动到该类名上的DOM，就可以拖拽连线
-        filter: ".iconfont",
+        filter: ".anchor",
         filterExclude: false,
         // 是否允许自己连接自己
         anchor: "Continuous",
@@ -534,13 +580,17 @@ export default {
       })
         .then(() => {
           /* 修改数据 */
-          const { sourceId, targetId } = this.nodeIdConn
-          const lable = this.nodeIdConn.getLabel()
-          const { lineList } = this.jsonList
-          for(let i = 0; i < lineList.length; i++) {
-            if (lineList[i].from == this.idString(sourceId) && lineList[i].to == this.idString(targetId) && lineList[i].label == lable) {
+          const { sourceId, targetId } = this.nodeIdConn;
+          const lable = this.nodeIdConn.getLabel();
+          const { lineList } = this.jsonList;
+          for (let i = 0; i < lineList.length; i++) {
+            if (
+              lineList[i].from == this.idString(sourceId) &&
+              lineList[i].to == this.idString(targetId) &&
+              lineList[i].label == lable
+            ) {
               lineList.splice(i, 1);
-              break
+              break;
             }
           }
           /* 修改数据 */
@@ -558,8 +608,16 @@ export default {
         },
         {
           label: item.label,
-          paintStyle: { stroke: item.error ? '#F18383' : '#7AB02C', strokeWidth: 2, outlineWidth: 15, outlineStroke: "transparent" },
-          endpointStyle: { radius: 6, fill: item.error ? '#F18383' : '#7AB02C' }, // 端口样式
+          paintStyle: {
+            stroke: item.error ? "#F18383" : "#7AB02C",
+            strokeWidth: 2,
+            outlineWidth: 15,
+            outlineStroke: "transparent"
+          },
+          endpointStyle: {
+            radius: 6,
+            fill: item.error ? "#F18383" : "#7AB02C"
+          }, // 端口样式
           // 动态锚点、提供了4个方向 Continuous、AutoDefault
           anchor: "Continuous",
           labelStyle: {
@@ -617,7 +675,7 @@ export default {
         // Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
         PaintStyle: {
           stroke: "#7AB02C",
-          strokeWidth: 2, 
+          strokeWidth: 2,
           // 设置外边线的颜色，默认设置透明，这样别人就看不见了，点击线的时候可以不用精确点击，参考 https://blog.csdn.net/roymno2/article/details/72717101
           outlineStroke: "transparent",
           // 线外边的宽，值越大，线的点击范围越大
@@ -642,7 +700,7 @@ export default {
                 }
               }
             }
-          ],
+          ]
           // [
           //   "Label", // 连线lable样式
           //   {
@@ -676,12 +734,12 @@ export default {
               return false;
             } else {
               /* 修改数据 */
-              const { lineList } = this.jsonList
-              const { sourceId, targetId } = conn
+              const { lineList } = this.jsonList;
+              const { sourceId, targetId } = conn;
               lineList.push({
-                "from": this.idString(sourceId),
-                "to": this.idString(targetId)
-              })
+                from: this.idString(sourceId),
+                to: this.idString(targetId)
+              });
               /* 修改数据 */
               return true;
             }
@@ -697,7 +755,7 @@ export default {
           // });
           this.$nextTick(() => {
             this._initConnect(this.jsonList);
-          })
+          });
         });
       });
 
@@ -776,7 +834,7 @@ export default {
   &.success,&.warning,&.running,&.error
     .text
       color: white
-      
+
 /deep/ .jtk-endpoint
   z-index 5
 /deep/ .aLabel
