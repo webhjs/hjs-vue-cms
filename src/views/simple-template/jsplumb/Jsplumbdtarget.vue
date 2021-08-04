@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-03 15:15:44
+ * @LastEditTime: 2021-08-04 10:33:53
 -->
 <template>
   <div>
@@ -785,8 +785,8 @@ export default {
     overflow auto
     .list-item
       position absolute
-      .iconfont
-        cursor pointer
+      .anchor
+        cursor crosshair
 /deep/ .list-item
   height 80px
   width 80px
