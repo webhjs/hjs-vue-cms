@@ -15,7 +15,7 @@
     "echarts": "^4.0.4",
     "element-ui": "^2.15.1",
     "font-awesome": "^4.7.0",
-    "hjs-contextmenu": "^1.0.0",
+    "hjs-contextmenu": "^1.0.1",
     "hjs-xlsx": "^1.0.1",
     "html2canvas": "^1.0.0-rc.7",
     "js-cookie": "^2.2.1",
