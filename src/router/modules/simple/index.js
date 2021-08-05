@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-29 17:31:42
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-14 14:13:34
+ * @LastEditTime: 2021-08-05 19:15:32
  */
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
@@ -127,12 +127,12 @@ export const asyncRouterMap = [
     component: Layout,
     alwaysShow: true,
     redirect: "/three/document",
-    meta: { icon: "s-home", title: "第三方文档", roles: ["Lucy1"] },
+    meta: { icon: "s-home", title: "第三方文档", roles: ["Lucy"] },
     children: [
       {
         path: "document",
         name: "sub1",
-        meta: { icon: "star-on", title: "官方文档", roles: ["Lucy1"] },
+        meta: { icon: "star-on", title: "官方文档", roles: ["Lucy"] },
         component: () => import("@/views/simple-template/document")
       }
     ]
