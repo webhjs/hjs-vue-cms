@@ -111,7 +111,7 @@ export default {
           return;
         }
         this.$nextTick(() => {
-          const acitvePath = this.showlevel1 ? val[0].path || '/' : val[val.length - 1].path
+          const acitvePath = this.showlevel1 ? val[0].path || '/' : val[val.length - 1].meta.activeMenu || val[val.length - 1].path
           // if (this.timer) clearTimeout(this.timer)
           // this.timer = setTimeout(() => {
             this.$refs.currentTopMenu.activeIndex = acitvePath // elementui default-active 不会用感觉有bug 我猜可能是因为我涉及到单个子路由提升到开头

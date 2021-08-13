@@ -4,14 +4,14 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:10
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-03 16:40:29
+ * @LastEditTime: 2021-08-10 09:26:59
 -->
 <template>
   <div class="app-main">
     <!--页面不需要缓存-->
     <transition  name="fade" enter-active-class="animated fadeIn" mode="out-in" appear @after-enter="afterRouterChange">
       <keep-alive>
-        <router-view v-if="isReload" :include="keepAliveArr" :key="$route.fullPath" class="absolute w-full h-full" ref="routerView"> </router-view>
+        <router-view v-if="isReload" :include="keepAliveArr" :key="$route.fullPath" class="absolute w-full h-full whitebg" ref="routerView"> </router-view>
       </keep-alive>
     </transition>
   </div>
@@ -96,7 +96,9 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.h-full
+.whitebg  
   overflow auto
+  background-color #f2f4f7
+  padding: 20px
 </style>
 

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-20 17:29:16
- * @LastEditTime: 2021-07-12 17:22:20
+ * @LastEditTime: 2021-08-12 13:32:04
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\layout\sidebar\sidebar.vue
@@ -77,7 +77,7 @@ export default {
           return;
         }
         this.$nextTick(() => {
-          this.defaultActive = this.$router.currentRoute.path;
+          this.defaultActive = this.$router.currentRoute.meta.activeMenu || this.$router.currentRoute.path;
         });
       },
       immediate: true

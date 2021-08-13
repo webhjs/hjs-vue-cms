@@ -4,21 +4,21 @@
  * @Author: 金苏
  * @Date: 2021-03-30 13:28:46
  * @LastEditors: 金苏
- * @LastEditTime: 2021-03-30 17:19:50
+ * @LastEditTime: 2021-08-05 19:20:10
  */
 export default {
   author: {
     name: '喻'
   },
   login: {
-    title: 'XX市家庭医生签约平台',
+    title: '区域协同网关',
     account: '账号',
     password: '密码',
     remember: '记住密码',
     login: '登录'
   },
   navbar: {
-    title: 'XX市家庭医生签约平台',
+    title: '区域协同网关',
     screenfull: '全屏',
     profile: '个人中心',
     avatar: '修改头像',

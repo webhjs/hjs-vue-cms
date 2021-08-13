@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-25 17:18:04
- * @LastEditTime: 2021-04-25 09:33:55
+ * @LastEditTime: 2021-08-12 14:28:05
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \mandalat.frame\src\layout\sidebar\sidebar-item-all.vue
@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    console.log(this.basePath)
+    // console.log(this.basePath)
   },
   methods: {
     onlyOneChildren(children, parent) {
@@ -89,14 +89,13 @@ export default {
           return true
         }
       })
-      console.log(showingChildren.length)
       if (showingChildren.length === 1) {
         return true
       }
       if (showingChildren.length === 0) {
         this.onlyOneChild = {
-          ...parent,
           path: '',
+          ...parent,
           noShowingChild: true
         }
         return true
