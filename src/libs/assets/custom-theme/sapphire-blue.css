@@ -31,9 +31,16 @@
 .sapphire-blue .top-navbar .el-menu--horizontal {
   background-color: #0081E4 !important;
 }
-.sapphire-blue .el-menu, .sapphire-blue .el-tabs--border-card>.el-tabs__header {
+/* .sapphire-blue .el-menu, .sapphire-blue .el-tabs--border-card>.el-tabs__header {
+  background-color: white;
+} */
+.sapphire-blue .el-menu {
+  background-color: #FFF;
+}
+.sapphire-blue .el-tabs--border-card>.el-tabs__header {
   background-color: white;
 }
+#f5f7fa
 .sapphire-blue .left-sidebar .el-menu-item.is-active i {
   color: #e6f7ff;
 }
@@ -58,7 +65,7 @@
   color: #e6f7ff;
   top: 0px;
 }
-.sapphire-blue .el-menu-item:hover i {
+.sapphire-blue .el-menu-item:hover i, .sapphire-blue .el-menu-item.is-active i {
   color: #e6f7ff;
 }
 .sapphire-blue .el-menu-item i,

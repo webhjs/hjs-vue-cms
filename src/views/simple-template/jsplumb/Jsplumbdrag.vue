@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-26 09:52:37
+ * @LastEditTime: 2021-09-22 15:27:47
 -->
 <template>
 <div>
@@ -85,6 +85,10 @@ export default {
     id: {
       type: String,
       default: 'jsplumb'
+    },
+    percent: {
+      type: Boolean,
+      default: false
     }
   },
   beforeDestroy() {
@@ -121,15 +125,20 @@ export default {
       clonedNode.setAttribute("draggable", false);
       const timer = new Date().getTime()
       clonedNode.setAttribute("id", sourceId + timer); // 修改一下id 值，避免id 重复
-      clonedNode.style.left =
-        (offsetX - sourceOffsetX + scrollLeft > 0 ? offsetX - sourceOffsetX + scrollLeft : 0) + "px";
-      clonedNode.style.top =
-        (offsetY - sourceOffsetY + scrollTop > 0 ? offsetY - sourceOffsetY + scrollTop : 0) + "px";
+
+      const tempLeft = (offsetX - sourceOffsetX + scrollLeft > 0
+          ? offsetX - sourceOffsetX + scrollLeft
+          : 0)
+      const tempTop = (offsetY - sourceOffsetY + scrollTop > 0
+          ? offsetY - sourceOffsetY + scrollTop
+          : 0)
+      const _left =
+        this.percent ? (tempLeft / this.wrapOffsetWidth) * 100 + '%' : tempLeft + "px";
+      const _top =
+        this.percent ? (tempTop / this.wrapOffsetHeight) * 100 + '%' : tempTop + "px";
+      clonedNode.style.left = _left;
+      clonedNode.style.top = _top;
       ev.target.appendChild(clonedNode); // 目标节点
-
-
-
-
   
       Array.from([ // 四个方向连接点
         [
@@ -291,6 +300,8 @@ export default {
             resizeTimer = setTimeout(() => {
               // 重新适配屏幕
               this.jsplumb.repaintEverything();
+              this.wrapOffsetWidth = element.offsetWidth
+              this.wrapOffsetHeight = element.offsetHeight
             }, 100);
           };
           this.observer = new ResizeObserver(callback);

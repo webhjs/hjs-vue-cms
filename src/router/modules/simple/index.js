@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-29 17:31:42
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-05 19:15:32
+ * @LastEditTime: 2021-08-31 17:06:06
  */
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
@@ -69,6 +69,12 @@ export const constantRouterMap = [
         name: "sync-fixed-table",
         meta: { icon: "document-copy", title: "同步固定表格" },
         component: () => import("@/views/simple-template/table/sync-fixed-table")
+      },
+      {
+        path: "drag-tree-table",
+        name: "drag-tree-table",
+        meta: { icon: "document-copy", title: "树行table排序" },
+        component: () => import("@/views/simple-template/table/drag-tree-table") // keepAlive: false, activeMenu: '/resource-manage/dataconversion'
       }
     ]
   },

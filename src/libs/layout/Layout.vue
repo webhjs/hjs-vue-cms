@@ -6,7 +6,7 @@
         <div class="containers cloumn-flex">
           <navbar></navbar>
           <div class="main-container flex">
-            <sidebar :isCollapse="isCollapse" class="vertical" :logo="false"/>
+            <sidebar :isCollapse="isCollapse" class="vertical leftno-wrap" :logo="false"/>
             <div class="main-left main-common flex-1">
               <tabs-view></tabs-view>
               <app-main ref="AppMain" class="main-content"></app-main>
@@ -16,7 +16,7 @@
       </template>
       <template v-if="position === 'left'">
         <div class="containers">
-          <sidebar :isCollapse="isCollapse" class="vertical" />
+          <sidebar :isCollapse="isCollapse" class="vertical" overflowClass="overflowClass" />
           <div class="main-container">
             <navbar :logo="false">
               <i
@@ -100,7 +100,7 @@
             </navbar>
             <div class="main-left main-common">
               <breadcrumb
-                style="height: 50px;color: #000;padding-left: 10px"
+                class="top_left_bread"
               ></breadcrumb>
               <tabs-view></tabs-view>
               <app-main ref="AppMain" class="main-content"></app-main>
@@ -222,6 +222,11 @@ export default {
   beforeDestroy() {
     removeResizeListener(document.querySelector('#menu-top-list-resize-id'), this.menuResize)
   },
+  provide() {
+    return {
+      layoutTheme: this//方法一：提供祖先组件的实例
+    };
+  },
   methods: {
     menuResize() {
       const menuWidth = document.querySelector('#menu-top-list-resize-id') && document.querySelector('#menu-top-list-resize-id').getBoundingClientRect().width
@@ -271,6 +276,14 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
+.main-container
+  overflow auto
+.top_left_bread
+  height: 50px;
+  color: #000;
+  padding-left: 10px;
+  /deep/ .el-breadcrumb__separator
+    color: #000;
 .app-wrapper
   position absolute
   width 100%
@@ -322,6 +335,7 @@ export default {
   display: flex;
   flex-flow: column;
   .main-content{
+    margin: 20px;
     flex: 1
     overflow: auto
     position: relative;
@@ -330,15 +344,18 @@ export default {
 .vertical
   width auto
   height 100%
-  min-height 500px
 .vertical
   /deep/ .el-submenu__icon-arrow
     right 10px
+.leftno-wrap
+  height: calc(100vh - 56px)
 /deep/ .el-submenu__icon-arrow
   top 58%
   right 0
 /deep/ .el-submenu__title:hover
   background-color transparent
+/deep/ .el-menu-vertical-demo:not(.el-menu--collapse)
+  min-height unset
 </style>
 <style lang="stylus">
 .layout-draw .el-drawer__body {

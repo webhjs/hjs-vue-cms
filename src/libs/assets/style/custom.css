@@ -13,7 +13,7 @@
   /*滚动条里面小方块*/
   border-radius: 10px;
   background-color: rgb(128, 128, 128);
-  background-image: -webkit-linear-gradient(
+  /* background-image: -webkit-linear-gradient(
     45deg,
     rgba(255, 255, 255, 0.2) 25%,
     transparent 25%,
@@ -22,7 +22,7 @@
     rgba(255, 255, 255, 0.2) 75%,
     transparent 75%,
     transparent
-  );
+  ); */
 }
 *::-webkit-scrollbar-track {
   /*滚动条里面轨道*/

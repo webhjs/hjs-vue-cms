@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-04-02 09:46:48
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-03 17:01:10
+ * @LastEditTime: 2021-08-26 10:56:15
  */
 const SET_TABSVIEW = 'SET_TABSVIEW'
 const DEL_TABSVIEW = 'DEL_TABSVIEW'
@@ -22,7 +22,12 @@ const tabsview = {
       if (state.visitedTabsView.find((n) => n.path === view.path)) {
         return
       }
-      state.visitedTabsView.push({ name: view.meta.title, path: view.path })
+      const { name, path, fullpath, params, query, meta } = view
+      const param = {
+        name, path, fullpath, params, query,
+        label: meta.title
+      }
+      state.visitedTabsView.push(param)
     },
     [DEL_TABSVIEW](state, view) {
       for (let [i, v] of state.visitedTabsView.entries()) {

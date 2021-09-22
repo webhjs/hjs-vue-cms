@@ -4,14 +4,14 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:10
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-10 09:26:59
+ * @LastEditTime: 2021-09-02 13:47:35
 -->
 <template>
   <div class="app-main">
     <!--页面不需要缓存-->
     <transition  name="fade" enter-active-class="animated fadeIn" mode="out-in" appear @after-enter="afterRouterChange">
-      <keep-alive>
-        <router-view v-if="isReload" :include="keepAliveArr" :key="$route.fullPath" class="absolute w-full h-full whitebg" ref="routerView"> </router-view>
+      <keep-alive :exclude="keepAliveArr">
+        <router-view v-if="isReload" :key="$route.fullPath" class="absolute w-full h-full whitebg" ref="routerView"> </router-view>
       </keep-alive>
     </transition>
   </div>
@@ -25,6 +25,11 @@ export default {
       isReload: true,
       keepAliveArr: []
     }
+  },
+  provide() {
+    return {
+      appMainTheme: this//方法一：提供祖先组件的实例
+    };
   },
   methods: {
     reload(fullPath) {
@@ -85,11 +90,12 @@ export default {
     },
     // after-enter钩子事件，待子组件插入完毕调用
     afterRouterChange() {
-      if (this.$route.meta.keepAlive === false) return;
-      // 记录子组件name，用于keepalive
-      const childName = this.$refs.routerView.$options.name;
-      if (childName && !this.keepAliveArr.includes(childName)) {
-        this.keepAliveArr.push(childName);
+      if (this.$route.meta.keepAlive === false) {
+        const childName = this.$refs.routerView.$options.name || this.$route.name;
+        if (childName && !this.keepAliveArr.includes(childName)) {
+          this.keepAliveArr.push(childName);
+        }
+        return;
       }
     }
   }
@@ -99,6 +105,6 @@ export default {
 .whitebg  
   overflow auto
   background-color #f2f4f7
-  padding: 20px
+  // padding: 20px
 </style>
 

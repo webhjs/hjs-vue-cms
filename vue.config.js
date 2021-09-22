@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:12
  * @LastEditors: 金苏
- * @LastEditTime: 2021-07-20 13:18:25
+ * @LastEditTime: 2021-09-18 16:15:56
  */
 "use strict";
 const path = require("path");
@@ -69,7 +69,7 @@ module.exports = {
     proxy: {
       // 代理
       "/api": {
-        target: "http://61.177.141.230:50000",
+        target: "http://192.168.8.19:30221",
         ws: true,
         changOrigin: true,
         pathRewrite: {

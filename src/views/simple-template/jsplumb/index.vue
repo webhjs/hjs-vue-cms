@@ -4,13 +4,13 @@
  * @Author: 金苏
  * @Date: 2021-07-14 14:14:22
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-03 14:19:00
+ * @LastEditTime: 2021-09-22 15:21:14
 -->
 <template>
   <div class="containers flex flex-col">
-    <JsplumbdtargetView id="js1" />
-    <Jsplumbdrag id="js3" />
-    <Jsplumbdtarget id="js2" />
+    <JsplumbdtargetView id="js1" percent/>
+    <Jsplumbdrag id="js3" percent/>
+    <Jsplumbdtarget id="js2" percent/>
     <Jsplumblist :sourceList="sourceList" :targetList="targetList" :relationArray="relationArray" />
   </div>
 </template>

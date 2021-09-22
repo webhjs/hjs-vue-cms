@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-20 17:29:16
- * @LastEditTime: 2021-08-12 14:29:00
+ * @LastEditTime: 2021-09-01 10:36:48
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\layout\sidebar\sidebar.vue
@@ -29,12 +29,14 @@
         />
         <span slot="title"> {{ $t("navbar.title") }}</span>
       </el-menu-item>
-      <sidebar-item-all
-        v-for="router of metaRouters"
-        :key="router.path"
-        :item="router"
-        :base-path="basePath"
-      />
+      <div class="overflowScroll">
+        <sidebar-item-all
+          v-for="router of metaRouters"
+          :key="router.path"
+          :item="router"
+          :base-path="basePath"
+        />
+      </div>
     </el-menu>
   </div>
 </template>
@@ -139,6 +141,9 @@ export default {
   height 100%
   border-right: 0;
   background-color var(--light)
+.overflowScroll
+  height: calc(100% - 55px)
+  overflow: auto;
 </style>
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {

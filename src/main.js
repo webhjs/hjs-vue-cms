@@ -1,3 +1,11 @@
+/*
+ * @Descripttion: 
+ * @version: 
+ * @Author: 金苏
+ * @Date: 2021-08-30 09:21:49
+ * @LastEditors: 金苏
+ * @LastEditTime: 2021-08-30 10:30:22
+ */
 import Vue from "vue";
 import ElementUI from "element-ui";
 // element全局样式

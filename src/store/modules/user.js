@@ -61,7 +61,7 @@ const user = {
     // 用户登录
     login({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
-        Api("login", userInfo)
+        Api("login/login", userInfo)
           .then(resp => {
             setToken(resp.token);
             commit(SET_TOKEN, resp.token);
@@ -75,7 +75,7 @@ const user = {
     // 拉取用户信息
     pullUserInfo({ commit }) {
       return new Promise((resolve, reject) => {
-        Api("userInfo")
+        Api("login/userInfo")
           .then(resp => {
             commit(SET_ACCOUNT, resp.account);
             commit(SET_NAME, resp.name);
@@ -95,7 +95,7 @@ const user = {
     // 用户退出登录
     logout({ commit }) {
       return new Promise((resolve, reject) => {
-        Api("logout")
+        Api("login/logout")
           .then(resp => {
             removeToken();
             commit(SET_TOKEN, "");

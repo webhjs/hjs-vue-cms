@@ -11,10 +11,10 @@
             slot="label"
             class="tags-view-item"
             :class="isActive(tag) ? 'active' : ''"
-            :to="tag.path"
+            :to="tag"
           >
             <div @contextmenu.prevent.stop="contextmenu($event, tag)" class="tag-pane">
-              {{ tag.name }}
+              {{ tag.label }}
               <i class='el-icon-close close' @click.prevent.stop="handleClose(tag)"></i>
             </div>
           </router-link>
@@ -56,6 +56,12 @@ export default {
       tagData: {}
     };
   },
+  inject: {
+    layoutTheme: {
+      //函数式组件取值不一样
+      default: () => ({})
+    }
+  },
   created() {
     this.addTabsView();
   },
@@ -71,25 +77,33 @@ export default {
     ]),
     reload() {
       if (this.isActive(this.tagData)) {
-        this.$parent.$parent.reload()
+        this.layoutTheme.reload()
       } else {
-        this.$parent.$parent.reload(this.tagData.path)
+        this.layoutTheme.reload(this.tagData.path)
         this.$router.push(this.tagData.path)
       }
       this.visble = false;
     },
     delCurrentTabsview() {
+      if (this.visitedTabsView.length === 1 && this.tagData.path === '/home') {
+        this.visble = false;
+        return
+      }
       this.handleClose(this.tagData);
     },
     delOtherTabsview() {
-      this.$parent.$parent.removeOtherCacheAll(this.tagData)
+      this.layoutTheme.removeOtherCacheAll(this.tagData)
       this.delAllVisitedOtherTabsView(this.tagData).then(res => {
         if (this.$route.path !== this.tagData.path) { this.$router.push({path: this.tagData.path}) }
         this.visble = false;
       });
     },
     delAllTabsview() {
-      this.$parent.$parent.removeCacheAll()
+      if (this.visitedTabsView.length === 1 && this.tagData.path === '/home') {
+        this.visble = false;
+        return
+      }
+      this.layoutTheme.removeCacheAll()
       // const route = this.generateRoute();
       const route = [];
       this.delAllVisitedTabsView(route).then(res => {
@@ -122,7 +136,10 @@ export default {
       return route.path === this.$route.path || route.name === this.$route.name;
     },
     handleClose(tag) {
-      this.$parent.$parent.removeCache(tag.path)
+      if (this.visitedTabsView.length === 1 && tag.path === '/home') {
+        return
+      }
+      this.layoutTheme.removeCache(tag.path)
       this.delVisitedTabsView(tag).then(tags => {
         // 如果关闭的是当前显示的页面，就去到前一个 tab-view 页面
         if (this.isActive(tag)) {

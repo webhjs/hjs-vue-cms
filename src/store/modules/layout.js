@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-02-23 16:14:08
- * @LastEditTime: 2021-05-06 13:19:02
+ * @LastEditTime: 2021-08-23 09:20:41
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\store\modules\setLayout.js
@@ -17,7 +17,7 @@ const layout = {
   state: {
     drawer: false,
     theme: (() => {
-      return loadFromLocal('theme', 'science-blue')
+      return loadFromLocal('theme', 'sapphire-blue')
     })(),
     position: (() => {
       return loadFromLocal('position', 'left')

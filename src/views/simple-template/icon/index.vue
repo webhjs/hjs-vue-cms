@@ -79,7 +79,7 @@ export default {
 
 .toolsBar
   position fixed
-  top 16vh
+  top 18vh
   right 1vw
   width 200px
   border 1px solid #cdcdcd

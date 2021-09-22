@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      userLogout: "logout"
+      userLogout: "user/logout"
     }),
     ...mapMutations({
       setDrawer: "layout/setDrawer"

@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-04 10:33:58
+ * @LastEditTime: 2021-09-22 15:14:48
 -->
 <template>
   <div>
@@ -235,6 +235,10 @@ export default {
     id: {
       type: String,
       default: "jsplumb"
+    },
+    percent: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -331,6 +335,10 @@ export default {
     };
   },
   beforeDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
     this.jsplumb.destroy();
   },
   mounted() {
@@ -367,14 +375,17 @@ export default {
       const uqid = Math.random()
         .toString(36)
         .substr(3, 10);
-      const _left =
-        (offsetX - sourceOffsetX + scrollLeft > 0
+      
+      const tempLeft = (offsetX - sourceOffsetX + scrollLeft > 0
           ? offsetX - sourceOffsetX + scrollLeft
-          : 0) + "px";
-      const _top =
-        (offsetY - sourceOffsetY + scrollTop > 0
+          : 0)
+      const tempTop = (offsetY - sourceOffsetY + scrollTop > 0
           ? offsetY - sourceOffsetY + scrollTop
-          : 0) + "px";
+          : 0)
+      const _left =
+        this.percent ? (tempLeft / this.wrapOffsetWidth) * 100 + '%' : tempLeft + "px";
+      const _top =
+        this.percent ? (tempTop / this.wrapOffsetHeight) * 100 + '%' : tempTop + "px";
 
       /* 修改数据 */
       const { nodeList } = this.jsonList;
@@ -755,6 +766,23 @@ export default {
           // });
           this.$nextTick(() => {
             this._initConnect(this.jsonList);
+            /* 屏幕resize */
+            const element = document.querySelector(`#right${this.id}`);
+            let resizeTimer = null;
+            const callback = (event, ui) => {
+              if (resizeTimer) {
+                clearTimeout(resizeTimer);
+              }
+              resizeTimer = setTimeout(() => {
+                // 重新适配屏幕
+                this.jsplumb.repaintEverything();
+                this.wrapOffsetWidth = element.offsetWidth
+                this.wrapOffsetHeight = element.offsetHeight
+              }, 100);
+            };
+            this.observer = new ResizeObserver(callback);
+            this.observer.observe(element);
+            /* 屏幕resize */
           });
         });
       });

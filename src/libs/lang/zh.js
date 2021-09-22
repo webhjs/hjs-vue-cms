@@ -4,21 +4,21 @@
  * @Author: 金苏
  * @Date: 2021-03-30 13:28:46
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-05 19:20:10
+ * @LastEditTime: 2021-09-10 11:00:24
  */
 export default {
   author: {
     name: '喻'
   },
   login: {
-    title: '区域协同网关',
+    title: '微服务总线(MSB)',
     account: '账号',
     password: '密码',
     remember: '记住密码',
     login: '登录'
   },
   navbar: {
-    title: '区域协同网关',
+    title: '微服务总线(MSB)',
     screenfull: '全屏',
     profile: '个人中心',
     avatar: '修改头像',

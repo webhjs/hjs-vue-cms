@@ -4,16 +4,17 @@
  * @Author: morning
  * @Date: 2021-01-05 10:58:24
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-02 13:30:22
+ * @LastEditTime: 2021-09-07 16:15:03
 -->
 <template>
   <div style="display: flex;height: 100%; width: 100%;flex-flow: column;">
     <div class="language" v-show="isShowLanguage" style="margin-bottom: 10px;">
-      语言：
+      转换脚本：
       <el-select
         v-model="langValue"
         placeholder="请选择"
         @change="changeLanguage"
+        filterable
       >
         <el-option
           v-for="item in langOptions"
@@ -24,8 +25,8 @@
         </el-option>
       </el-select>
     </div>
-    <div style="flex: 1">
-      <div ref="container" style="height: 100%; width: 100%" />
+    <div style="flex: 1" class="border-solid border-gray-300 border rounded">
+      <div ref="container" :id="id" style="height: 100%; width: 100%" />
     </div>
   </div>
 </template>
@@ -40,38 +41,78 @@ export default {
     event: 'on-code-change'
   },
   props: {
+    id: {
+      type: String,
+      default: 'monacoId'
+    },
+    defLangValue: {
+      type: String,
+      default: 'json'
+    },
     content: {
-      type: Object,
+      type: Object | String,
       default: () => {
-        return {}
+        return ''
       }
     },
     isShowLanguage: {
       type: Boolean,
       default: false
-    }
+    },
+    langOptions: {
+      type: Array,
+      default: () => {
+        return [
+          {
+            value: 'json',
+            label: 'json'
+          },
+          {
+            value: 'xml',
+            label: 'xml'
+          },
+          {
+            value: 'java',
+            label: 'java'
+          }
+        ]
+      }
+    },
+    theme: {
+      type: String,
+      default: 'vs-dark'
+    },
+    readnowrite: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
-      langValue: 'json',
-      langOptions: [
-        {
-          value: 'json',
-          label: 'json'
-        },
-        {
-          value: 'xml',
-          label: 'xml'
-        },
-        {
-          value: 'java',
-          label: 'java'
-        }
-      ]
+      langValue: this.defLangValue
     }
   },
   mounted() {
     this.initEditor()
+    const element = document.querySelector(`#${this.id}`);
+    let resizeTimer = null;
+    const callback = () => {
+      if (resizeTimer) {
+        clearTimeout(resizeTimer);
+      }
+      resizeTimer = setTimeout(() => {
+        // 重新适配屏幕
+        this.monacoEditor && this.monacoEditor.layout()
+      }, 100);
+    };
+    this.observer = new ResizeObserver(callback);
+    this.observer.observe(element);
+  },
+  beforeDestroy() {
+    if (this.observer) {
+      this.observer.disconnect();
+      this.observer = null;
+    }
   },
   beforedestroy() {
     // 销毁编辑器
@@ -83,10 +124,10 @@ export default {
       this.monacoEditor && this.monacoEditor.dispose()
       // 初始化编辑器，确保dom已经渲染，dialog中要写在opened中
       this.monacoEditor = monaco.editor.create(this.$refs.container, {
-        value: JSON.stringify(this.content, null, 4),
-        // readOnly: true,
+        value: Object.prototype.toString.call(this.content)==='[object Object]' ? JSON.stringify(this.content, null, 4) : this.content,
+        readOnly: this.readnowrite,
         language: this.langValue,
-        theme: 'vs', // vs hc-black vs-dark
+        theme: this.theme, // vs hc-black vs-dark
         formatOnPaste: true,
         fontSize: 14,
         automaticLayout: true, //自动布局
@@ -99,11 +140,14 @@ export default {
         scrollBeyondLastLine: false, // 是否启用滚动可以在最后一行之后一个屏幕大小
 
         wrappingIndent: 'indent',
+        availableLanguages: {'*':'zh-cn'},
+        contextmenu: false, // 关闭右击菜单
 
         scrollbar: {
           verticalScrollbarSize: 5 // scroll大小
         }
       })
+
       // this.$emit('on-mounted', () => {
       //   console.log('on-mounted---------------------')
       //   window.addEventListener('resize', this.initEditor)
@@ -120,7 +164,7 @@ export default {
      * @return {*}
      */
     getValue() {
-      return JSON.parse(this.monacoEditor.getValue()) //获取编辑器中的文本
+      return this.monacoEditor.getValue() //获取编辑器中的文本
     },
     changeLanguage(lang) {
       const oldModel = this.monacoEditor.getModel() //获取旧模型
@@ -135,6 +179,7 @@ export default {
       }
       //设置新模型
       this.monacoEditor.setModel(newModel)
+      this.$emit('update:defLangValue', lang)
     },
     /**
      * @description: 切换模板
@@ -142,7 +187,11 @@ export default {
      * @return {*}
      */
     setValue(item) {
-      this.monacoEditor.setValue(JSON.stringify(item, null, 4))
+      if (['[object Object]', '[object Array]'].includes(Object.prototype.toString.call(item))) {
+        this.monacoEditor.setValue(JSON.stringify(item, null, 4))
+      } else {
+        this.monacoEditor.setValue(item)
+      }
     },
     allowWrite() {
       this.monacoEditor.updateOptions({ readOnly: false })
