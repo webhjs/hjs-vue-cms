@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-09-22 16:13:34
+ * @LastEditTime: 2021-09-22 16:44:29
 -->
 <template>
   <div>
@@ -547,10 +547,14 @@ export default {
           const { id } = node.el;
           const { finalPos } = node;
           const { nodeList } = this.jsonList;
+          const _left =
+            this.percent ? ((finalPos[0] / this.wrapOffsetWidth) * 100).toFixed(2)+ '%' : finalPos[0] + "px";
+          const _top =
+            this.percent ? ((finalPos[1] / this.wrapOffsetHeight) * 100).toFixed(2) + '%' : finalPos[1] + "px";
           for (let i = 0; i < nodeList.length; i++) {
             if (nodeList[i].id === this.idString(id)) {
-              nodeList[i].left = finalPos[0] + "px";
-              nodeList[i].top = finalPos[1] + "px";
+              nodeList[i].left = _left;
+              nodeList[i].top = _top;
               break;
             }
           }
