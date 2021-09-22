@@ -335,7 +335,6 @@ export default {
   display: flex;
   flex-flow: column;
   .main-content{
-    margin: 20px;
     flex: 1
     overflow: auto
     position: relative;

@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-09-22 15:14:48
+ * @LastEditTime: 2021-09-22 16:13:34
 -->
 <template>
   <div>
@@ -383,9 +383,9 @@ export default {
           ? offsetY - sourceOffsetY + scrollTop
           : 0)
       const _left =
-        this.percent ? (tempLeft / this.wrapOffsetWidth) * 100 + '%' : tempLeft + "px";
+        this.percent ? ((tempLeft / this.wrapOffsetWidth) * 100).toFixed(2)+ '%' : tempLeft + "px";
       const _top =
-        this.percent ? (tempTop / this.wrapOffsetHeight) * 100 + '%' : tempTop + "px";
+        this.percent ? ((tempTop / this.wrapOffsetHeight) * 100).toFixed(2) + '%' : tempTop + "px";
 
       /* 修改数据 */
       const { nodeList } = this.jsonList;
@@ -477,7 +477,7 @@ export default {
       this.jsplumb?.deleteEveryConnection();
       this.jsplumb?.deleteEveryEndpoint();
       try {
-        const jsonList = this.$refs.monacoView.getValue();
+        const jsonList = JSON.parse(this.$refs.monacoView.getValue());
         if (!jsonList.nodeList || !jsonList.lineList) {
           this.nodeVisable = false;
           this.$message.warning("流程对象需要包含nodeList、lineList属性");

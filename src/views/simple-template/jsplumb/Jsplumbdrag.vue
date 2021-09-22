@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-07-14 16:58:28
  * @LastEditors: 金苏
- * @LastEditTime: 2021-09-22 15:27:47
+ * @LastEditTime: 2021-09-22 16:23:44
 -->
 <template>
 <div>
@@ -133,9 +133,9 @@ export default {
           ? offsetY - sourceOffsetY + scrollTop
           : 0)
       const _left =
-        this.percent ? (tempLeft / this.wrapOffsetWidth) * 100 + '%' : tempLeft + "px";
+        this.percent ? ((tempLeft / this.wrapOffsetWidth) * 100).toFixed(2)+ '%' : tempLeft + "px";
       const _top =
-        this.percent ? (tempTop / this.wrapOffsetHeight) * 100 + '%' : tempTop + "px";
+        this.percent ? ((tempTop / this.wrapOffsetHeight) * 100).toFixed(2) + '%' : tempTop + "px";
       clonedNode.style.left = _left;
       clonedNode.style.top = _top;
       ev.target.appendChild(clonedNode); // 目标节点
