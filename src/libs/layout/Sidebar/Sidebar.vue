@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-20 17:29:16
- * @LastEditTime: 2021-09-01 10:40:06
+ * @LastEditTime: 2021-09-27 11:33:41
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\layout\sidebar\sidebar.vue
@@ -107,7 +107,12 @@ export default {
 .overflowClass
   height: calc(100% - 55px)
   overflow: auto
-</style>
+/*隐藏文字*/
+/deep/ .el-menu--collapse .el-submenu__title span
+  display: none
+/deep/ .el-menu--collapse .el-submenu__title .el-submenu__icon-arrow
+  display: none;
+/*隐藏文字*/
 <style>
 .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 256px;
