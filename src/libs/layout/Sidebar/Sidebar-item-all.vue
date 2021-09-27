@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-25 17:18:04
- * @LastEditTime: 2021-08-12 14:28:05
+ * @LastEditTime: 2021-09-27 11:04:04
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \mandalat.frame\src\layout\sidebar\sidebar-item-all.vue
@@ -93,11 +93,26 @@ export default {
         return true
       }
       if (showingChildren.length === 0) {
-        this.onlyOneChild = {
+        let tempRoute
+        if (parent.redirect) {
+          const temppath = parent.redirect.split('/').pop()
+          for(let i = 0; i < children.length; i++) {
+            if (children[i].path === temppath) {
+              tempRoute = children[i]
+              break
+            }
+          }
+        }
+        const tempChild = {
           path: '',
           ...parent,
           noShowingChild: true
         }
+        tempChild.meta = {
+          ...tempRoute.meta,
+          ...tempChild.meta
+        }
+        this.onlyOneChild = tempChild
         return true
       }
       return false
