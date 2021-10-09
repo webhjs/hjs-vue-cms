@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-22 09:20:49
  * @LastEditors: 金苏
- * @LastEditTime: 2021-09-27 14:47:04
+ * @LastEditTime: 2021-09-27 14:30:37
  */
 import axios from 'axios'
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";

@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-02-20 17:29:16
- * @LastEditTime: 2021-09-01 10:36:48
+ * @LastEditTime: 2021-09-30 11:38:39
  * @LastEditors: 金苏
  * @Description: In User Settings Edit
  * @FilePath: \vue-cms\src\layout\sidebar\sidebar.vue
@@ -33,7 +33,7 @@
         <sidebar-item-all
           v-for="router of metaRouters"
           :key="router.path"
-          :item="router"
+          :level1Route="router"
           :base-path="basePath"
         />
       </div>
@@ -102,7 +102,6 @@ export default {
             }
           }
         }
-        
         this.matchRouters = tempRouters
         this.$nextTick(() => {
           this.$refs.currentTopMenu2.activeIndex = mateArr[mateArr.length - 1].meta.activeMenu || mateArr[mateArr.length - 1].path // elementui default-active 不会用感觉有bug 我猜可能是因为我涉及到单个子路由提升到开头

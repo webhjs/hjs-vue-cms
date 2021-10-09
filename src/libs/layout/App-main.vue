@@ -4,7 +4,7 @@
  * @Author: Morning
  * @Date: 2021-03-27 13:41:10
  * @LastEditors: 金苏
- * @LastEditTime: 2021-09-02 13:47:35
+ * @LastEditTime: 2021-09-24 12:40:50
 -->
 <template>
   <div class="app-main">
@@ -105,6 +105,6 @@ export default {
 .whitebg  
   overflow auto
   background-color #f2f4f7
-  // padding: 20px
+  padding: 8px 10px 0
 </style>
 

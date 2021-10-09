@@ -1,11 +1,11 @@
 <template>
   <div class="tabs-view-container relative w-full" v-if="visitedTabsView.length">
-    <div class="absolute w-full">
-      <el-tabs type="border-card">
-        <el-tab-pane
+    <div class="absolute w-full h-full">
+      <scroll-tag>
+        <div
           v-for="tag in visitedTabsView"
           :key="tag.path"
-          :name="tag.path"
+          class="inline-block h-full mx-1"
         >
           <router-link
             slot="label"
@@ -18,8 +18,29 @@
               <i class='el-icon-close close' @click.prevent.stop="handleClose(tag)"></i>
             </div>
           </router-link>
-        </el-tab-pane>
-      </el-tabs>
+        </div>
+        <el-popover
+          slot="closed"
+          placement="bottom-end"
+          width="120"
+          ref="opearPover"
+          popper-class="opear-pover"
+          trigger="click">
+          <ul
+            class="bg-white rounded cursor-pointer border-gray-100"
+          >
+            <li class="px-2 py-1 border-gray-100" @click="$refs.opearPover.doClose();delOtherTabsview()">
+              <i class="el-icon-circle-close mr-1" />关闭其它
+            </li>
+            <li class="px-2 py-1 border-gray-100" @click="$refs.opearPover.doClose();delAllTabsview()">
+              <i class="el-icon-circle-close mr-1" />关闭全部
+            </li>
+          </ul>
+          <div class="closed-wrap" slot="reference">
+            <i class="el-icon-circle-close" />
+          </div>
+        </el-popover>
+      </scroll-tag>
     </div>
     <menuCom id="custom_menuwarp" :page="pagePosition" :visble.sync="visble">
       <ul
@@ -45,9 +66,11 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 import MenuCom from 'hjs-contextmenu';
+import ScrollTag from 'hjs-scroll'
 export default {
   components: {
-    MenuCom
+    MenuCom,
+    ScrollTag
   },
   data() {
     return {
@@ -92,6 +115,10 @@ export default {
       this.handleClose(this.tagData);
     },
     delOtherTabsview() {
+      const { path } = this.$route
+      this.tagData = this.visitedTabsView.filter(fit => {
+        return fit.path === path
+      })[0]
       this.layoutTheme.removeOtherCacheAll(this.tagData)
       this.delAllVisitedOtherTabsView(this.tagData).then(res => {
         if (this.$route.path !== this.tagData.path) { this.$router.push({path: this.tagData.path}) }
@@ -196,7 +223,6 @@ ul.curstom
       &::before
         background-color #409eff
   .tag-pane
-    transition width .4s ease
     height 100%
     padding 0 10px
     display flex
@@ -214,6 +240,7 @@ ul.curstom
       background-color #e8eaec
       margin-right 5px
     .close
+      transition width .4s ease
       margin-left 5px
       overflow hidden
       width 0px
@@ -223,24 +250,22 @@ ul.curstom
         background-color #80bcf9
       .close
         width 14px
-.tabs-view-container {
-  /deep/ .el-tabs--border-card>.el-tabs__content,/deep/ .el-tabs__item,
-  /deep/ .el-tabs--top.el-tabs--border-card>.el-tabs__header .el-tabs__item:nth-child(2) {
-    padding:0 4px
-  }
-  /deep/ .el-tabs--border-card,/deep/ .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active,/deep/ .el-tabs--border-card>.el-tabs__header .el-tabs__item {
-    background: transparent
-    box-shadow: none
-    border: none
-  }
-  /deep/ .el-tabs--border-card>.el-tabs__header {
-    padding 0 8px
-  }
-  /deep/ .el-tabs--border-card>.el-tabs__header .el-tabs__item.is-active {
-    color: #909399;
-  }
-  /deep/ .el-tabs__nav-next,/deep/ .el-tabs__nav-prev {
-    line-height: 38px;
-  }
-}
+.closed-wrap
+  width: 26px;
+  height: 100%;
+  font-size: 24px;
+  background: white;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  width: 35px;
+  border-left: 1px solid #eee;
+  font-size: 20px;
+</style>
+<style lang="stylus">
+.opear-pover
+  min-width auto
 </style>

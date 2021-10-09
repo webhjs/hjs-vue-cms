@@ -4,7 +4,7 @@
  * @Author: 金苏
  * @Date: 2021-03-29 17:31:42
  * @LastEditors: 金苏
- * @LastEditTime: 2021-08-31 17:06:06
+ * @LastEditTime: 2021-10-09 11:32:08
  */
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
@@ -96,6 +96,22 @@ export const constantRouterMap = [
   }
 ];
 export const asyncRouterMap = [
+  {
+    path: "/components",
+    alwaysShow: true,
+    name: "icon",
+    meta: { icon: "brush", title: "组件", roles: ["Lucy"] },
+    component: Layout,
+    redirect: "/components/component-index",
+    children: [
+      {
+        path: "component-index",
+        name: "component-index",
+        meta: { icon: "brush", title: "组件列表" },
+        component: () => import("@/views/simple-template/components/list")
+      }
+    ]
+  },
   {
     path: "/icon",
     alwaysShow: true,

@@ -19,6 +19,7 @@
 }
 .science-blue .top-navbar .el-menu-item.logo-name {
   box-shadow: unset;
+  font-size: 16px;
 }
 .science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active,
 .science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item.is-active i {
@@ -27,6 +28,12 @@
 .science-blue .el-menu.el-menu--horizontal .el-menu-item,
 .science-blue .el-menu.el-menu--horizontal .el-menu-item i {
   color: #91d5ff;
+}
+.science-blue .el-menu.el-menu--horizontal .el-menu-item:hover,
+.science-blue .el-menu.el-menu--horizontal .el-menu-item:hover i,
+.science-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name {
+  color: #fff;
+  font-weight: 600;
 }
 .science-blue .el-menu.el-menu--horizontal .el-submenu__title,
 .science-blue .el-menu.el-menu--horizontal .el-submenu__title i {
@@ -47,11 +54,6 @@
   line-height: 55px;
   border-radius: unset;
   box-shadow: 2px 0 6px #002766;
-}
-.science-blue .el-menu.el-menu--horizontal .el-menu-item.logo-name,.science-blue .el-menu.el-menu--horizontal .horizontal .el-menu-item:not(.is-disabled):hover i {
-  color: #91d5ff;
-  font-size: 18.49px;
-  font-weight: bold;
 }
 .science-blue .top-navbar .el-menu-item.logo-name {
   width: 256px;
