@@ -1,38 +1,60 @@
 <template>
-  <div class="tabs-view-container relative w-full" v-if="visitedTabsView.length">
+  <div
+    class="tabs-view-container relative w-full"
+    v-if="visitedTabsView.length"
+  >
     <div class="absolute w-full h-full">
       <scroll-tag>
-        <div
-          v-for="tag in visitedTabsView"
-          :key="tag.path"
-          class="inline-block h-full mx-1"
-        >
-          <router-link
-            slot="label"
-            class="tags-view-item"
-            :class="isActive(tag) ? 'active' : ''"
-            :to="tag"
+        <draggable class="h-full" :options="{ animation: 500 }">
+          <div
+            v-for="tag in visitedTabsView"
+            :key="tag.path"
+            class="inline-block h-full mx-1"
           >
-            <div @contextmenu.prevent.stop="contextmenu($event, tag)" class="tag-pane">
-              {{ tag.label }}
-              <i class='el-icon-close close' @click.prevent.stop="handleClose(tag)"></i>
-            </div>
-          </router-link>
-        </div>
+            <router-link
+              slot="label"
+              class="tags-view-item"
+              :class="isActive(tag) ? 'active' : ''"
+              :to="tag"
+            >
+              <div
+                @contextmenu.prevent.stop="contextmenu($event, tag)"
+                class="tag-pane"
+              >
+                {{ tag.label }}
+                <i
+                  class="el-icon-close close"
+                  @click.prevent.stop="handleClose(tag)"
+                ></i>
+              </div>
+            </router-link>
+          </div>
+        </draggable>
         <el-popover
           slot="closed"
           placement="bottom-end"
           width="120"
           ref="opearPover"
           popper-class="opear-pover"
-          trigger="click">
-          <ul
-            class="bg-white rounded cursor-pointer border-gray-100"
-          >
-            <li class="px-2 py-1 border-gray-100" @click="$refs.opearPover.doClose();delOtherTabsview()">
+          trigger="click"
+        >
+          <ul class="bg-white rounded cursor-pointer border-gray-100">
+            <li
+              class="px-2 py-1 border-gray-100"
+              @click="
+                $refs.opearPover.doClose();
+                delOtherTabsview();
+              "
+            >
               <i class="el-icon-circle-close mr-1" />关闭其它
             </li>
-            <li class="px-2 py-1 border-gray-100" @click="$refs.opearPover.doClose();delAllTabsview()">
+            <li
+              class="px-2 py-1 border-gray-100"
+              @click="
+                $refs.opearPover.doClose();
+                delAllTabsview();
+              "
+            >
               <i class="el-icon-circle-close mr-1" />关闭全部
             </li>
           </ul>
@@ -49,7 +71,10 @@
         <li class="px-2 py-1 border-b border-gray-100" @click="reload">
           <i class="el-icon-refresh mr-1" />刷新
         </li>
-        <li class="px-2 py-1 border-b border-gray-100" @click="delCurrentTabsview">
+        <li
+          class="px-2 py-1 border-b border-gray-100"
+          @click="delCurrentTabsview"
+        >
           <i class="el-icon-circle-close mr-1" />关闭当前
         </li>
         <li class="px-2 py-1 border-gray-100" @click="delOtherTabsview">
@@ -65,12 +90,14 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import MenuCom from 'hjs-contextmenu';
-import ScrollTag from 'hjs-scroll'
+import MenuCom from "hjs-contextmenu";
+import ScrollTag from "hjs-scroll";
+import draggable from "vuedraggable";
 export default {
   components: {
     MenuCom,
-    ScrollTag
+    ScrollTag,
+    draggable
   },
   data() {
     return {
@@ -100,46 +127,48 @@ export default {
     ]),
     reload() {
       if (this.isActive(this.tagData)) {
-        this.layoutTheme.reload()
+        this.layoutTheme.reload();
       } else {
-        this.layoutTheme.reload(this.tagData.path)
-        this.$router.push(this.tagData.path)
+        this.layoutTheme.reload(this.tagData.path);
+        this.$router.push(this.tagData.path);
       }
       this.visble = false;
     },
     delCurrentTabsview() {
-      if (this.visitedTabsView.length === 1 && this.tagData.path === '/home') {
+      if (this.visitedTabsView.length === 1 && this.tagData.path === "/home") {
         this.visble = false;
-        return
+        return;
       }
       this.handleClose(this.tagData);
     },
     delOtherTabsview() {
-      const { path } = this.$route
+      const { path } = this.$route;
       this.tagData = this.visitedTabsView.filter(fit => {
-        return fit.path === path
-      })[0]
-      this.layoutTheme.removeOtherCacheAll(this.tagData)
+        return fit.path === path;
+      })[0];
+      this.layoutTheme.removeOtherCacheAll(this.tagData);
       this.delAllVisitedOtherTabsView(this.tagData).then(res => {
-        if (this.$route.path !== this.tagData.path) { this.$router.push({path: this.tagData.path}) }
+        if (this.$route.path !== this.tagData.path) {
+          this.$router.push({ path: this.tagData.path });
+        }
         this.visble = false;
       });
     },
     delAllTabsview() {
-      if (this.visitedTabsView.length === 1 && this.tagData.path === '/home') {
+      if (this.visitedTabsView.length === 1 && this.tagData.path === "/home") {
         this.visble = false;
-        return
+        return;
       }
-      this.layoutTheme.removeCacheAll()
+      this.layoutTheme.removeCacheAll();
       // const route = this.generateRoute();
       const route = [];
       this.delAllVisitedTabsView(route).then(res => {
-        this.$router.push('/')
+        this.$router.push("/");
         this.visble = false;
       });
     },
     contextmenu(ev, tag) {
-      this.tagData = tag
+      this.tagData = tag;
       this.pagePosition = {
         pageX: ev.pageX,
         pageY: ev.pageY
@@ -163,10 +192,10 @@ export default {
       return route.path === this.$route.path || route.name === this.$route.name;
     },
     handleClose(tag) {
-      if (this.visitedTabsView.length === 1 && tag.path === '/home') {
-        return
+      if (this.visitedTabsView.length === 1 && tag.path === "/home") {
+        return;
       }
-      this.layoutTheme.removeCache(tag.path)
+      this.layoutTheme.removeCache(tag.path);
       this.delVisitedTabsView(tag).then(tags => {
         // 如果关闭的是当前显示的页面，就去到前一个 tab-view 页面
         if (this.isActive(tag)) {
