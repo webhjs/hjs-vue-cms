@@ -46,11 +46,17 @@ export default {
           remark: "生成常见的图表",
           icon: require("./images/v-charts.png")
         },
+        // {
+        //   name: "element-ui",
+        //   url: "https://element.eleme.cn/#/zh-CN/component/installation",
+        //   remark: "基于vue的ui框架",
+        //   icon: require("./images/element-ui.png")
+        // },
         {
-          name: "element-ui",
-          url: "https://element.eleme.cn/#/zh-CN/component/installation",
+          name: "mandalat-ui",
+          url: "http://8.133.185.32/fr/mandalat-ui/",
           remark: "基于vue的ui框架",
-          icon: require("./images/element-ui.png")
+          icon: require("./images/mandalat-ui1.png")
         },
         {
           name: "tailwind-css",
