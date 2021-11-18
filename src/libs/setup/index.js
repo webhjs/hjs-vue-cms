@@ -31,12 +31,17 @@ import Fragment from "vue-fragment";
 import VCharts from "v-charts";
 // 全局权限检查
 import "@/permission";
+// tooltip 溢出显示指令 v-ellipsis:top="li.name"
+import Ellipsis from 'vue-directive-ellipsis'
+import 'vue-directive-ellipsis/dist/ellipsis.umd.css'
 
 export function initSetup(Vue) {
+  Vue.directive('ellipsis', Ellipsis)
   Vue.use(VCharts);
   Vue.use(htmlToPdf);
   Vue.use(Api);
   Vue.use(random);
   Vue.use(Fragment.Plugin);
   Vue.use(Notification);
+  Vue.prototype.$EventBus = new Vue(); // event bus
 }

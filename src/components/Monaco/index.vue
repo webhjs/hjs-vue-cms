@@ -26,7 +26,7 @@
       </el-select>
     </div>
     <div style="flex: 1" class="border-solid border-gray-300 border rounded">
-      <div ref="container" :id="id" style="height: 100%; width: 100%" />
+      <div :ref="id" :id="id" style="height: 100%; width: 100%" />
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
   name: 'Monaco',
   model: {
     prop: 'content',
-    event: 'on-code-change'
+    event: 'change'
   },
   props: {
     id: {
@@ -50,7 +50,7 @@ export default {
       default: 'json'
     },
     content: {
-      type: Object | String,
+      type: Object | String | Array,
       default: () => {
         return ''
       }
@@ -86,6 +86,15 @@ export default {
       type: Boolean,
       default: false
     },
+  },
+  watch: {
+    content: {
+      handler(newValue) {
+        const value = this.monacoEditor.getValue()
+        if (newValue !== value) this.setValue(newValue)
+      },
+      deep: true
+    }
   },
   data() {
     return {
@@ -123,8 +132,8 @@ export default {
     initEditor() {
       this.monacoEditor && this.monacoEditor.dispose()
       // 初始化编辑器，确保dom已经渲染，dialog中要写在opened中
-      this.monacoEditor = monaco.editor.create(this.$refs.container, {
-        value: Object.prototype.toString.call(this.content)==='[object Object]' ? JSON.stringify(this.content, null, 4) : this.content,
+      this.monacoEditor = monaco.editor.create(this.$refs[this.id], {
+        value: this.formatData(this.content),
         readOnly: this.readnowrite,
         language: this.langValue,
         theme: this.theme, // vs hc-black vs-dark
@@ -152,10 +161,10 @@ export default {
       //   console.log('on-mounted---------------------')
       //   window.addEventListener('resize', this.initEditor)
       // }) //编辑器创建完成回调
-      // this.monacoEditor.onDidChangeModelContent((event) => {
-      //   //编辑器内容changge事件
-      //   this.$emit('on-code-change', JSON.parse(this.monacoEditor.getValue()))
-      // })
+      this.monacoEditor.onDidChangeModelContent((_) => {
+        //编辑器内容changge事件
+        this.$emit('change', this.monacoEditor.getValue())
+      })
     },
     /**
      * @name:
@@ -181,17 +190,24 @@ export default {
       this.monacoEditor.setModel(newModel)
       this.$emit('update:defLangValue', lang)
     },
+    formatData(Data) {
+      if (['[object Object]', '[object Array]'].includes(Object.prototype.toString.call(Data))) {
+        return JSON.stringify(Data, null, 4)
+      } else {
+        try {
+          return JSON.stringify(JSON.parse(Data), null, 4)
+        } catch(_) {
+          return Data
+        }
+      }
+    },
     /**
      * @description: 切换模板
      * @param {*}
      * @return {*}
      */
-    setValue(item) {
-      if (['[object Object]', '[object Array]'].includes(Object.prototype.toString.call(item))) {
-        this.monacoEditor.setValue(JSON.stringify(item, null, 4))
-      } else {
-        this.monacoEditor.setValue(item)
-      }
+    setValue(Data) {
+      this.monacoEditor.setValue(this.formatData(Data))
     },
     allowWrite() {
       this.monacoEditor.updateOptions({ readOnly: false })

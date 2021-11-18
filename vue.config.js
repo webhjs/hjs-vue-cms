@@ -64,12 +64,14 @@ module.exports = {
       .end();
   },
   productionSourceMap: true, // 生产生成 sourceMap 文件
+  // "http://192.168.21.74:12699",
+  // "http://192.168.8.19:30221",
   devServer: {
     open: true,
     proxy: {
       // 代理
       "/api": {
-        target: "http://192.168.8.19:30221",
+        target: "http://192.168.21.74:12699",
         ws: true,
         changOrigin: true,
         pathRewrite: {

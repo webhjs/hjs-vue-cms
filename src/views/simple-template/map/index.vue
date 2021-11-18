@@ -17,6 +17,9 @@
     >
       返回
     </span>
+    <div class="absolute top-20 left-8 text-white text-xl">
+      只支持安徽省六安市下钻
+    </div>
   </div>
 </template>
 <script>

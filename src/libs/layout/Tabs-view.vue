@@ -4,8 +4,8 @@
     v-if="visitedTabsView.length"
   >
     <div class="absolute w-full h-full">
-      <scroll-tag>
-        <draggable class="h-full" :options="{ animation: 500 }">
+      <scroll-tag showPosition id="__routeTabs" :animation="300">
+        <draggable class="h-full" :options="{ animation: 300 }">
           <div
             v-for="tag in visitedTabsView"
             :key="tag.path"
@@ -38,9 +38,9 @@
           popper-class="opear-pover"
           trigger="click"
         >
-          <ul class="bg-white rounded cursor-pointer border-gray-100">
+          <ul class="curstom bg-white rounded cursor-pointer border-gray-100">
             <li
-              class="px-2 py-1 border-gray-100"
+              class="p-2 border-gray-100 border-b"
               @click="
                 $refs.opearPover.doClose();
                 delOtherTabsview();
@@ -66,7 +66,7 @@
     </div>
     <menuCom id="custom_menuwarp" :page="pagePosition" :visble.sync="visble">
       <ul
-        class="bg-white w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
+        class="bg-white py-1 w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
       >
         <li class="px-2 py-1 border-b border-gray-100" @click="reload">
           <i class="el-icon-refresh mr-1" />刷新
@@ -77,10 +77,10 @@
         >
           <i class="el-icon-circle-close mr-1" />关闭当前
         </li>
-        <li class="px-2 py-1 border-gray-100" @click="delOtherTabsview">
+        <li class="px-2 py-1 border-gray-100 border-b" @click="delOtherTabsview(tagData)">
           <i class="el-icon-circle-close mr-1" />关闭其它
         </li>
-        <li class="px-2 py-1 border-gray-100" @click="delAllTabsview">
+        <li class="px-2 py-1" @click="delAllTabsview">
           <i class="el-icon-circle-close mr-1" />关闭全部
         </li>
       </ul>
@@ -141,13 +141,14 @@ export default {
       }
       this.handleClose(this.tagData);
     },
-    delOtherTabsview() {
-      const { path } = this.$route;
+    delOtherTabsview(tagData) {
+      const path = Object.prototype.toString.call(tagData) === '[object Object]' ? tagData.path : this.$route.path
       this.tagData = this.visitedTabsView.filter(fit => {
         return fit.path === path;
       })[0];
       this.layoutTheme.removeOtherCacheAll(this.tagData);
-      this.delAllVisitedOtherTabsView(this.tagData).then(res => {
+      this.delAllVisitedOtherTabsView(this.tagData).then(_ => {
+        console.log(_)
         if (this.$route.path !== this.tagData.path) {
           this.$router.push({ path: this.tagData.path });
         }
@@ -221,6 +222,8 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+/deep/ .offset-wrap
+  height: 100%;
 .tabs-view-container
   height: 40px;
   &:after
@@ -238,8 +241,7 @@ export default {
         margin-left 0
 ul.curstom
   li:hover
-    background #ecf5ff
-    color #409EFF
+    background #eee
 .tags-view-item
   display block
   height 100%
@@ -297,4 +299,5 @@ ul.curstom
 <style lang="stylus">
 .opear-pover
   min-width auto
+  padding 5px 0
 </style>
