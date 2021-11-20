@@ -34,9 +34,12 @@ import "@/permission";
 // tooltip 溢出显示指令 v-ellipsis:top="li.name"
 import Ellipsis from 'vue-directive-ellipsis'
 import 'vue-directive-ellipsis/dist/ellipsis.umd.css'
+import directives from '../directives/index.js'
 
 export function initSetup(Vue) {
   Vue.directive('ellipsis', Ellipsis)
+  Vue.directive('flowWheel', directives.flowWheel) // 缩放
+  Vue.directive('flowDrag', directives.flowDrag) // 拖拽
   Vue.use(VCharts);
   Vue.use(htmlToPdf);
   Vue.use(Api);
