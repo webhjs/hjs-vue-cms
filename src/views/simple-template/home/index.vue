@@ -190,9 +190,8 @@ ul,li
 .list-item
   line-height 30px
 .containers
-  position relative
   .export
-    position fixed
-    top 13.5vh
-    right 2vw
+    position absolute
+    top 3vh
+    right 3vw
 </style>

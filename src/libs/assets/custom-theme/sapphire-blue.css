@@ -65,8 +65,15 @@
   color: #e6f7ff;
   top: 0px;
 }
-.sapphire-blue .el-menu-item:hover i, .sapphire-blue .el-menu-item.is-active i {
+.sapphire-blue .el-menu-item:hover i,
+.sapphire-blue .el-menu-item.is-active:hover i,
+.sapphire-blue .left-sidebar .el-submenu .el-menu-item.is-active i,
+.sapphire-blue .left-sidebar .el-menu .el-menu-item.is-active i,
+.sapphire-blue .left-sidebar .el-menu--collapse .el-menu-item.is-active i {
   color: #e6f7ff;
+}
+.sapphire-blue .el-menu-item.is-active i {
+  color: #2b93e3;
 }
 .sapphire-blue .el-menu-item i,
 .sapphire-blue .el-submenu__title i {

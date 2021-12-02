@@ -11,6 +11,7 @@ const SET_DERAWER = 'setDrawer'
 const SET_THEME = 'setTheme'
 const SET_POSITION = 'setPosition'
 const SET_ROUTERS = 'setRouters'
+const SET_ISCOLLAPSE = 'setIsCollapse'
 
 const layout = {
   namespaced: true,
@@ -20,7 +21,10 @@ const layout = {
       return loadFromLocal('theme', 'sapphire-blue')
     })(),
     position: (() => {
-      return loadFromLocal('position', 'left')
+      return loadFromLocal('position', 'right')
+    })(),
+    isCollapse: (() => {
+      return loadFromLocal('isCollapse', true)
     })(),
     routers: [],
     bgColorMap: [
@@ -59,6 +63,10 @@ const layout = {
       saveToLocal('position', payload)
       state.position = payload
     },
+    [SET_ISCOLLAPSE](state, payload) {
+      saveToLocal('isCollapse', payload)
+      state.isCollapse = payload
+    },
     [SET_ROUTERS](state, routers) {
       state.routers = routers
     }
@@ -67,6 +75,7 @@ const layout = {
     drawer: state => state.drawer,
     theme: state => state.theme,
     position: state => state.position,
+    isCollapse: state => state.isCollapse,
     routers: state => state.routers,
     bgColorMap: state => state.bgColorMap
   }

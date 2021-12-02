@@ -21,7 +21,7 @@
             <navbar :logo="false">
               <i
                 :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
-                slot="menubtn"
+                slot="menubtn-left"
                 style="font-size: 20px; outline: none;cursor: pointer; margin:0 10px"
                 @click="swtichCollapse"
               ></i>
@@ -29,6 +29,29 @@
             <div class="main-left main-common">
               <tabs-view></tabs-view>
               <app-main ref="AppMain" class="main-content"></app-main>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template v-if="position === 'right'">
+        <div class="containers">
+          <div class="main-container">
+            <navbar>
+              <i
+                :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
+                slot="menubtn-right"
+                style="font-size: 20px; outline: none;cursor: pointer; margin-left: 5px"
+                @click="swtichCollapse"
+              ></i>
+            </navbar>
+            <div class="main-left flex">
+              <div class="flex-1 flex flex-col">
+                <tabs-view class="border-gray-100 border-r border-solid"></tabs-view>
+                <div class="flex-1 relative">
+                  <app-main ref="AppMain" class="main-content"></app-main>
+                </div>
+              </div>
+              <sidebar :logo="false" :isCollapse="isCollapse" class="vertical" overflowClass="overflowClass" />
             </div>
           </div>
         </div>
@@ -75,7 +98,7 @@
             <navbar :logo="false" :showlevel1="true" :breadIsShow="false">
               <i
                 :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
-                slot="menubtn"
+                slot="menubtn-left"
                 style="font-size: 20px; outline: none;cursor: pointer; margin:0 10px"
                 @click="swtichCollapse"
               ></i>
@@ -126,7 +149,8 @@
       <el-divider content-position="left">布局</el-divider>
       <el-radio-group v-model="position" class="three-columns" @change="changeRadio">
         <el-radio-button label="left-no">自定义</el-radio-button>
-        <el-radio-button label="left">左右</el-radio-button>
+        <el-radio-button label="left">左侧</el-radio-button>
+        <el-radio-button label="right">右侧</el-radio-button>
         <el-radio-button label="top">上下</el-radio-button>
         <el-radio-button label="top_left">上下+左右</el-radio-button>
       </el-radio-group>
@@ -182,6 +206,14 @@ export default {
         this.$store.commit('layout/setTheme', value)
       }
     },
+    isCollapse: {
+      get() {
+        return this.$store.getters['layout/isCollapse']
+      },
+      set(value) {
+        this.$store.commit('layout/setIsCollapse', value)
+      }
+    },
     position: {
       get() {
         return this.$store.getters['layout/position']
@@ -209,7 +241,6 @@ export default {
   data() {
     return {
       layout: '',
-      isCollapse: false,
       sliceLength: (() => { // 用于分割字符路由串的位置
         return this.$store.getters['layout/routers'].length
       })(),
@@ -317,11 +348,16 @@ export default {
 }
 .three-columns{
   width: 100%
+  border-left: 1px solid #DCDFE6;
   /deep/ .el-radio-button {
-    width: 25%
+    width: 33.3%
     .el-radio-button__inner {
       width: 100%
     }
+  }
+  /deep/ .el-radio-button:first-child .el-radio-button__inner, /deep/ .el-radio-button:last-child .el-radio-button__inner {
+    border-left: 0;
+    border-radius: 0;
   }
 }
 .main-left
@@ -355,6 +391,7 @@ export default {
   background-color transparent
 /deep/ .el-menu-vertical-demo:not(.el-menu--collapse)
   min-height unset
+  overflow auto
 </style>
 <style lang="stylus">
 .layout-draw .el-drawer__body {
