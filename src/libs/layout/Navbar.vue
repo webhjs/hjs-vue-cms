@@ -18,7 +18,7 @@
           <span> {{ $t("navbar.title") }}</span>
         </el-menu-item>
 
-        <slot name="menubtn" style="display: inline-block;" />
+        <slot name="menubtn-left" style="display: inline-block;" />
 
         <breadcrumb v-if="breadIsShow"></breadcrumb>
         
@@ -29,7 +29,7 @@
       </div>
       <!-- class="flex w-60 justify-between items-center absolute right-10 top-1/2 bottom-1/2" -->
       <div
-        class="flex w-60 justify-between items-center mr-5"
+        class="flex w-72 justify-between items-center mr-5"
         style="outline: none;"
       >
         <el-tooltip
@@ -72,6 +72,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </div>
+        <slot name="menubtn-right" style="display: inline-block;" />
       </div>
     </el-menu>
   </div>
