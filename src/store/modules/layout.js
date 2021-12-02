@@ -24,7 +24,7 @@ const layout = {
       return loadFromLocal('position', 'right')
     })(),
     isCollapse: (() => {
-      return loadFromLocal('isCollapse', true)
+      return JSON.parse(loadFromLocal('isCollapse', 'true'))
     })(),
     routers: [],
     bgColorMap: [
@@ -64,7 +64,7 @@ const layout = {
       state.position = payload
     },
     [SET_ISCOLLAPSE](state, payload) {
-      saveToLocal('isCollapse', payload)
+      saveToLocal('isCollapse', String(payload))
       state.isCollapse = payload
     },
     [SET_ROUTERS](state, routers) {
