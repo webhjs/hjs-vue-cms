@@ -92,7 +92,7 @@ export default {
         }).then(resp => {
           if (resp.code == 155) { // 刷新token
             console.log('登录过期',resp)
-            if (!loadFromLocal("username", "") || loadFromLocal("password", "")) return
+            if (!loadFromLocal("username", "") || !loadFromLocal("password", "")) return
             store.dispatch("user/login", {
               username: loadFromLocal("username", ""),
               password: loadFromLocal("password", "")
