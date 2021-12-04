@@ -1,60 +1,22 @@
 import { Api } from "@/api";
-import { getToken, setToken, removeToken } from "@/libs/common/auth";
+import { setToken, removeToken } from "@/libs/common/auth";
+import { Message } from 'element-ui';
 
-const SET_ACCOUNT = "SET_ACCOUNT";
-const SET_TOKEN = "SET_TOKEN";
-const SET_NAME = "SET_NAME";
-const SET_AGE = "SET_AGE";
-const SET_SEX = "SET_AEX";
-const SET_AVATAR = "SET_AVATAR";
-const SET_PERMISSIONS = "SET_PERMISSIONS";
-const SET_TYPE = "SET_TYPE";
-const SET_DESC = "SET_DESC";
-const SET_ALL = "SET_ALL";
+const SET_ACCOUNT_INFO = "set_account_info";
+const SET_TOKEN = "set_token";
 
 const user = {
   namespaced: true,
   state: {
-    token: getToken(),
-    account: "",
-    name: "",
-    age: 0,
-    sex: "",
-    avatar: "",
-    permissions: "",
-    type: [],
-    desc: ""
+    token: "",
+    accountInfo: {}
   },
   mutations: {
-    [SET_ACCOUNT](state, account) {
-      state.account = account;
+    [SET_ACCOUNT_INFO](state, accountInfo) {
+      state.accountInfo = accountInfo;
     },
     [SET_TOKEN](state, token) {
       state.token = token;
-    },
-    [SET_NAME](state, name) {
-      state.name = name;
-    },
-    [SET_AGE](state, age) {
-      state.age = age;
-    },
-    [SET_SEX](state, sex) {
-      state.sex = sex;
-    },
-    [SET_AVATAR](state, avatar) {
-      state.avatar = avatar;
-    },
-    [SET_PERMISSIONS](state, permissions) {
-      state.permissions = permissions;
-    },
-    [SET_TYPE](state, type) {
-      state.type = type;
-    },
-    [SET_DESC](state, desc) {
-      state.desc = desc;
-    },
-    [SET_ALL](state, userInfo) {
-      state = Object.assign(state, userInfo);
     }
   },
   actions: {
@@ -63,12 +25,18 @@ const user = {
       return new Promise((resolve, reject) => {
         Api("login/login", userInfo)
           .then(resp => {
-            setToken(resp.token);
-            commit(SET_TOKEN, resp.token);
-            return resolve(resp);
+            if (resp.code == 200) {
+              setToken(resp.data.token);
+              commit(SET_TOKEN, resp.data.token);
+              resolve(resp);
+            } else {
+              Message.error(resp.msg);
+              reject(resp.msg);
+            }
           })
           .catch(err => {
-            return reject(err);
+            Message.error(err);
+            reject(err);
           });
       });
     },
@@ -77,41 +45,33 @@ const user = {
       return new Promise((resolve, reject) => {
         Api("login/userInfo")
           .then(resp => {
-            commit(SET_ACCOUNT, resp.account);
-            commit(SET_NAME, resp.name);
-            commit(SET_AGE, resp.age);
-            commit(SET_SEX, resp.sex);
-            commit(SET_AVATAR, resp.avatar);
-            commit(SET_PERMISSIONS, resp.permissions);
-            commit(SET_TYPE, resp.type);
-            commit(SET_DESC, resp.desc);
-            return resolve(resp);
+            if (resp.code == 200) {
+              commit(SET_TOKEN, resp.data.token);
+              commit(SET_ACCOUNT_INFO, resp.data);
+              resolve(resp.data);
+            } else {
+              reject(resp.msg);
+            }
           })
           .catch(err => {
-            return reject(err);
+            reject(err);
           });
       });
     },
     // 用户退出登录
     logout({ commit }) {
-      return new Promise((resolve, reject) => {
-        Api("login/logout")
-          .then(resp => {
-            removeToken();
-            commit(SET_TOKEN, "");
-            commit(SET_NAME, "");
-            return resolve();
-          })
-          .catch(err => {
-            return reject(err);
-          });
+      return new Promise((resolve) => {
+        removeToken();
+        commit(SET_TOKEN, "");
+        commit(SET_ACCOUNT_INFO, {});
+        resolve(true);
       });
     },
     // 头像更新
-    doUpdateAvatar({ commit }, imgFile) {
+    doUpdateAvatar({ dispatch, commit }, imgFile) {
       return new Promise(resolve => {
         setTimeout(() => {
-          commit(SET_AVATAR, imgFile);
+          // commit(SET_AVATAR, imgFile);
           resolve();
         }, 1000);
       });
@@ -122,7 +82,7 @@ const user = {
      */
     doUpdateUser({ commit }, userInfo) {
       return new Promise(resolve => {
-        commit(SET_ALL, userInfo);
+        // commit(SET_ALL, userInfo);
         setTimeout(() => {
           resolve();
         }, 1000);
@@ -131,11 +91,7 @@ const user = {
   },
   getters: {
     token: state => state.token,
-    name: state => state.name,
-    age: state => state.age,
-    avatar: state => state.avatar,
-    permissions: state => state.permissions,
-    allInfo: state => state
+    accountInfo: state => state.accountInfo,
   }
 };
 

@@ -48,15 +48,19 @@
 
         <div class="flex">
           <el-dropdown trigger="click" class="w-full">
-            <div class="flex justify-between items-center w-24">
+            <div class="flex w-28">
               <img
                 class="inline rounded-full"
                 width="30px"
                 height="30px"
-                :src="avatar"
+                src="/static/images/avatar/1.jpg"
               />
-              <div>
-                <span>{{ name }} </span>
+              <div class="flex-1 flex justify-center items-center">
+                <div class="w-full h-full pl-2 relative">
+                  <div class="absolute w-full h-full" v-ellipsis:top=" accountInfo.username">
+                    {{ accountInfo.username }}
+                  </div>
+                </div>
                 <i class="el-icon-caret-bottom"></i>
               </div>
             </div>
@@ -130,8 +134,7 @@ export default {
   computed: {
     // ...mapGetters(["name", "avatar"])
     ...mapGetters({
-      name:"user/name", 
-      avatar:"user/avatar"
+      accountInfo: "user/accountInfo"
     })
   },
   methods: {
@@ -154,7 +157,7 @@ export default {
         background: 'rgba(0, 0, 0, 0.7)'
       });
       this.userLogout()
-        .then(() => {
+        .then((_) => {
           // 为了重新实例化vue-router对象 避免bug
           location.reload();
         })

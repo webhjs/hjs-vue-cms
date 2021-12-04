@@ -7,7 +7,7 @@
  * @FilePath: \vue-cms\src\views\home\index.vue
 -->
 <template>
-  <div>
+  <div class="containers">
     <div class="row" id="pdfDom">
       <div class="golbal">
         XX市卫生健康委员会<el-divider></el-divider>
@@ -83,15 +83,6 @@ export default {
     Annex,
     Seal,
     HistogramChart
-  },
-  mounted() {
-    this.api("login/test")
-      .then(resp => {
-        console.log('刷新登录数据', resp)
-      })
-      .catch(err => {
-        this.$message.error(err.message);
-      });
   },
   data() {
     return {
@@ -198,8 +189,10 @@ ul,li
   font-weight bold
 .list-item
   line-height 30px
-.export
-  position absolute
-  top 2.5vh
-  right 2vw
+.containers
+  position relative
+  .export
+    position fixed
+    top 13.5vh
+    right 2vw
 </style>

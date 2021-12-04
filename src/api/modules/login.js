@@ -8,8 +8,8 @@
  */
 
 export default {
-  login: ["/login/login", "post"],
-  userInfo: ["/user/getInfo", "post"],
-  logout: ["/login/logout", "post"],
-  tableApi: ["/api/call/api/data", "post", "params"]
+  login: ["/api/open/login", "post"],
+  userInfo: ["/api/user/getMyInfo", "get"],
+  logout: ["/api/login/logout", "post"],
+  test: ["/api/login/test", "post"]
 };

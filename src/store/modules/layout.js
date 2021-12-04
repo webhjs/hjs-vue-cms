@@ -21,10 +21,10 @@ const layout = {
       return loadFromLocal('theme', 'sapphire-blue')
     })(),
     position: (() => {
-      return loadFromLocal('position', 'right')
+      return loadFromLocal('position', 'left')
     })(),
     isCollapse: (() => {
-      return JSON.parse(loadFromLocal('isCollapse', 'true'))
+      return JSON.parse(loadFromLocal('isCollapse', 'false'))
     })(),
     routers: [],
     bgColorMap: [

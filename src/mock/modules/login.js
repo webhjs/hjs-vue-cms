@@ -15,7 +15,10 @@ function login(userInfo) {
 }
 
 function logout() {
-  return "success";
+  return {
+    code: '200',
+    data: "success"
+  };
 }
 
 export { login, logout };

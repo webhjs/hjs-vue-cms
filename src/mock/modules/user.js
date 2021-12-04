@@ -6,7 +6,6 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-04-02 10:20:57
  */
-import { getToken } from "@/libs/common/auth";
 
 /**
  * 用户列表list
@@ -19,15 +18,15 @@ const userMap = {
   // 相比于用role来做权限，permissions这样可以定制每一个用户的权限
   // permissions不能为空，最少
   admin: {
-    account: "admin",
-    token: "admin",
-    name: "Admin",
-    age: 10,
-    sex: 1,
-    avatar: "./static/images/avatar/1.jpg",
-    permissions: "/excel,/clipboard,/theme,/test",
-    type: ["Vue", "小程序"],
-    desc: "我是admin账号"
+    "code": 200,
+    "data": {
+      "personname": "学生", //真实名
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZU1pbGxpcyI6IjE2Mzc0OTM1NzAzNjgiLCJ0ZW5hbnRpZCI6IjMxMDAwMDAwMTAwMDEiLCJleHAiOjE2Mzc1MDA3NzAsInVzZXJuYW1lIjoic3R1ZGVudCJ9.ZSlf-Vb4k4bH_JR2gAykQ57FvFXMqv8s_lCZuBrH6_Q", //token
+      "userimgurl": "/Path/user/3aa978f2-fadc-4540-9cef-996e760f4d74.png", //用户头像
+      "username": "student", //登录名
+      "menus": []
+    },
+    "msg": ""
   },
   lucy: {
     account: "lucy",
@@ -35,7 +34,7 @@ const userMap = {
     name: "Lucy",
     age: 12,
     sex: 2,
-    avatar: "./static/images/avatar/1.jpg",
+    avatar: "/static/images/avatar/1.jpg",
     permissions: "/excel,/theme",
     type: ["Vue"],
     desc: ""
@@ -43,8 +42,18 @@ const userMap = {
 };
 
 function pullUserInfo() {
-  console.log('pullUserInfo')
-  return getToken() ? userMap[getToken()] : '';
+  return {
+    "code": 200,
+    "data": {
+      "id": '1',
+      "personname": "学生", //真实名
+      "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZU1pbGxpcyI6IjE2Mzc0OTM1NzAzNjgiLCJ0ZW5hbnRpZCI6IjMxMDAwMDAwMTAwMDEiLCJleHAiOjE2Mzc1MDA3NzAsInVzZXJuYW1lIjoic3R1ZGVudCJ9.ZSlf-Vb4k4bH_JR2gAykQ57FvFXMqv8s_lCZuBrH6_Q", //token
+      "userimgurl": "/Path/user/3aa978f2-fadc-4540-9cef-996e760f4d74.png", //用户头像
+      "username": "student", //登录名
+      "menus": []
+    },
+    "msg": ""
+  };
 }
 
 export { userMap, pullUserInfo };

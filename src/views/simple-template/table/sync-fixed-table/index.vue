@@ -63,7 +63,6 @@
 </template>
 
 <script>
-import export_excel from "hjs-xlsx";
 export default {
   name: "DropDownTable",
   data() {

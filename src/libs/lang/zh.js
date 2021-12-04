@@ -11,14 +11,14 @@ export default {
     name: '喻'
   },
   login: {
-    title: '微服务总线(MSB)',
+    title: '在线考试系统(EXAM)',
     account: '账号',
     password: '密码',
     remember: '记住密码',
     login: '登录'
   },
   navbar: {
-    title: '微服务总线(MSB)',
+    title: '在线考试系统(EXAM)',
     screenfull: '全屏',
     profile: '个人中心',
     avatar: '修改头像',

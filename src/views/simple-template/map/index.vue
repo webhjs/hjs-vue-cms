@@ -264,7 +264,7 @@ export default {
     requestJsonFn(adcode) {
       return new Promise(async (resolve, reject) => {
         try {
-          fetch(`static/maps/${adcode}_full.json`)
+          fetch(`/static/maps/${adcode}_full.json`)
             .then(response => response.json())
             .then(geoJson => {
               let data = geoJson;

@@ -6,6 +6,7 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-09-27 14:30:37
  */
+import { getToken } from "@/libs/common/auth";
 import axios from 'axios'
 axios.defaults.headers["Content-Type"] = "application/json;charset=utf-8";
 // 创建axios实例
@@ -18,10 +19,11 @@ const service = axios.create({
 // request拦截器
 service.interceptors.request.use(
   (config) => {
-    config.headers['nonce'] = 'ied8szjomxibx0hs1ah4g3xhj1wnpn39jvmlkn7ep81zutt9nv5bwkklw5crm6gcer6sy6jlb6cnlsikhh66ypfamh0zar79t3b2tfsurziris19dohjfvydoiqmif3u'
-    config.headers['appKey'] = 1252
-    config.headers['curTime'] = 1610357629
-    config.headers['checkSum'] = '099cdedd562d2537586acd76e68b290704298e24'
+    config.headers['token'] = getToken();
+    // config.headers['nonce'] = 'ied8szjomxibx0hs1ah4g3xhj1wnpn39jvmlkn7ep81zutt9nv5bwkklw5crm6gcer6sy6jlb6cnlsikhh66ypfamh0zar79t3b2tfsurziris19dohjfvydoiqmif3u'
+    // config.headers['appKey'] = 1252
+    // config.headers['curTime'] = 1610357629
+    // config.headers['checkSum'] = '099cdedd562d2537586acd76e68b290704298e24'
     return config
   },
   (error) => {

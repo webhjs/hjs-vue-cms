@@ -6,4 +6,4 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-09-22 14:34:57
  */
-export const routerFile = "simple" // 路由配置
+export const routerFile = "student" // 路由配置

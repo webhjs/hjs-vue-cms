@@ -18,7 +18,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 
 module.exports = {
-  publicPath: "./",
+  publicPath: "/",
   outputDir: "dist", // 输出文件目录
   lintOnSave: false, // eslint 是否在保存时检查
   assetsDir: "static", // 配置js、css静态资源二级目录的位置
@@ -42,7 +42,7 @@ module.exports = {
   chainWebpack: config => {
     config.plugin("monaco").use(new MonacoWebpackPlugin());
     config.plugin("html").tap(args => {
-      args[0].title = "XX市家庭医生签约平台";
+      args[0].title = "在线考试系统";
       return args;
     });
     // 配置svg文件
@@ -71,7 +71,7 @@ module.exports = {
     proxy: {
       // 代理
       "/api": {
-        target: "http://192.168.21.74:12699",
+        target: "http://47.97.106.249:8085",
         ws: true,
         changOrigin: true,
         pathRewrite: {

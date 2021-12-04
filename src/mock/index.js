@@ -15,10 +15,18 @@ Mock.setup({
 });
 
 // 登录相关接口
-Mock.mock("/login/login", "post", loginAPI.login);
-Mock.mock("/login/logout", "post", loginAPI.logout);
+Mock.mock("/api/open/login", "post", loginAPI.login);
+Mock.mock("/api/login/logout", "post", loginAPI.logout);
+
+Mock.mock("/api/login/test", "post", {
+  "code": 155,
+  "data": {
+    "message": "hellow"
+  },
+  "msg": ""
+});
 
 // 用户信息相关接口
-Mock.mock("/user/getInfo", "post", userAPI.pullUserInfo);
+Mock.mock("/api/user/getMyInfo", "get", userAPI.pullUserInfo);
 
 export default Mock;

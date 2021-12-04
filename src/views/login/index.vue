@@ -1,6 +1,6 @@
 <template>
   <el-container class="login-container">
-    <el-button class="show-account p-3" type="text" @click="accountTip"
+    <el-button class="show-account p-3" type="text" @click="usernameTip"
       >提示帐号信息</el-button
     >
     <el-card class="animated flipInY">
@@ -36,11 +36,11 @@
             <svg-icon icon-class="user" class="inline" />
           </span>
         </el-form-item>
-        <el-form-item :label="$t('login.password')" prop="pwd">
+        <el-form-item :label="$t('login.password')" prop="password">
           <el-input
-            ref="pwd"
+            ref="password"
             type="password"
-            v-model="loginForm.pwd"
+            v-model="loginForm.password"
             @keyup.enter.native="onLogin"
             maxlength="20"
           />
@@ -64,7 +64,7 @@
   </el-container>
 </template>
 <script>
-import { isValidUsername } from "@/libs/utils/validate";
+// import { isValidUsername } from "@/libs/utils/validate";
 import LangSelect from "@/components/Lang-select";
 import { saveToLocal, loadFromLocal } from "@/libs/common/local-storage";
 import { mapActions } from "vuex";
@@ -77,8 +77,8 @@ export default {
   },
   data() {
     const validateUsername = (rule, value, callback) => {
-      if (!isValidUsername(value)) {
-        callback(new Error("请输入正确的用户名"));
+      if (!value) {
+        callback(new Error("请输入用户名"));
       } else {
         callback();
       }
@@ -92,21 +92,19 @@ export default {
     };
     return {
       loginForm: {
-        username: "lucy",
-        pwd: "123456"
+        username: "mAdmin",
+        password: "mandala"
       },
-      remember: false,
+      remember: loadFromLocal("remember", false),
       loading: false,
       rules: {
         username: [
           { required: true, message: "请输入账号", trigger: "blur" },
-          { required: true, trigger: "blur", validator: validateUsername },
-          { required: true, trigger: "change", validator: validateUsername }
+          { required: true, trigger: ["blur", "change"], validator: validateUsername }
         ],
-        pwd: [
+        password: [
           { required: true, message: "请输入密码", trigger: "blur" },
-          { required: true, trigger: "blur", validator: validatePwd },
-          { required: true, trigger: "change", validator: validatePwd }
+          { required: true, trigger: ["blur", "change"], validator: validatePwd }
         ]
       }
     };
@@ -115,10 +113,10 @@ export default {
     // 初始化时读取localStorage用户信息
     if (loadFromLocal("remember", false)) {
       this.loginForm.username = loadFromLocal("username", "");
-      this.loginForm.pwd = loadFromLocal("password", "");
+      this.loginForm.password = loadFromLocal("password", "");
     } else {
       this.loginForm.username = "";
-      this.loginForm.pwd = "";
+      this.loginForm.password = "";
     }
   },
   methods: {
@@ -128,39 +126,52 @@ export default {
     }),
     // 用户名输入框回车后切换到密码输入框
     goToPwdInput() {
-      this.$refs.pwd.$el.getElementsByTagName("input")[0].focus();
+      this.$refs.password.$el.getElementsByTagName("input")[0].focus();
     },
     // 登录操作
     onLogin() {
-      this.$refs.pwd.$el.getElementsByTagName("input")[0].blur();
+      this.$refs.password.$el.getElementsByTagName("input")[0].blur();
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true;
-          this.login(this.loginForm)
+          this.login({
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          })
             .then(resp => {
-              // 保存账号
-              if (this.remember) {
-                saveToLocal("username", this.loginForm.username);
-                saveToLocal("password", this.loginForm.pwd);
-                saveToLocal("remember", true);
+              if (resp.code == 200) {
+                // 保存账号
+                if (this.remember) {
+                  saveToLocal("username", this.loginForm.username);
+                  saveToLocal("password", this.loginForm.password);
+                  saveToLocal("remember", true);
+                } else {
+                  saveToLocal("username", "");
+                  saveToLocal("password", "");
+                  saveToLocal("remember", false);
+                }
+                const path = this.$route.query.redirect || 'simple/home'
+                this.$router.push({ path });
+                this.loading = false;
               } else {
-                saveToLocal("username", "");
-                saveToLocal("password", "");
-                saveToLocal("remember", false);
+                this.$message.error(resp.msg);
+                this.loading = false;
               }
-              this.$router.push({ path: "/home" });
             })
-            .catch(() => {
+            .catch(err => {
               this.loading = false;
+              this.$message.error(err);
             });
         } else {
+          this.loading = false;
+          console.log("error submit!!");
           return false;
         }
       });
     },
-    accountTip() {
+    usernameTip() {
       this.$notify({
-        title: "账号：lucy",
+        title: "账号：admin",
         dangerouslyUseHTMLString: true,
         message: "<strong>密码：<i>123456</i></strong>",
         type: "success",
@@ -279,7 +290,7 @@ export default {
     }
   },
   mounted() {
-    this.accountTip();
+    this.usernameTip();
     this.particlesJS();
   }
 };

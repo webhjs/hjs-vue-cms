@@ -93,6 +93,22 @@ export const constantRouterMap = [
         component: () => import("@/views/simple-template/jsplumb")
       }
     ]
+  },
+  {
+    path: "/basepage",
+    name: "basepage",
+    alwaysShow: true,
+    meta: { icon: "document-copy", title: "基础页面" },
+    component: Layout,
+    redirect: "/basepage/index",
+    children: [
+      {
+        path: "index",
+        name: "basepage-index",
+        meta: { icon: "document-copy", title: "基础页面" },
+        component: () => import("@/views/simple-template/basepage")
+      }
+    ]
   }
 ];
 export const asyncRouterMap = [
