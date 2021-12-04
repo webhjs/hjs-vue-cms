@@ -37,6 +37,7 @@ router.beforeEach(async (to, from, next) => {
   } // 跳转登录页直接跳转
   if (!getToken()) {
     next(`/login?redirect=${to.path}`);
+    NProgress.done();
     return;
   }
   let accountInfo = store.getters['user/accountInfo']
@@ -56,6 +57,7 @@ router.beforeEach(async (to, from, next) => {
   }
   if (!accountInfo.token) {
     next(`/login?redirect=${to.path}`);
+    NProgress.done();
     return;
   }
   if (accountInfo.token) {
