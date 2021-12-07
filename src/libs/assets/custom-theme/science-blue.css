@@ -1,7 +1,7 @@
 /*自定义蓝色主题-皮肤*/
 .science-blue .top-navbar ,.science-blue .el-dropdown,.science-blue .el-breadcrumb__separator{
-  color: #91d5ff;
-  fill: #91d5ff;
+  color: #91d5ff!important;
+  fill: #91d5ff!important;
 }
 /*
 * 左侧边框阴影

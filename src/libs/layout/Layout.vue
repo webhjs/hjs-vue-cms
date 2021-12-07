@@ -35,7 +35,7 @@
       </template>
       <template v-if="position === 'right'">
         <div class="containers">
-          <div class="main-container">
+          <div class="main-container" :class="{ 'science-blue': theme === 'theme-summer' }">
             <navbar>
               <i
                 :class="[isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold']"
