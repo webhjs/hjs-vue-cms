@@ -14,8 +14,8 @@
       :index="resolvePath(onlyOneChild.path)"
     >
       <item
-        :icon="item.children[0].meta.icon"
-        :title="item.children[0].meta.title"
+        :icon="item.children.length ? item.children[0].meta.icon : item.meta.icon"
+        :title="item.children.length ? item.children[0].meta.title : item.meta.title"
       ></item>
     </el-menu-item>
 
@@ -38,7 +38,7 @@
           />
 
           <el-menu-item
-            v-else
+            v-else-if="Object.keys(child).length"
             :key="child.path"
             :index="resolvePath(child.path)"
           >
@@ -109,7 +109,7 @@ export default {
 
       return false
     },
-    resolvePath(routePath) {
+    resolvePath(routePath = '') {
       // console.log(path.resolve(this.basePath, routePath))
       return path.resolve(this.basePath, routePath)
     }

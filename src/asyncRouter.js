@@ -6,7 +6,7 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-05-07 09:46:03
  */
-const debuggerModel = true
+import path from 'path'
 
 //判断当前角色是否有访问权限
 function hasPermission(roles, route) {
@@ -30,15 +30,14 @@ function filterRoutes (routes, roles) { // 过滤角色
   return res;
 }
 
-function filterMenus (routes, menus) { // 过滤菜单
-  if (debuggerModel || !menus || !menus.length) return routes
+function filterMenus (routes, menus, parentUrl = '') { // 过滤菜单
   const res = [];
   routes.forEach(route => {
     const tmp = { ...route };
     if (tmp.children) {
-      tmp.children = filterMenus(tmp.children, menus);
+      tmp.children = filterMenus(tmp.children, menus, path.resolve(parentUrl, route.path));
     }
-    ((tmp && tmp.children && tmp.children.length) || menus.includes(tmp.name) || tmp.name === "404") && res.push(tmp)
+    ((tmp && tmp.children && tmp.children.length) || menus.includes(path.resolve(parentUrl, route.path)) || tmp.name === "404") && res.push(tmp)
   });
   return res;
 }
