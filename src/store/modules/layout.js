@@ -26,7 +26,7 @@ const layout = {
     isCollapse: (() => {
       return JSON.parse(loadFromLocal('isCollapse', 'false'))
     })(),
-    routers: [],
+    routers: null,
     bgColorMap: [
       "#e7f7ff",
       "#d9f2e8",

@@ -50,7 +50,7 @@ router.beforeEach(async (to, from, next) => {
     return
   }
   // 保存在store中路由不为空则放行 (如果执行了刷新操作，则 store 里的路由为空，此时需要重新添加路由)
-  if (store.getters['layout/routers'].length && accountInfo.token) {
+  if (Array.isArray(store.getters['layout/routers']) && accountInfo.token) {
     //放行
     next()
     return;
