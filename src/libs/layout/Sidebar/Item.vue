@@ -32,7 +32,7 @@
         } else if(icon.startsWith('fa-')) {
           vnodes.push(<i class={'sidebar-icon fa ' + icon}></i>)
         } else {
-          vnodes.push(<i class={'el-icon-' + icon}></i>)
+          vnodes.push(<i class={'sidebar-icon el-icon-' + icon}></i>)
         }
       }
       if(title) {
