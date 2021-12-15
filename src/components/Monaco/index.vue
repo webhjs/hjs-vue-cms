@@ -32,7 +32,15 @@
 </template>
 
 <script>
-import * as monaco from 'monaco-editor'
+import { setLocaleData } from "monaco-editor-nls"
+import zh_CN from "monaco-editor-nls/locale/zh-hans"
+setLocaleData(zh_CN)
+
+
+//先汉化语言，再加载monaco才能汉化成功，使用import方式无法汉化
+//需要使用require方式引入monaco-editor
+//import * as monaco from 'monaco-editor'
+const monaco = require("monaco-editor/esm/vs/editor/editor.api");
 
 export default {
   name: 'Monaco',
@@ -47,7 +55,7 @@ export default {
     },
     defLangValue: {
       type: String,
-      default: 'json'
+      default: 'xml'
     },
     content: {
       type: Object | String | Array,
@@ -135,7 +143,7 @@ export default {
       this.monacoEditor = monaco.editor.create(this.$refs[this.id], {
         value: this.formatData(this.content),
         readOnly: this.readnowrite,
-        language: this.langValue,
+        language: '',
         theme: this.theme, // vs hc-black vs-dark
         formatOnPaste: true,
         fontSize: 14,
@@ -150,7 +158,7 @@ export default {
 
         wrappingIndent: 'indent',
         availableLanguages: {'*':'zh-cn'},
-        contextmenu: false, // 关闭右击菜单
+        // contextmenu: false, // 关闭右击菜单
 
         scrollbar: {
           verticalScrollbarSize: 5 // scroll大小

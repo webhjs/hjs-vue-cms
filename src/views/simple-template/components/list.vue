@@ -35,7 +35,7 @@
     </el-select>
     <div class="h-80 mt-8">
       {{ hellow }}
-      <monaco ref="monacoPreviewResource" id="monacoResource" v-model="hellow" />
+      <monaco ref="monacoPreviewResource" id="monacoResource" v-model="hellow" isShowLanguage />
     </div>
   </div>
 </template>

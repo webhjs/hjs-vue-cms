@@ -15,7 +15,8 @@ function resolve(dir) {
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+
+const MonacoWebpackPlugin = require('monaco-editor-esm-webpack-plugin');
 
 module.exports = {
   publicPath: "/",
@@ -31,6 +32,14 @@ module.exports = {
   // ignore  忽略拷贝指定的文件            可以模糊匹配
   configureWebpack: {
     name: "管理系统",
+    module: {
+			rules: [{
+				test: /\.js/,
+				enforce: 'pre',
+				include: /node_modules[\\\/]monaco-editor[\\\/]esm/,
+				use: MonacoWebpackPlugin.loader
+			}]
+		},
     // 打包静态文件插件
     plugins: [new CopyWebpackPlugin([{ from: "./static", to: "static" }]), new MonacoWebpackPlugin()],
     resolve: {
