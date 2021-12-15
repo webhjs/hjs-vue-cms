@@ -31,6 +31,7 @@ function filterRoutes (routes, roles) { // 过滤角色
 }
 
 function filterMenus (routes, menus, parentUrl = '') { // 过滤菜单
+  if (menus) return routes
   const res = [];
   routes.forEach(route => {
     const tmp = { ...route };

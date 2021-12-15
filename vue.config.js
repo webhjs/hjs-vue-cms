@@ -15,7 +15,7 @@ function resolve(dir) {
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
   publicPath: "/",
@@ -32,7 +32,7 @@ module.exports = {
   configureWebpack: {
     name: "管理系统",
     // 打包静态文件插件
-    plugins: [new CopyWebpackPlugin([{ from: "./static", to: "static" }])],
+    plugins: [new CopyWebpackPlugin([{ from: "./static", to: "static" }]), new MonacoWebpackPlugin()],
     resolve: {
       alias: {
         "@": resolve("src")
@@ -40,7 +40,6 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.plugin("monaco").use(new MonacoWebpackPlugin());
     config.plugin("html").tap(args => {
       args[0].title = "在线考试系统";
       return args;
