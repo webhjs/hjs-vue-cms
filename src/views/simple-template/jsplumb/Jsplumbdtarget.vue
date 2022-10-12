@@ -624,6 +624,11 @@ export default {
         },
         {
           label: item.label,
+          //     events:{
+          //       mouseover:function(labelOverlay, originalEvent) { 
+          //         console.log(item)
+          //       }
+          //     },
           paintStyle: {
             stroke: item.error ? "#F18383" : "#7AB02C",
             strokeWidth: 2,
@@ -688,8 +693,8 @@ export default {
     // 初始化流程图盒子
     initJsPlumb() {
       this.jsplumb = jsPlumb.getInstance({
-        Connector: ["Bezier", { curviness: 80 }],
-        // Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
+        // Connector: ["traight", { curviness: 80 }],
+        Connector: ["Flowchart", { stub: [40, 60], gap: 10, cornerRadius: 5, alwaysRespectStubs: true }],
         PaintStyle: {
           stroke: "#7AB02C",
           strokeWidth: 2,

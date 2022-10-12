@@ -46,7 +46,8 @@ module.exports = {
       alias: {
         "@": resolve("src")
       }
-    }
+    },
+    // devtool: 'source-map' // 生产生成 sourceMap 文件
   },
   chainWebpack: config => {
     config.plugin("html").tap(args => {
@@ -71,7 +72,11 @@ module.exports = {
       })
       .end();
   },
-  productionSourceMap: true, // 生产生成 sourceMap 文件
+  // runtimeCompiler: true, // 运行编译
+  
+  // config.when(process.env.NODE_ENV === 'development', config => config.devtool('source-map'))
+  productionSourceMap: false, // 生产生成 sourceMap 文件
+
   // "http://192.168.21.74:12699",
   // "http://192.168.8.19:30221",
   devServer: {

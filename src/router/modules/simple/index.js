@@ -75,6 +75,12 @@ export const constantRouterMap = [
         name: "drag-tree-table",
         meta: { icon: "document-copy", title: "树行table排序" },
         component: () => import("@/views/simple-template/table/drag-tree-table") // keepAlive: false, activeMenu: '/resource-manage/dataconversion'
+      },
+      {
+        path: "drag-merge-table",
+        name: "drag-merge-table",
+        meta: { icon: "document-copy", title: "树行合并拖拽" },
+        component: () => import("@/views/simple-template/table/drag-merge-table")
       }
     ]
   },
@@ -107,6 +113,12 @@ export const constantRouterMap = [
         name: "basepage-index",
         meta: { icon: "document-copy", title: "基础页面" },
         component: () => import("@/views/simple-template/basepage")
+      },
+      {
+        path: "two",
+        name: "basepage-tow",
+        meta: { icon: "document-copy", title: "基础页面二" },
+        component: () => import("@/views/simple-template/basepage-two")
       }
     ]
   }

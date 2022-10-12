@@ -21,19 +21,29 @@ import { filterAsyncRoutes } from "@/asyncRouter.js";
 
 /*读取router配置*/
 import { routerModules } from "@/router";
+import { asyncCommonRouterMap } from "@/router/common";
 const { constantRouterMap, asyncRouterMap } = routerModules ? routerModules : { constantRouterMap: [], asyncRouterMap: [] };
 /*读取router配置*/
 
 NProgress.configure({ showSpinner: false });
 
-const whitePath = ["/login"];
+const whitePath = ['/login']; // 白名单
 // 路由全局前置守卫
 router.beforeEach(async (to, from, next) => {
   NProgress.start(); // start progress bar
   document.title = to.meta.title || "default";
   if (whitePath.includes(to.path)) {
-    next();
-    return;
+    if (store.getters['layout/originRouters'] || !whitePath.length) {
+      next();
+      return;
+    }
+    const finallyMenus = whitePath.map(m => ({ path: m }))
+    const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), [], finallyMenus);
+    store.commit("layout/setOriginRouters", accessRoutes)
+    // 动态添加路由到router内
+    router.addRoutes(accessRoutes);
+    next({ ...to });
+    return
   } // 跳转登录页直接跳转
   if (!getToken()) {
     next(`/login?redirect=${to.path}`);
@@ -42,7 +52,7 @@ router.beforeEach(async (to, from, next) => {
   }
   let accountInfo = store.getters['user/accountInfo']
   try {
-    accountInfo = accountInfo.token ? accountInfo : await store.dispatch("user/pullUserInfo")
+    accountInfo = accountInfo.id ? accountInfo : await store.dispatch("user/pullUserInfo")
   }  catch (_) {
     Message.warning('拉取用户信息失败')
     next(`/login?redirect=${to.path}`);
@@ -50,24 +60,42 @@ router.beforeEach(async (to, from, next) => {
     return
   }
   // 保存在store中路由不为空则放行 (如果执行了刷新操作，则 store 里的路由为空，此时需要重新添加路由)
-  if (Array.isArray(store.getters['layout/routers']) && accountInfo.token) {
+  if (Array.isArray(store.getters['layout/routers']) && accountInfo.id) {
     //放行
     next()
     return;
   }
-  if (!accountInfo.token) {
+  if (!accountInfo.id) {
     next(`/login?redirect=${to.path}`);
     NProgress.done();
     return;
   }
-  if (accountInfo.token) {
-    const accessRoutes = filterAsyncRoutes(asyncRouterMap, ["Lucy"], accountInfo.menus);
-    store.commit("layout/setRouters", constantRouterMap.concat(accessRoutes));
+  if (accountInfo.id) {
+    const menuList = await store.dispatch("user/getUserMenuList")
+    const result = menuList.reduce((pre, cur)  => {
+      return pre.concat(cur.menus)
+    }, [])
+    const originAuthMenus = []
+    const itor = (dataArr) => {
+      Array.isArray(dataArr) && dataArr.forEach(data => {
+        originAuthMenus.push({ path: data.path, meta: data.meta })
+        if(data.children && data.children.length) {
+          itor(data.children)
+        }
+      })
+    }
+    itor(result)
+    const finallyMenus = originAuthMenus.reduce((pre, cur) => {
+      !pre.includes(cur) && pre.push(cur)
+      return pre
+    }, [])
+    const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), [], finallyMenus);
+    store.commit("layout/setOriginRouters", constantRouterMap.concat(accessRoutes))
     // 动态添加路由到router内
     router.addRoutes(accessRoutes);
     next({ ...to }) // hack方法 确保addRoutes已完成
   } else {
-    const accessRoutes = filterAsyncRoutes(asyncRouterMap, []);
+    const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), ["Lucy"]);
     store.commit("layout/setRouters", constantRouterMap.concat(accessRoutes));
     router.addRoutes(accessRoutes);
     next({ ...to }) // hack方法 确保addRoutes已完成

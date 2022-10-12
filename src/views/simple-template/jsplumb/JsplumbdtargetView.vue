@@ -224,7 +224,6 @@ import { jsPlumb } from "jsplumb";
 import Contextjs from "hjs-contextmenu";
 import Monaco from "@/components/Monaco";
 import NodeItem from "./components/node-item";
-import { Position } from "monaco-editor";
 export default {
   components: {
     Contextjs,

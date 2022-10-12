@@ -15,7 +15,7 @@
     "core-js": "^3.6.5",
     "drag-tree-table": "^2.2.0",
     "echarts": "^4.0.4",
-    "element-ui": "^2.15.1",
+    "element-ui": "^2.15.10",
     "font-awesome": "^4.7.0",
     "hjs-contextmenu": "^1.0.1",
     "hjs-scroll": "^1.0.1",

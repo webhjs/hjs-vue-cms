@@ -8,6 +8,7 @@
 -->
 <template>
   <div class="containers flex flex-col">
+    <JsplumbdtargetViewCircular id="jsSource" :sourceList="sourceList" :targetList="targetList" :relationArray="relationArray" />
     <JsplumbdtargetView id="js1" percent/>
     <Jsplumbdrag id="js3" percent/>
     <Jsplumbdtarget id="js2" percent/>
@@ -19,13 +20,15 @@ import Jsplumblist from './Jsplumblist'
 import Jsplumbdrag from './Jsplumbdrag'
 import Jsplumbdtarget from './Jsplumbdtarget'
 import JsplumbdtargetView from './JsplumbdtargetView'
+import JsplumbdtargetViewCircular from '@/views/simple-template/jsplumb/JsplumbdtargetViewCircular'
 export default {
   name: 'Js-plumb',
   components: {
     Jsplumblist,
     Jsplumbdrag,
     Jsplumbdtarget,
-    JsplumbdtargetView
+    JsplumbdtargetView,
+    JsplumbdtargetViewCircular
   },
   data() {
     return {
