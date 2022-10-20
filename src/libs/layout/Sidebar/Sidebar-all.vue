@@ -19,7 +19,7 @@
       collapse-transition
       router
     >
-      <el-menu-item class="logo-name title-name" index="" style="color: hsla(0,0%,100%,.85);font-weight: bold;font-size: 16px;">
+      <el-menu-item class="logo-name title-name" index="" style="color: hsla(0,0%,100%,.85);font-weight: bold;font-size: 0;">
         <img
           src="@/libs/assets/imgs/logo.png"
           class="inline"
@@ -27,7 +27,7 @@
           width="20px"
           height="20px"
         />
-        <span slot="title"> {{ $t("navbar.title") }}</span>
+        <span slot="title" style="font-size: 16px;"> {{ $t("navbar.title") }}</span>
       </el-menu-item>
       <div class="overflowScroll">
         <sidebar-item-all
@@ -77,6 +77,9 @@ export default {
       basePath: '',
       lastChildren: {}
     }
+  },
+  mounted() {
+    console.log(this.routers)
   },
   watch: {
     '$route': {

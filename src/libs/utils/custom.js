@@ -105,9 +105,11 @@ function clickTitle(mark) {
 }
 
 // 异步加载路由给路由配置routename
-const Lazy = async function (component = new Promise(resolve => resolve), componentName) {
-  const _component = await component
-  componentName && (_component.default.name = componentName)
+const Lazy = async function (component = Promise.resolve(), routerConfig = {}, _path) {
+  const isFunction = Object.prototype.toString.call(component) === '[object Function]'
+  const _component = isFunction ? await component() : await component
+  const componentName = routerConfig.name || _path
+  isFunction ? (_component.default.name = componentName) : (routerConfig.name = componentName)
   return Promise.resolve(_component)
 }
 
@@ -149,11 +151,4 @@ function requireContext(modulesFiles, name) {
   return apiMap
 }
 
-export default function to(promise) {
-  return promise.then(data => {
-     return [null, data]; //数组大小为2，第一项用null占位置，也达到了 !err == true 的效果
-  })
-  .catch(err => [err]); // 数组大小为1，根本没有第二项
-}
-
-export { guid, requireContext, dateFormat, isJSON, converter, numberENFun, clickTitle, idCardParse, Lazy, to }
+export { guid, requireContext, dateFormat, isJSON, converter, numberENFun, clickTitle, idCardParse, Lazy }

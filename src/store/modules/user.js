@@ -1,6 +1,6 @@
 import { Api } from "@/api";
 import { setToken, removeToken } from "@/libs/common/auth";
-import { Message } from 'element-ui';
+import { Message, Result } from 'element-ui';
 
 const SET_ACCOUNT_INFO = "set_account_info";
 const SET_TOKEN = "set_token";
@@ -25,17 +25,11 @@ const user = {
       return new Promise((resolve, reject) => {
         Api("login/login", userInfo)
           .then(resp => {
-            if (resp.code == 200) {
-              setToken(resp.data.token);
-              commit(SET_TOKEN, resp.data.token);
-              resolve(resp);
-            } else {
-              Message.error(resp.msg);
-              reject(resp.msg);
-            }
+            setToken(resp.data.AUTHTOKEN);
+            commit(SET_TOKEN, resp.data.AUTHTOKEN);
+            resolve(resp);
           })
           .catch(err => {
-            Message.error(err);
             reject(err);
           });
       });
@@ -46,9 +40,45 @@ const user = {
         Api("login/userInfo")
           .then(resp => {
             if (resp.code == 200) {
-              commit(SET_TOKEN, resp.data.token);
               commit(SET_ACCOUNT_INFO, resp.data);
               resolve(resp.data);
+            } else {
+              reject(resp.msg);
+            }
+          })
+          .catch(err => {
+            reject(err);
+          });
+      });
+    },
+    // 拉取用户信息
+    getUserMenuList() {
+      return new Promise((resolve, reject) => {
+        Api("login/getUserMenuList")
+          .then(resp => {
+            if (resp.code == 200) {
+              const itor = (data) => {
+                data.forEach(ele => {
+                  ele.path = ele.path || ''
+                  ele.meta = {
+                    icon: ele.icon || '',
+                    title: ele.title || ''
+                  }
+                  ele.children = ele.subMenus
+                  if (ele.children && ele.children.length) {
+                    itor(ele.children)
+                  }
+                });
+              }
+              const roles = [resp.data] // 本项目只有一个角色 虚拟多个角色
+              const result = roles?.map(m => {
+                itor(m.menus)
+                return m
+              })
+              if (result && !Array.isArray(result)) {
+                alert('用户菜单必须是数组')
+              }
+              resolve(result);
             } else {
               reject(resp.msg);
             }
@@ -92,6 +122,9 @@ const user = {
   getters: {
     token: state => state.token,
     accountInfo: state => state.accountInfo,
+    rolesName: state => {
+      return state.accountInfo.username
+    }
   }
 };
 

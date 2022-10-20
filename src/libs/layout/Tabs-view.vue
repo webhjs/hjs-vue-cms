@@ -1,15 +1,15 @@
 <template>
   <div
-    class="tabs-view-container relative w-full"
+    class="tabs-view-container"
     v-if="visitedTabsView.length"
   >
-    <div class="absolute w-full h-full">
+    <div class="container">
       <scroll-tag showPosition id="__routeTabs" :animation="300">
-        <draggable class="h-full" :options="{ animation: 300 }">
+        <draggable class="draggable-wrap" :options="{ animation: 300 }">
           <div
             v-for="tag in visitedTabsView"
             :key="tag.path"
-            class="inline-block h-full mx-1"
+            class="draggable"
           >
             <router-link
               slot="label"
@@ -33,29 +33,29 @@
         <el-popover
           slot="closed"
           placement="bottom-end"
-          width="120"
+          width="105"
           ref="opearPover"
           popper-class="opear-pover"
           trigger="click"
         >
-          <ul class="curstom bg-white rounded cursor-pointer border-gray-100">
+          <ul class="menu-dropdown curstom">
             <li
-              class="p-2 border-gray-100 border-b"
+              class="menu-li"
               @click="
                 $refs.opearPover.doClose();
                 delOtherTabsview();
               "
             >
-              <i class="el-icon-circle-close mr-1" />关闭其它
+              <i class="el-icon-circle-close" />关闭其它
             </li>
             <li
-              class="px-2 py-1 border-gray-100"
+              class="menu-li"
               @click="
                 $refs.opearPover.doClose();
                 delAllTabsview();
               "
             >
-              <i class="el-icon-circle-close mr-1" />关闭全部
+              <i class="el-icon-circle-close" />关闭全部
             </li>
           </ul>
           <div class="closed-wrap" slot="reference">
@@ -66,22 +66,22 @@
     </div>
     <menuCom id="custom_menuwarp" :page="pagePosition" :visble.sync="visble">
       <ul
-        class="bg-white py-1 w-28 text-black rounded border text-gray-500 cursor-pointer curstom text-sm  border-gray-100"
+        class="menu-dropdown curstom"
       >
-        <li class="px-2 py-1 border-b border-gray-100" @click="reload">
-          <i class="el-icon-refresh mr-1" />刷新
+        <li class="menu-li" @click="reload">
+          <i class="el-icon-refresh" />刷新
         </li>
         <li
-          class="px-2 py-1 border-b border-gray-100"
+          class="menu-li"
           @click="delCurrentTabsview"
         >
-          <i class="el-icon-circle-close mr-1" />关闭当前
+          <i class="el-icon-circle-close" />关闭当前
         </li>
-        <li class="px-2 py-1 border-gray-100 border-b" @click="delOtherTabsview(tagData)">
-          <i class="el-icon-circle-close mr-1" />关闭其它
+        <li class="menu-li" @click="delOtherTabsview(tagData)">
+          <i class="el-icon-circle-close" />关闭其它
         </li>
-        <li class="px-2 py-1" @click="delAllTabsview">
-          <i class="el-icon-circle-close mr-1" />关闭全部
+        <li class="menu-li" @click="delAllTabsview">
+          <i class="el-icon-circle-close" />关闭全部
         </li>
       </ul>
     </menuCom>
@@ -222,10 +222,24 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.menu-dropdown
+  background white
+  padding: 5px 0;
+  width 100px
+  color: #000
+  border-radius 4px
+  cursor pointer
+  font-size: 14px
+.menu-li
+  padding: 5px 10px
+  border-bottom 1px solid #eee
 /deep/ .offset-wrap
   height: 100%;
 .tabs-view-container
   height: 40px;
+  position relative
+  width 100%
+  // relative w-full
   &:after
     position absolute
     bottom 0
@@ -239,6 +253,16 @@ export default {
       margin 0 8px
       &:first-child
         margin-left 0
+  .container
+    position absolute
+    height: 100%
+    width: 100%
+    .draggable-wrap
+      height: 100%
+    .draggable
+      display inline-block
+      height: 100%
+      margin 0 5px
 ul.curstom
   li:hover
     background #eee

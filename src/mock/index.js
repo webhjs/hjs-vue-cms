@@ -15,7 +15,7 @@ Mock.setup({
 });
 
 // 登录相关接口
-Mock.mock("/api/open/login", "post", loginAPI.login);
+Mock.mock("/api/auth/login", "post", loginAPI.login);
 Mock.mock("/api/login/logout", "post", loginAPI.logout);
 
 Mock.mock("/api/login/test", "post", {
@@ -28,5 +28,12 @@ Mock.mock("/api/login/test", "post", {
 
 // 用户信息相关接口
 Mock.mock("/api/user/getMyInfo", "get", userAPI.pullUserInfo);
+
+Mock.mock("/api/login/getUserMenuList", "get", {
+  "code": 200,
+  "data": {
+    menus: [] || [{ path: '/home', title: '首页1' }]
+  }
+});
 
 export default Mock;

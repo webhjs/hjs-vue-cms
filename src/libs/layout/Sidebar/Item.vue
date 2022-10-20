@@ -28,15 +28,16 @@
         // 否则就默认使用 `Element-UI` 图标
         if(icon.startsWith('svg-')) {
           const _icon = icon.substr(4)
-          vnodes.push(<svg-icon class="sidebar-icon" icon-class={_icon}/>)
+          vnodes.push(<svg-icon class="sidebar-icon" src={_icon}/>)
         } else if(icon.startsWith('fa-')) {
           vnodes.push(<i class={'sidebar-icon fa ' + icon}></i>)
-        } else {
-          vnodes.push(<i class={'sidebar-icon el-icon-' + icon}></i>)
+        } else if(icon.startsWith('el-icon-')) {
+          const _icon = icon.substr(8)
+          vnodes.push(<i class={'sidebar-icon el-icon-' + _icon}></i>)
         }
       }
       if(title) {
-        vnodes.push(<span slot="title">{(title)}</span>)
+        vnodes.push(<span class="title" slot="title">{title}</span>)
       }
       return vnodes
     }
@@ -48,5 +49,5 @@
   font-size 1.1em
   margin-right 8px
   margin-left 4px
-  vertical-align -.3em
+  display inline-block
 </style>

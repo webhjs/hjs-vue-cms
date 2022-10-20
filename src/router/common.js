@@ -1,6 +1,5 @@
 import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
-import { Lazy } from '@/libs/utils/custom'
 
 let routerFile = ''
 const hash = /.*?#.*?/.test(window.location.href)
@@ -16,6 +15,7 @@ export const constantCommonRouterMap = [
     path: "/redirect",
     component: Layout,
     hidden: true,
+    name: 'redirect',
     children: [
       {
         path: "/redirect/:path(.*)",
@@ -34,7 +34,7 @@ export const constantCommonRouterMap = [
   },
   {
     path: "/404",
-    component: () => Lazy(import("@/views/error-page/404")),
+    component: () => import("@/views/error-page/404"),
     hidden: true
   }
 ]

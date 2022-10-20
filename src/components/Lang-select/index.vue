@@ -9,12 +9,12 @@
 <template>
   <el-dropdown
     trigger="click"
-    class="text-xl"
+    class="dropdown"
     @command="handleSetLanguage"
     placement="bottom-start"
   >
     <div>
-      <svg-icon class="inline" icon-class="language" />
+      <svg-icon class="icon" src="language" />
     </div>
     <el-dropdown-menu slot="dropdown">
       <el-dropdown-item command="zh" :disabled="language === 'zh'">
@@ -49,3 +49,12 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.dropdown {
+  font-size 24px
+}
+.icon {
+  display inline;
+  font-size: 1.4rem;
+}
+</style>

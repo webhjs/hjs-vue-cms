@@ -33,7 +33,7 @@
             maxlength="20"
           />
           <span class="svg-container svg-container_user">
-            <svg-icon icon-class="user" class="inline" />
+            <svg-icon src="user" class="inline" />
           </span>
         </el-form-item>
         <el-form-item :label="$t('login.password')" prop="password">
@@ -45,7 +45,7 @@
             maxlength="20"
           />
           <span class="svg-container svg-container_password">
-            <svg-icon icon-class="password" class="inline" />
+            <svg-icon src="password" class="inline" />
           </span>
         </el-form-item>
         <el-form-item :label="$t('login.remember')" label-width="80px">
@@ -151,7 +151,8 @@ export default {
                   saveToLocal("remember", false);
                 }
                 const path = this.$route.query.redirect || 'simple/home'
-                this.$router.push({ path });
+                window.location = path
+                // this.$router.push({ path });
                 this.loading = false;
               } else {
                 this.$message.error(resp.msg);

@@ -6,35 +6,9 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-10-09 11:32:08
  */
-import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
 
 export const constantRouterMap = [
-  {
-    path: "/redirect",
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: "/redirect/:path(.*)",
-        component: resolve => require(["@/views/redirect"], resolve)
-      }
-    ]
-  },
-  {
-    path: "/login",
-    name: "login",
-    hidden: true,
-    component: Login,
-    meta: {
-      title: "登录"
-    }
-  },
-  {
-    path: "/404",
-    component: () => import("@/views/error-page/404"),
-    hidden: true
-  },
   {
     path: "/",
     // hidden: true,
@@ -67,14 +41,14 @@ export const constantRouterMap = [
       {
         path: "sync-fixed-table",
         name: "sync-fixed-table",
-        meta: { icon: "document-copy", title: "同步固定表格" },
-        component: () => import("@/views/simple-template/table/sync-fixed-table")
+        meta: { icon: "document-copy", keepAlive: false, title: "同步固定表格" },
+        component: import("@/views/simple-template/table/sync-fixed-table")
       },
       {
         path: "drag-tree-table",
         name: "drag-tree-table",
-        meta: { icon: "document-copy", title: "树行table排序" },
-        component: () => import("@/views/simple-template/table/drag-tree-table") // keepAlive: false, activeMenu: '/resource-manage/dataconversion'
+        meta: { icon: "document-copy", keepAlive: false, title: "树行table排序" }, // keepAlive: false, activeMenu: '/resource-manage/dataconversion'
+        component: () => import("@/views/simple-template/table/drag-tree-table") 
       },
       {
         path: "drag-merge-table",
@@ -109,6 +83,12 @@ export const constantRouterMap = [
     redirect: "/basepage/index",
     children: [
       {
+        path: "common-index",
+        name: "common-index",
+        meta: { icon: "document-copy", title: "通用页面" },
+        component: () => import("@/views/simple-template/index")
+      },
+      {
         path: "index",
         name: "basepage-index",
         meta: { icon: "document-copy", title: "基础页面" },
@@ -119,6 +99,18 @@ export const constantRouterMap = [
         name: "basepage-tow",
         meta: { icon: "document-copy", title: "基础页面二" },
         component: () => import("@/views/simple-template/basepage-two")
+      },
+      {
+        path: "iframecache",
+        name: "basepage-three",
+        meta: { icon: "document-copy", title: "iframecache" },
+        component: () => import("@/views/simple-template/iframe-cache")
+      },
+      {
+        path: "iframecache2",
+        name: "basepage-four",
+        meta: { icon: "document-copy", title: "iframecache2" },
+        component: () => import("@/views/simple-template/iframe-cache2")
       }
     ]
   }
@@ -186,6 +178,5 @@ export const asyncRouterMap = [
         component: () => import("@/views/simple-template/document")
       }
     ]
-  },
-  { name: '404', path: "*", redirect: "/404", hidden: true }
+  }
 ];

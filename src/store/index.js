@@ -16,14 +16,8 @@ Vue.use(Vuex)
  * 不用手动引入和注入
  */
 
-const modulesFiles = require.context('./modules', true, /\.js$/)
-
-const modules = modulesFiles.keys().reduce((modules, modulePath) => {
-  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
-  const value = modulesFiles(modulePath)
-  modules[moduleName] = value.default
-  return modules
-}, {})
+import { requireContext } from '@/libs/utils/custom';
+const modules = requireContext(require.context('./modules', true, /\.js$/), 'default')
 
 export default new Vuex.Store({
   modules

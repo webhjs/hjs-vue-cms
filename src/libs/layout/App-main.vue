@@ -11,7 +11,7 @@
     <!--页面不需要缓存-->
     <transition  name="fade" enter-active-class="animated fadeIn" mode="out-in" appear @after-enter="afterRouterChange">
       <keep-alive :exclude="keepAliveArr">
-        <router-view v-if="isReload" :key="$route.fullPath" class="absolute w-full h-full whitebg" ref="routerView"> </router-view>
+        <router-view v-if="isReload" :key="$route.fullPath" class="main-warp" ref="routerView"> </router-view>
       </keep-alive>
     </transition>
   </div>
@@ -106,5 +106,16 @@ export default {
   overflow auto
   background-color #f2f4f7
   padding: 8px 10px 0
+.main-warp
+  position absolute
+  width 100%
+  height 100%
+  background #f3f3f3
+  padding: 10px
+</style>
+<style>
+.margin12{
+  margin-right: 12px
+}
 </style>
 

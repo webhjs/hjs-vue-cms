@@ -1,6 +1,6 @@
 <template>
-  <div class="h-full flex items-center pl-3">
-    <span class="text-base">
+  <div class="bread-wrap">
+    <span class="title">
       管理平台
       <i class="el-icon-arrow-right" />
     </span>
@@ -76,6 +76,16 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.bread-wrap {
+  display flex
+  height 100%
+  align-items center
+  padding-left 10px
+}
+/deep/ .el-breadcrumb, .title {
+  font-size 16px;
+  line-height 1
+}
 /* breadcrumb transition */
 .breadcrumb-enter-active,
 .breadcrumb-leave-active {

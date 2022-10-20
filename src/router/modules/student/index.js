@@ -6,67 +6,40 @@
  * @LastEditors: 金苏
  * @LastEditTime: 2021-10-09 11:32:08
  */
-import Login from "@/views/login";
 import Layout from "@/libs/layout/Layout";
 
-export const constantRouterMap = [
-  {
-    path: "/redirect",
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: "/redirect/:path(.*)",
-        component: resolve => require(["@/views/redirect"], resolve)
-      }
-    ]
-  },
-  {
-    path: "/login",
-    name: "login",
-    hidden: true,
-    component: Login,
-    meta: {
-      title: "登录"
-    }
-  },
-  {
-    path: "/404",
-    component: () => import("@/views/error-page/404"),
-    hidden: true
-  },
-  {
-    path: "/",
-    // hidden: true,
-    component: Layout,
-    meta: { icon: "s-home", title: "首页" },
-    redirect: "/home",
-    children: [
-      {
-        path: "home",
-        name: "home",
-        component: () => import("@/views/student-template/home"),
-        meta: { icon: "s-home", title: "首页" }
-      }
-    ]
-  }
-];
+export const constantRouterMap = [];
 export const asyncRouterMap = [
   {
-    path: "/components",
+    path: "/student-components",
     alwaysShow: true,
-    name: "icon",
-    meta: { icon: "brush", title: "组件", roles: ["Lucy"] },
+    name: "student-components",
+    meta: { icon: "brush", title: "额外组件", roles: ["Lucy"] },
     component: Layout,
-    redirect: "/components/component-index",
+    redirect: "/student-components/component-index",
     children: [
       {
         path: "component-index",
-        name: "component-index",
-        meta: { icon: "brush", title: "组件列表" },
+        name: "student-component-index",
+        meta: { icon: "brush", title: "额外组件列表" },
         component: () => import("@/views/student-template/components/list")
       }
     ]
   },
-  { name: '404', path: "*", redirect: "/404", hidden: true }
+  {
+    path: "/bse-editor",
+    alwaysShow: true,
+    name: "bse-editor",
+    meta: { icon: "brush", title: "编辑器" },
+    component: Layout,
+    redirect: "/bse-editor/index",
+    children: [
+      {
+        path: "index",
+        name: "bse-editor-index",
+        meta: { icon: "brush", title: "bs编辑器", keepAlive: false },
+        component: () => import("@/views/student-template/bse-editor")
+      }
+    ]
+  }
 ];

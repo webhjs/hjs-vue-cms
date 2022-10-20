@@ -15,8 +15,47 @@ function resolve(dir) {
 
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin; // 分析包
 
-const MonacoWebpackPlugin = require('monaco-editor-esm-webpack-plugin');
+// externals: {
+//   vue: 'Vue',
+//   vuex: 'Vuex',
+//   'vue-router': 'VueRouter',
+//   axios: 'axios',
+//   'element-ui': 'ELEMENT',
+//   moment: 'moment',
+//   xlsx: 'XLSX',
+//   'particles.js': 'pJS',
+//   html2canvas: 'html2canvas',
+//   jquery: 'jQuery',
+//   viewerjs: 'Viewer',
+//   clipboard: 'ClipboardJS',
+//   nprogress: 'NProgress'
+// },
+
+// cdn链接
+const cdn = {
+  // cdn：模块名称和模块作用域命名（对应window里面挂载的变量名称）
+  externals: {
+    // vue: 'Vue',
+    // vuex: 'Vuex',
+    // 'vue-router': 'VueRouter',
+    // axios: 'axios',
+    // 'element-ui': 'ELEMENT',
+    "BMap": "BMap",
+  },
+  // cdn的css链接
+  css: ['https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.3/theme-chalk/index.min.css'],
+  // cdn的js链接
+  js: [
+    'https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/vue-router/3.5.1/vue-router.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/vuex/3.6.2/vuex.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/axios/0.20.0/axios.min.js',
+    'https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.3/index.min.js',
+    'http://api.map.baidu.com/api?v=2.0&ak=gMjlNwT7b8m4Vv6Lz6oeV1jN7N7Yv0Y2'
+  ]
+}
 
 module.exports = {
   publicPath: "/",
@@ -31,31 +70,29 @@ module.exports = {
   // flatten  只拷贝指定的文件               可以用模糊匹配
   // ignore  忽略拷贝指定的文件            可以模糊匹配
   configureWebpack: {
-    name: "管理系统",
-    module: {
-			rules: [{
-				test: /\.js/,
-				enforce: 'pre',
-				include: /node_modules[\\\/]monaco-editor[\\\/]esm/,
-				use: MonacoWebpackPlugin.loader
-			}]
-		},
+    name: "无锡市医疗设备共享平台",
     // 打包静态文件插件
-    plugins: [new CopyWebpackPlugin([{ from: "./static", to: "static" }]), new MonacoWebpackPlugin()],
+    plugins: [new CopyWebpackPlugin([{ from: "./static", to: "static" }])], // , new BundleAnalyzerPlugin() 分析包
     resolve: {
       alias: {
+        // vue$: "vue/dist/vue.esm.js", 或 runtimeCompiler: true
         "@": resolve("src")
       }
     },
-    // devtool: 'source-map' // 生产生成 sourceMap 文件
+    externals: cdn.externals
   },
+  runtimeCompiler: true,
   chainWebpack: config => {
+    // config.externals = cdn.externals
+    // config.plugin("monaco").use(new MonacoWebpackPlugin());
     config.plugin("html").tap(args => {
-      args[0].title = "在线考试系统";
+      args[0].title = "无锡市医疗设备共享平台";
+      // args[0].cdn = cdn
+      args[0].minify = false
       return args;
     });
+
     // 配置svg文件
-    // set svg-sprite-loader
     config.module
       .rule("svg")
       .exclude.add(resolve("src/libs/icons"))
@@ -72,19 +109,20 @@ module.exports = {
       })
       .end();
   },
-  // runtimeCompiler: true, // 运行编译
-  
-  // config.when(process.env.NODE_ENV === 'development', config => config.devtool('source-map'))
   productionSourceMap: false, // 生产生成 sourceMap 文件
-
   // "http://192.168.21.74:12699",
   // "http://192.168.8.19:30221",
+  // "http://192.168.0.194:12698/",
+  // "http://192.168.8.117:80"
+  // "http://192.168.8.117:7997"
+  // "http://192.168.21.74:7997/",
+  // "http://www.app.dubcat.cn:8081/"
   devServer: {
     open: true,
     proxy: {
       // 代理
       "/api": {
-        target: "http://47.97.106.249:8085",
+        target: "http://www.app.dubcat.cn:8081/",
         ws: true,
         changOrigin: true,
         pathRewrite: {

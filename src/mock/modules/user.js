@@ -23,7 +23,7 @@ const userMap = {
       "personname": "学生", //真实名
       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZU1pbGxpcyI6IjE2Mzc0OTM1NzAzNjgiLCJ0ZW5hbnRpZCI6IjMxMDAwMDAwMTAwMDEiLCJleHAiOjE2Mzc1MDA3NzAsInVzZXJuYW1lIjoic3R1ZGVudCJ9.ZSlf-Vb4k4bH_JR2gAykQ57FvFXMqv8s_lCZuBrH6_Q", //token
       "userimgurl": "/Path/user/3aa978f2-fadc-4540-9cef-996e760f4d74.png", //用户头像
-      "username": "student", //登录名
+      "username": "admin", //登录名
       "menus": []
     },
     "msg": ""
@@ -50,10 +50,15 @@ function pullUserInfo() {
       "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJjdXJyZW50VGltZU1pbGxpcyI6IjE2Mzc0OTM1NzAzNjgiLCJ0ZW5hbnRpZCI6IjMxMDAwMDAwMTAwMDEiLCJleHAiOjE2Mzc1MDA3NzAsInVzZXJuYW1lIjoic3R1ZGVudCJ9.ZSlf-Vb4k4bH_JR2gAykQ57FvFXMqv8s_lCZuBrH6_Q", //token
       "userimgurl": "/Path/user/3aa978f2-fadc-4540-9cef-996e760f4d74.png", //用户头像
       "username": "student", //登录名
-      "menus": []
+      "menus": [ ]
     },
     "msg": ""
   };
 }
 
-export { userMap, pullUserInfo };
+
+function getUserMenuList() {
+  
+}
+
+export { userMap, pullUserInfo, getUserMenuList };

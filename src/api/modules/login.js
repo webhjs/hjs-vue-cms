@@ -8,8 +8,10 @@
  */
 
 export default {
-  login: ["/open/login", "post"],
+  login: ["/auth/login", "post"],
   userInfo: ["/user/getMyInfo", "get"],
   logout: ["/login/logout", "post"],
-  test: ["/login/test", "post"]
+  getUserMenuList: ["/login/getUserMenuList", "get"],
+  // updatePwd: ["/auth/updatePwd", "post", "params"]
+  test: ["/auth/updatePwd", "post", "params"]
 };

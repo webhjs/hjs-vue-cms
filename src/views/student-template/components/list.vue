@@ -7,7 +7,7 @@
  * @LastEditTime: 2021-10-09 13:24:34
 -->
 <template>
-  <div class="h-full w-full">
+  <div class="h-full w-full flex flex-col">
     <div class="w-1/2 margin h-14">
       <scroll-tag id="__uniq" mode="vertical" @prev="switchPrev" @next="switchNext" showPosition :animation="300">
         <i class="fa fa-angle-left" slot="leftIcon"/>
@@ -26,9 +26,11 @@
         :value="item.value">
       </el-option>
     </el-select>
-    <div class="h-80 mt-8">
+    <div class="h-80 mt-8 flex-1 flex flex-col">
       {{ hellow }}
-      <monaco ref="monacoPreviewResource" id="monacoResource" v-model="hellow" />
+      <div class="flex-1 relative">
+        <monaco ref="monacoPreviewResource" id="monacoResource" v-model="hellow" />
+      </div>
     </div>
   </div>
 </template>

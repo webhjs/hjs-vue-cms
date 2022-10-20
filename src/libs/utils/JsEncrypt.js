@@ -20,8 +20,8 @@ export function jseEncrypt(msg) {
   }
   let i = 0, ciphertext
   do {
-    ciphertext ? ciphertext += '$' + encryptor.encrypt(msg.substr(i, 100)) : ciphertext = encryptor.encrypt(msg.substr(i, 100))
-    i += 100
+    ciphertext ? ciphertext += '$' + encryptor.encrypt(msg.substr(i, 50)) : ciphertext = encryptor.encrypt(msg.substr(i, 50))
+    i += 50
   } while (i < msg.length);
   return ciphertext;
 }

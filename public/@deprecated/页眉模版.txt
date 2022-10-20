@@ -1,0 +1,32 @@
+<p style="text-align: center;">
+  <span style="font-size: 18px;">英 山 县 人 民 医 院</span>
+</p>
+<p style="text-align: center;">
+  <span style="font-size: 18px;">
+    <span style="font-size: 24px;">
+      <strong>病程记录</strong>
+    </span>
+  </span>
+</p>
+<p style="text-align: center;">
+  <span>
+    <span>
+      <span style="font-size: 14px;">
+        <span style="font-size: 14px; color: rgb(0, 0, 0);">
+          姓名：段茂盛 性别：男性 年龄：74岁 科别：呼吸与危重症医学科 床号：51 住院病历号：216587
+          <br>
+        </span>
+      </span>
+    </span>
+  </span>
+</p>
+<p style="text-align: center;">
+  <span>
+    <span>
+      <span style="font-size: 14px;">
+        <span style="font-size: 14px; color: rgb(0, 0, 0);"></span>
+      </span>
+    </span>
+  </span>
+</p>
+<hr class="splitline">

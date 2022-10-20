@@ -5,9 +5,9 @@
       <template v-if="position === 'left-no'">
         <div class="containers cloumn-flex">
           <navbar></navbar>
-          <div class="main-container flex">
+          <div class="main-container full">
             <sidebar :isCollapse="isCollapse" class="vertical leftno-wrap" :logo="false"/>
-            <div class="main-left main-common flex-1">
+            <div class="main-left main-common flex-full">
               <tabs-view></tabs-view>
               <app-main ref="AppMain" class="main-content"></app-main>
             </div>
@@ -44,14 +44,14 @@
                 @click="swtichCollapse"
               ></i>
             </navbar>
-            <div class="main-left flex">
-              <div class="flex-1 flex flex-col">
+            <div class="main-left full">
+              <div class="container">
                 <tabs-view class="border-gray-100 border-r border-solid"></tabs-view>
-                <div class="flex-1 relative">
+                <div class="flex-full relative">
                   <app-main ref="AppMain" class="main-content"></app-main>
                 </div>
               </div>
-              <sidebar :logo="false" :isCollapse="isCollapse" class="vertical" overflowClass="overflowClass" />
+              <sidebar :logo="false" :isCollapse="isCollapse" class="vertical" overflowClass="overflowClass right_menu" />
             </div>
           </div>
         </div>
@@ -307,6 +307,18 @@ export default {
 }
 </script>
 <style scoped lang="stylus">
+.full
+  display: flex
+.flex-full
+  flex: 1
+.relative
+  position relative
+.container {
+  flex: 1
+  display: flex
+  flex-flow column
+}
+
 .main-container
   overflow auto
 .top_left_bread
@@ -362,7 +374,7 @@ export default {
 }
 .main-left
   height: calc(100vh - 56px)
-  &.flex-1
+  &.flex-full
     flex: 1
 .main-top {
   height: calc(100vh - 56px)

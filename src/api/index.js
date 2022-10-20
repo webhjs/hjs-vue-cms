@@ -7,14 +7,8 @@
  * @LastEditTime: 2021-09-06 17:31:26
  */
 import request from "@/libs/utils/request";
-
-const modulesFiles = require.context('./modules', true, /\.js$/)
-const apiMap = modulesFiles.keys().reduce((modules, modulePath) => {
-  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
-  const value = modulesFiles(modulePath)
-  modules[moduleName] = value.default
-  return modules
-}, {})
+import { requireContext } from '@/libs/utils/custom';
+const apiMap = requireContext(require.context('./modules', true, /\.js$/), 'default')
 
 export function Api(apiPath, data, headers) {
   const [proto, name] = apiPath.split('/')
@@ -23,16 +17,29 @@ export function Api(apiPath, data, headers) {
     post: "data",
     get: "params"
   };
+  if (!apiMapReal[name]) throw new Error('接口未定义 "' + proto + '/' + name + '"');
   const param = apiMapReal[name][2] || map[apiMapReal[name][1]]
   const querys = {
     url: apiMapReal[name][0],
     method: apiMapReal[name][1],
     [param]: data
   };
-  return request({
-    ...querys,
-    ...headers
-  });
+  return new Promise((resolve, reject) => {
+    request({
+      ...querys,
+      ...headers
+    }).then(resp => {
+      if (resp.code == 200){
+        resolve(resp);
+      } else {
+        Message.error(resp.message || resp.msg);
+        reject(resp)
+      }
+    }).catch(err => {
+      Message.error(err);
+      reject(err)
+    })
+  })
 }
 
 // const apiFun = {};
@@ -53,9 +60,7 @@ export function Api(apiPath, data, headers) {
  * @FilePath: \mandalat.frame\src\utils\htmlToPdf.js
  */
 import qs from 'qs'
-import store from "@/store";
 import { Message } from 'element-ui';
-import { loadFromLocal } from "@/libs/common/local-storage";
 export default {
   install(Vue) {
     Vue.prototype.api = function (apiPath, data, headers) {
@@ -63,13 +68,33 @@ export default {
       const apiMapReal = apiMap[proto]
       const map = {
         post: "data",
-        get: "params"
+        get: "params",
+        delete: "params",
       };
+      if (!apiMapReal[name]) throw new Error('接口未定义 "' + proto + '/' + name + '"');
       const param = apiMapReal[name][2] || map[apiMapReal[name][1]]
+
+      let query = {}
+      const isIcludes = (arr) => { // 判断数组中是否只包含get post两个请求
+        return Object.keys(arr).filter(m => {
+          return ['get', 'post'].includes(m)
+        }).length === 2
+      }
+      if (data && Object.keys(data).length === 2 && isIcludes(data)) {
+        query = {
+          data: data.post,
+          params: qs.stringify(data.get)
+        }
+      } else {
+        query = {
+          [param]: data
+        }
+      }
+
       const querys = {
         url: apiMapReal[name][0],
         method: apiMapReal[name][1],
-        [param]: data,
+        ...query,
         paramsSerializer: serializer => { // 参数序列化
           //形式1： ids=1&ids=2&id=3
           // qs.stringify({ids: [1, 2, 3]}, { indices: false })
@@ -81,35 +106,26 @@ export default {
           // qs.stringify({ids: [1, 2, 3]}, {arrayFormat: ‘brackets‘})
 
           //形式4： ids=1&ids=2&id=3
-          // qs.stringify({ids: [1, 2, 3]}, {arrayFormat: ‘repeat‘}) 
+          // qs.stringify({ids: [1, 2, 3]}, {arrayFormat: ‘repeat‘})
           return ['params'].includes(param) ? qs.stringify(serializer, { indices: false }) : serializer
         }
       };
+      
       return new Promise((resolve, reject) => {
         request({
           ...querys,
           ...headers
         }).then(resp => {
-          if (resp.code == 155) { // 刷新token
-            console.log('登录过期',resp)
-            if (!loadFromLocal("username", "") || !loadFromLocal("password", "")) return
-            store.dispatch("user/login", {
-              username: loadFromLocal("username", ""),
-              password: loadFromLocal("password", "")
-            })
-              .then(res => {
-                if (res.code == 200) {
-                  Message.success('刷新成功');
-                }
-                resolve(res);
-              })
-              .catch(err => {
-                reject(err)
-              })
-          } else {
+          if (resp.code == 200){
             resolve(resp);
+          } else if (resp.filename) { 
+            resolve(resp);
+          } else {
+            Message.error(resp.message || resp.msg);
+            reject(resp)
           }
         }).catch(err => {
+          Message.error(err);
           reject(err)
         })
       })

@@ -27,7 +27,7 @@ const { constantRouterMap, asyncRouterMap } = routerModules ? routerModules : { 
 
 NProgress.configure({ showSpinner: false });
 
-const whitePath = ['/login']; // 白名单
+const whitePath = ['/login', '/components/component-index']; // 白名单
 // 路由全局前置守卫
 router.beforeEach(async (to, from, next) => {
   NProgress.start(); // start progress bar
@@ -39,6 +39,7 @@ router.beforeEach(async (to, from, next) => {
     }
     const finallyMenus = whitePath.map(m => ({ path: m }))
     const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), [], finallyMenus);
+    console.log(accessRoutes)
     store.commit("layout/setOriginRouters", accessRoutes)
     // 动态添加路由到router内
     router.addRoutes(accessRoutes);
@@ -71,25 +72,7 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
   if (accountInfo.id) {
-    const menuList = await store.dispatch("user/getUserMenuList")
-    const result = menuList.reduce((pre, cur)  => {
-      return pre.concat(cur.menus)
-    }, [])
-    const originAuthMenus = []
-    const itor = (dataArr) => {
-      Array.isArray(dataArr) && dataArr.forEach(data => {
-        originAuthMenus.push({ path: data.path, meta: data.meta })
-        if(data.children && data.children.length) {
-          itor(data.children)
-        }
-      })
-    }
-    itor(result)
-    const finallyMenus = originAuthMenus.reduce((pre, cur) => {
-      !pre.includes(cur) && pre.push(cur)
-      return pre
-    }, [])
-    const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), [], finallyMenus);
+    const accessRoutes = filterAsyncRoutes(asyncRouterMap.concat(asyncCommonRouterMap), [], []); // { path: '', meta: {} }
     store.commit("layout/setOriginRouters", constantRouterMap.concat(accessRoutes))
     // 动态添加路由到router内
     router.addRoutes(accessRoutes);

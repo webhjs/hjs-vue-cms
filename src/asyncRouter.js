@@ -17,6 +17,7 @@ function hasPermission(roles, route) {
   }
 }
 function filterRoutes (routes, roles) { // 过滤角色
+  if (!roles.length) return routes
   const res = [];
   routes.forEach(route => {
     const tmp = { ...route };
@@ -31,7 +32,7 @@ function filterRoutes (routes, roles) { // 过滤角色
 }
 
 function filterMenus (routes, menus, parentUrl = '') { // 过滤菜单
-  if (menus) return routes
+  if (!menus.length) return routes
   const res = [];
   routes.forEach(route => {
     const tmp = { ...route };
@@ -45,5 +46,22 @@ function filterMenus (routes, menus, parentUrl = '') { // 过滤菜单
 
 // 递归过滤异步路由表，筛选角色权限路由
 export function filterAsyncRoutes(routes, roles, menus) {
-  return filterMenus(filterRoutes(routes, roles), menus)
+  const routeArr = filterRoutes(routes, roles)
+  const itor = (arr, parentUrl = "") => {
+    arr.forEach(m => {
+      for(let i = 0; i < menus.length; i++) {
+        if (path.resolve(parentUrl, m.path) == menus[i].path) {
+          m.meta = {
+            ...m.meta,
+            ...menus[i].meta
+          }
+          break
+        }
+      }
+      m.children && itor(m.children, path.resolve(parentUrl, m.path))
+    })
+  }
+  itor(routeArr)
+  const paths = menus.map(m => m.path)
+  return filterMenus(routeArr, paths)
 }

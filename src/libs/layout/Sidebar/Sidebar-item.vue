@@ -7,9 +7,7 @@
     <!-- 20190707 note: 那么这里的icon和title就用子路由的吧 -->
     <el-menu-item
       v-if="
-        hasOneShowingChildren(item.children, item) &&
-          (!onlyOneChild.children || onlyOneChild.noShowingChild) &&
-          !item.alwaysShow
+        hasOneShowingChildren(item.children, item)
       "
       :index="resolvePath(onlyOneChild.path)"
     >
@@ -36,14 +34,13 @@
             :item="child"
             :base-path="resolvePath(child.path)"
           />
-
-          <el-menu-item
-            v-else-if="Object.keys(child).length"
-            :key="child.path"
-            :index="resolvePath(child.path)"
-          >
-            <item :icon="child.meta.icon" :title="child.meta.title"></item>
-          </el-menu-item>
+            <el-menu-item
+              v-else-if="Object.keys(child).length"
+              :key="child.path"
+              :index="resolvePath(child.path)"
+            >
+              <item :icon="child.meta.icon" :title="child.meta.title"></item>
+            </el-menu-item>
         </template>
       </template>
     </el-submenu>
@@ -69,12 +66,12 @@ export default {
     },
     target: {
       type: String,
-      default: 'fragment'
+      default: 'div'
     }
   },
   data() {
     return {
-      onlyOneChild: null
+      // onlyOneChild: null
     }
   },
   methods: {
@@ -83,6 +80,7 @@ export default {
       // 1、后面要来判断，children 里面是不是只有一个
       // 2、亦或者没有 【比如 '/login' 这个 route 就没有 children】
       // 3、亦或者 children 里面的子路由大于1个
+      let flag = false
       const showingChildren = children.filter(item => {
         if (item.hidden) {
           return false
@@ -94,7 +92,7 @@ export default {
       })
       // 只有 1 个，符合我们这个函数的目的，返回 true
       if (showingChildren.length === 1) {
-        return true
+        flag = true
       }
 
       // 如果最终没有任何结果的话，就显示父元素路由
@@ -104,10 +102,9 @@ export default {
           path: '',
           noShowingChild: true
         }
-        return true
+        flag = true
       }
-
-      return false
+      return flag && (!this.onlyOneChild.children || this.onlyOneChild.noShowingChild) && !parent.alwaysShow
     },
     resolvePath(routePath = '') {
       // console.log(path.resolve(this.basePath, routePath))

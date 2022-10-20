@@ -41,4 +41,22 @@ export default {
 <style>
 @import "./libs/assets/style/index.css";
 @import "./libs/assets/style/custom.css";
+@import "./libs/assets/style/windcss.css";
+.el-dialog {
+  overflow: hidden;
+  border-radius: 6px;
+}
+.el-dialog .el-dialog__header {
+  padding: 10px;
+  background-color: #f2f2f2;
+}
+.el-dialog .el-dialog__header .el-dialog__headerbtn {
+  top: 12px;
+}
+.el-dialog .el-dialog__body {
+  padding: 15px 20px;
+}
+.my-tooltip-inner {
+  word-break: break-all;
+}
 </style>

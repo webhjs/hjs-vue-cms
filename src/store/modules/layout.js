@@ -11,7 +11,9 @@ const SET_DERAWER = 'setDrawer'
 const SET_THEME = 'setTheme'
 const SET_POSITION = 'setPosition'
 const SET_ROUTERS = 'setRouters'
+const SET_ORIGIN_ROUTERS = 'setOriginRouters'
 const SET_ISCOLLAPSE = 'setIsCollapse'
+const SET_ROLE_NAME = 'setRoleName'
 
 const layout = {
   namespaced: true,
@@ -26,7 +28,11 @@ const layout = {
     isCollapse: (() => {
       return JSON.parse(loadFromLocal('isCollapse', 'false'))
     })(),
+    originRouters: null,
     routers: null,
+    roleName: (() => {
+      return loadFromLocal('roleName', '')
+    })(),
     bgColorMap: [
       "#e7f7ff",
       "#d9f2e8",
@@ -69,6 +75,13 @@ const layout = {
     },
     [SET_ROUTERS](state, routers) {
       state.routers = routers
+    },
+    [SET_ORIGIN_ROUTERS](state, payload) {
+      state.originRouters = payload
+    },
+    [SET_ROLE_NAME](state, payload) {
+      saveToLocal('roleName', payload)
+      state.roleName = payload
     }
   },
   getters: {
@@ -76,8 +89,25 @@ const layout = {
     theme: state => state.theme,
     position: state => state.position,
     isCollapse: state => state.isCollapse,
-    routers: state => state.routers,
-    bgColorMap: state => state.bgColorMap
+    routers: state => {
+      if (Array.isArray(state.originRouters)) {
+        if (state.roleName) {
+          const find = state.originRouters.find(f => state.roleName == f.rolename)
+          if (find) {
+            return find.menu
+          } else {
+            saveToLocal('roleName', '')
+            return state.originRouters.length ? state.originRouters : []
+          }
+        } else {
+          return state.originRouters.length ? state.originRouters : []
+        }
+      } else {
+        return state.routers
+      }
+    },
+    bgColorMap: state => state.bgColorMap,
+    originRouters: state => state.originRouters
   }
 }
 

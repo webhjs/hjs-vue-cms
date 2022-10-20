@@ -16,14 +16,14 @@
   export default {
     name: 'icon-svg',
     props: {
-      iconClass: {
+      src: {
         type: String,
         required: true
       }
     },
     computed: {
       iconName() {
-        return `#icon-${this.iconClass}`
+        return `#icon-${this.src}`
       }
     }
   }
@@ -33,7 +33,6 @@
   .svg-icon {
     width 1.1em
     height 1.1em
-    vertical-align -.2em
     // fill currentColor
     overflow hidden
   }

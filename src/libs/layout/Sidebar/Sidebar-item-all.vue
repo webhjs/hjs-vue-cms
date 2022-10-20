@@ -8,10 +8,10 @@
 -->
 <template>
   <el-menu-item v-if="onlyOneFlag" :index="resolvePath(onlyOneChild.path)">
-    <item-com
+    <item
       :icon="onlyOneChild.meta.icon"
       :title="onlyOneChild.meta.title"
-    ></item-com>
+    ></item>
   </el-menu-item>
   <el-submenu
     v-else-if="level1Route.children && !level1Route.hidden"
@@ -19,10 +19,10 @@
     popper-class="custom-submenu"
   >
     <template slot="title">
-      <item-com
+      <item
         :icon="level1Route.meta.icon"
         :title="level1Route.meta.title"
-      ></item-com>
+      ></item>
     </template>
 
     <template v-for="child of level1Route.children">
@@ -38,24 +38,24 @@
           :key="child.path"
           :index="resolvePath(level1Route.path + '/' + child.path)"
         >
-          <item-com
+          <item
             :icon="child.meta.icon"
             :title="child.meta.title"
-          ></item-com>
+          ></item>
         </el-menu-item>
       </template>
     </template>
   </el-submenu>
   <el-menu-item v-else :index="resolvePath(level1Route.path)">
-    <item-com
+    <item
       :icon="level1Route.meta.icon"
       :title="level1Route.meta.title"
-    ></item-com>
+    ></item>
   </el-menu-item>
 </template>
 <script>
 import path from "path";
-import ItemCom from "./Item";
+import Item from "./Item";
 export default {
   name: "sidebar-item-all",
   data() {
@@ -65,7 +65,7 @@ export default {
     };
   },
   components: {
-    ItemCom
+    Item
   },
   props: {
     // 一级路由对象
